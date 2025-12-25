@@ -68,10 +68,38 @@ def add_pet(name: str, breed: str, age: int):
     # Register new pet in global state and start producer
     pet_id = name.capitalize()
     if pet_id not in latest_pet_state:
-        latest_pet_state[pet_id] = {"health_score": 9.5, "history": [], "alerts": []} # Default healthy
+        # Include breed/age in state for the portal to fetch
+        latest_pet_state[pet_id] = {
+            "name": pet_id,
+            "breed": breed,
+            "age": age,
+            "health_score": 9.5, 
+            "history": [], 
+            "alerts": []
+        }
         producer.start_producing(pet_id, interval_sec=5.0) # Start simulated stream
         print(f"[Backend] Registered new pet: {pet_id}")
     return {"status": "success", "pet_id": pet_id}
+
+@app.get("/api/pets")
+def list_pets():
+    # Convert global state to list for the portal
+    # Default mock data if empty (bootstrap)
+    if "Max" not in latest_pet_state:
+         latest_pet_state["Max"] = {"name": "Max", "breed": "Golden Retriever", "age": 7, "health_score": 9.8, "alerts": []}
+         latest_pet_state["Charlie"] = {"name": "Charlie", "breed": "Labrador", "age": 5, "health_score": 8.5, "alerts": []}
+    
+    return [
+        {
+            "id": i, 
+            "name": p["name"], 
+            "breed": p.get("breed", "Unknown"), 
+            "age": p.get("age", 0), 
+            "risk": "Low" if p.get("health_score", 10) > 8 else "High",
+            "lastVisit": "Today"
+        } 
+        for i, (k, p) in enumerate(latest_pet_state.items())
+    ]
 
 @app.post("/api/upload")
 def upload_video(file: bytes = None): # In real app use UploadFile

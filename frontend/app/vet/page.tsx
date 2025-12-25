@@ -1,10 +1,21 @@
-export default function VetPortal() {
-    const patients = [
-        { id: 1, name: "Max", breed: "Golden Retriever", age: 7, risk: "High", issue: "Activity -30%, Kidney indicators", lastVisit: "2 months ago" },
-        { id: 2, name: "Charlie", breed: "Labrador", age: 5, risk: "Medium", issue: "Gait asymmetry detected", lastVisit: "6 months ago" },
-        { id: 3, name: "Bella", breed: "Siamese", age: 3, risk: "Low", issue: "Stable", lastVisit: "1 year ago" },
-        { id: 4, name: "Luna", breed: "French Bulldog", age: 4, risk: "Low", issue: "Stable", lastVisit: "3 months ago" },
-    ];
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+
+async function getPatients() {
+    try {
+        const res = await fetch(`${API_URL}/api/pets`, { cache: 'no-store' });
+        if (!res.ok) throw new Error('Failed to fetch pets');
+        return res.json();
+    } catch (error) {
+        // Fallback static data if backend is unreachable
+        return [
+            { id: 1, name: "Max", breed: "Golden Retriever", age: 7, risk: "High", lastVisit: "2 months ago" },
+            { id: 2, name: "Charlie", breed: "Labrador", age: 5, risk: "Medium", lastVisit: "6 months ago" },
+        ];
+    }
+}
+
+export default async function VetPortal() {
+    const patients = await getPatients();
 
     const getRiskColor = (risk: string) => {
         if (risk === "High") return "#ef4444";
@@ -31,13 +42,12 @@ export default function VetPortal() {
                     <tbody>
                         {patients.map(patient => (
                             <tr key={patient.id} style={{ borderBottom: '1px solid var(--border-light)' }}>
-                                <td style={{ padding: '1.5rem' }}>
-                                    <div style={{ fontWeight: 600, fontSize: '1.1rem' }}>{patient.name}</div>
-                                    <div style={{ fontSize: '0.9rem', color: 'gray' }}>{patient.breed}, {patient.age}y</div>
+                                    <div style={{fontWeight: 600, fontSize: '1.1rem'}}>{patient.name}</div>
+                                    <div style={{fontSize: '0.9rem', color: 'gray'}}>{patient.breed}, {patient.age}y</div>
                                 </td>
-                                <td style={{ padding: '1.5rem' }}>
+                                <td style={{padding: '1.5rem'}}>
                                     <span style={{
-                                        padding: '0.25rem 0.75rem',
+                                        padding: '0.25rem 0.75rem', 
                                         borderRadius: '99px',
                                         backgroundColor: `${getRiskColor(patient.risk)}20`,
                                         color: getRiskColor(patient.risk),
@@ -47,16 +57,16 @@ export default function VetPortal() {
                                         {patient.risk}
                                     </span>
                                 </td>
-                                <td style={{ padding: '1.5rem', maxWidth: '300px' }}>
+                                <td style={{padding: '1.5rem', maxWidth: '300px'}}>
                                     {patient.risk !== 'Low' && (
-                                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                        <div style={{display: 'flex', gap: '0.5rem', alignItems: 'center'}}>
                                             <span>⚠️</span>
-                                            <span>{patient.issue}</span>
+                                            <span>Abnormal vitals detected</span>
                                         </div>
                                     )}
-                                    {patient.risk === 'Low' && <span style={{ color: 'gray' }}>No anomalies detected</span>}
+                                    {patient.risk === 'Low' && <span style={{color: 'gray'}}>Stable</span>}
                                 </td>
-                                <td style={{ padding: '1.5rem', color: 'gray' }}>{patient.lastVisit}</td>
+                                <td style={{padding: '1.5rem', color: 'gray'}}>{patient.lastVisit}</td>
                                 <td style={{ padding: '1.5rem' }}>
                                     <button style={{
                                         background: 'transparent',
@@ -71,9 +81,9 @@ export default function VetPortal() {
                                 </td>
                             </tr>
                         ))}
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
+        </div >
     );
 }
