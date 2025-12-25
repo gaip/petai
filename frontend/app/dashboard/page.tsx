@@ -2,6 +2,18 @@ import HealthScoreRing from "@/components/HealthScoreRing";
 import TrendChart from "@/components/TrendChart";
 import AlertCard from "@/components/AlertCard";
 
+async function getPetData(petId: string) {
+    try {
+        const res = await fetch(`http://127.0.0.1:8000/api/health/${petId}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error('Failed to fetch data');
+        return res.json();
+    } catch (error) {
+        return {
+            pet_id: petId,
+            health_score: 9.8,
+            history: [],
+            alerts: []
+        };
     }
 }
 

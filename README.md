@@ -1,5 +1,20 @@
 # PetTwin Care
 **Your Pet Can't Tell You When Something's Wrong. We Built Something That Can.**
+*Built for the AWS Kiro Hackathon 2025 | Social Impact Track* (Note: Pivoted to GCP infrastructure as requested)
+
+## Hackathon Submission Details (For Judges)
+
+### Additional Info
+*   **Google Cloud Products Used**: Vertex AI, Gemini API, Cloud Run, Firestore, BigQuery, Cloud Functions, Firebase, Pub/Sub, Cloud Storage
+*   **Other Tools**: Datadog APM, Datadog Logs, Datadog Metrics, Python, JavaScript, React, Node.js, Docker
+*   **First time using Datadog tools?**: Yes
+*   **First time using Confluent tools?**: Yes
+*   **First time using ElevenLabs tools?**: Yes
+
+### Links
+*   **Source Code**: [https://github.com/gaip/petai](https://github.com/gaip/petai)
+*   **Hosted Project**: https://pettwincare.app
+*   **Video Demo**: https://youtu.be/r1d-tVPNA74
 
 ## Inspiration
 Veterinarians have a suicide rate 3-5x higher than the general population, largely due to seeing preventable cases arrive too late. Pets instinctively hide pain, making early disease detection nearly impossible for owners. By the time symptoms are visible, diseases have often progressed significantly.
