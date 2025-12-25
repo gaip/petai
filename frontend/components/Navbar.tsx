@@ -35,10 +35,12 @@ export default function Navbar() {
                 PetTwin Care
             </Link>
             <div>
-                <Link href="/" style={linkStyle('/')}>Home</Link>
-                <Link href="/dashboard" style={linkStyle('/dashboard')}>Dashboard</Link>
-                <Link href="/vet" style={linkStyle('/vet')}>Vet Portal</Link>
-            </div>
+                <div>
+                    <Link href="/dashboard" style={linkStyle('/dashboard')}>Dashboard</Link>
+                    <Link href="/add-pet" style={linkStyle('/add-pet')}>+ Add Pet</Link>
+                    <Link href="/vet" style={linkStyle('/vet')}>Pet Portal</Link>
+                    <Link href="/login" style={{ ...linkStyle('/login'), marginLeft: '1rem', border: '1px solid var(--border-light)', padding: '0.5rem 1rem', borderRadius: '20px' }}>Login</Link>
+                </div>      </div>
         </nav>
     );
 }

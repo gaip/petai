@@ -2,25 +2,13 @@ import HealthScoreRing from "@/components/HealthScoreRing";
 import TrendChart from "@/components/TrendChart";
 import AlertCard from "@/components/AlertCard";
 
-async function getData() {
-    try {
-        const res = await fetch('http://127.0.0.1:8000/api/health/Max', { cache: 'no-store' });
-        if (!res.ok) throw new Error('Failed to fetch data');
-        return res.json();
-    } catch (e) {
-        console.error(e);
-        // Fallback data for build/offline
-        return {
-            pet_id: "Max",
-            health_score: 7.2,
-            history: [],
-            alerts: [{ title: "Connection Error", message: "Could not connect to backend.", severity: "medium" }]
-        };
     }
 }
 
-export default async function Dashboard() {
-    const data = await getData();
+export default async function Dashboard(props: { searchParams: Promise<{ pet?: string }> }) {
+    const params = await props.searchParams;
+    const petName = params.pet || 'Max';
+    const data = await getPetData(petName);
     const { pet_id, health_score, history, alerts } = data;
 
     // Transform history for chart
@@ -67,6 +55,11 @@ export default async function Dashboard() {
                     </div>
                 </div>
 
+                <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+                    <a href="/vet" className="glass-panel" style={{ display: 'inline-block', padding: '1rem 2rem', textDecoration: 'none', color: 'white' }}>
+                        View All Pets in Pet Portal →
+                    </a>
+                </div>
                 {/* Right Column: Charts */}
                 <div className="glass-panel" style={{ padding: '2rem' }}>
                     <h3>Activity Trend (7 Days)</h3>

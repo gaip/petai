@@ -13,13 +13,11 @@ export default function VetPortal() {
     };
 
     return (
-        <div className="container" style={{ paddingTop: '8rem', paddingBottom: '4rem' }}>
-            <header style={{ marginBottom: '3rem' }}>
-                <h1>Veterinary Portal</h1>
-                <p>Patient Status Dashboard</p>
-            </header>
+        <div className="container" style={{ paddingTop: '6rem' }}>
+            <h1 className="text-gradient" style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Pet Portal</h1>
+            <p style={{ marginBottom: '2rem', color: 'var(--text-muted)' }}>Manage all your registered pets and their centralized health records.</p>
 
-            <div className="glass-panel" style={{ overflow: 'hidden' }}>
+            <div className="glass-panel" style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead>
                         <tr style={{ borderBottom: '1px solid var(--border-light)', color: 'var(--text-muted)' }}>

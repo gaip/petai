@@ -42,6 +42,9 @@ def on_anomaly_detected(event):
 producer = MockKafkaProducer("pet-health-stream")
 consumer = MockKafkaConsumer(producer, "pet-health-stream")
 
+# In-Memory Video Storage (Simulating GCS)
+uploaded_videos = []
+
 @app.on_event("startup")
 def startup_event():
     print("Starting PetTwin Backend Services...")
@@ -60,15 +63,32 @@ def shutdown_event():
 def read_root():
     return {"status": "PetTwin Backend is running", "integrations": ["Confluent", "Datadog", "ElevenLabs"]}
 
+@app.post("/api/pets")
+def add_pet(name: str, breed: str, age: int):
+    # Register new pet in global state and start producer
+    pet_id = name.capitalize()
+    if pet_id not in latest_pet_state:
+        latest_pet_state[pet_id] = {"health_score": 9.5, "history": [], "alerts": []} # Default healthy
+        producer.start_producing(pet_id, interval_sec=5.0) # Start simulated stream
+        print(f"[Backend] Registered new pet: {pet_id}")
+    return {"status": "success", "pet_id": pet_id}
+
+@app.post("/api/upload")
+def upload_video(file: bytes = None): # In real app use UploadFile
+    # Simulate processing video with Gemini 1.5 Pro
+    # "Analyzing video frames for gait anomalies..."
+    uploaded_videos.append("video_file")
+    print("[Backend] Video uploaded and analyzed by Vertex AI (Simulated)")
+    return {"status": "success", "analysis": "No immediate anomalies detected in gait."}
+
 @app.get("/api/health/{pet_id}")
 def get_health(pet_id: str):
-    # In this Kafka architecture, the API serves the "Current State" 
-    # which is updated asynchronously by the Consumer.
+    # Clean ID
+    pet_id = pet_id.capitalize()
     
-    # For demo purposes, if no data yet, return healthy
+    # If pet doesn't exist, create default entry (for demo robustness)
     if pet_id not in latest_pet_state:
-        return {
-            "pet_id": pet_id,
+        latest_pet_state[pet_id] = {
             "health_score": 9.8,
             "history": [],
             "alerts": []
