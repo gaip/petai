@@ -72,3 +72,32 @@ Expanding to veterinary practice integrations, partnering with pet insurance com
 *   **Next.js**: Frontend Framework
 *   **Python / FastAPI**: Backend API
 *   **Scikit-Learn**: Machine Learning
+
+## 🚀 Speed Run (Local Demo)
+Want to see it in action?
+
+1.  **Clone the repo**
+    ```bash
+    git clone https://github.com/gaip/petai.git
+    cd petai
+    ```
+
+2.  **Start the Backend (Brain)**
+    ```bash
+    cd backend
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    uvicorn main:app --reload
+    ```
+
+3.  **Start the Frontend (Face)**
+    ```bash
+    # Open a new terminal
+    cd frontend
+    npm install
+    npm run dev
+    ```
+
+4.  **Open Demo**
+    Visit `http://localhost:3000` to start the PetTwin experience.
