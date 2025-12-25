@@ -21,15 +21,17 @@ export default function AddPet() {
         e.preventDefault();
         setUploading(true);
 
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+
         try {
             // 1. Register Pet
-            await fetch('http://127.0.0.1:8000/api/pets?name=' + name + '&breed=' + breed + '&age=' + age, {
+            await fetch(`${API_URL}/api/pets?name=` + name + '&breed=' + breed + '&age=' + age, {
                 method: 'POST'
             });
 
             // 2. Simulate Video Upload if present
             if (video) {
-                await fetch('http://127.0.0.1:8000/api/upload', {
+                await fetch(`${API_URL}/api/upload`, {
                     method: 'POST',
                     body: "dummy_binary_content"
                 });
