@@ -16,6 +16,15 @@
 *   **Hosted Project**: https://pettwincare.app
 *   **Video Demo**: https://youtu.be/r1d-tVPNA74
 
+## Partner Challenges
+We have integrated technologies to qualify for multiple track challenges:
+
+### 1. Confluent Challenge (Real-time Streaming)
+We successfully integrated **Confluent Kafka** to handle the continuous stream of physiological data (heart rate, movement) from pets to our Google Cloud AI backend for real-time anomaly detection.
+
+### 2. ElevenLabs Challenge (Voice Interface)
+We gave our AI a voice using **ElevenLabs**. The "Pet Voice" feature translates complex health data into natural, comforting spoken alerts, making the interface more conversational and less clinical for anxious owners.
+
 ## Inspiration
 Veterinarians have a suicide rate 3-5x higher than the general population, largely due to seeing preventable cases arrive too late. Pets instinctively hide pain, making early disease detection nearly impossible for owners. By the time symptoms are visible, diseases have often progressed significantly.
 
