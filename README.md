@@ -1,0 +1,50 @@
+# PetTwin Care
+**Your Pet Can't Tell You When Something's Wrong. We Built Something That Can.**
+
+## Inspiration
+Veterinarians have a suicide rate 3-5x higher than the general population, largely due to seeing preventable cases arrive too late. Pets instinctively hide pain, making early disease detection nearly impossible for owners. By the time symptoms are visible, diseases have often progressed significantly.
+
+## What it does
+PetTwin Care creates a personalized AI health baseline for each pet using Google Cloud's AI ecosystem and real-time streaming data. Through smartphone tracking and optional low-cost sensors, we monitor behavior patterns and detect anomalies 2-3 weeks before visible symptoms appear. The system leverages:
+
+*   **Vertex AI** for custom anomaly detection models
+*   **Gemini** for natural language health insights and owner communications
+*   **Confluent (Kafka)** for real-time sensor data streaming and ingestion
+*   **ElevenLabs** for "Pet Voice" audio alerts
+*   **Datadog** for observability and health monitoring
+*   **Cloud Run** for scalable microservices architecture
+*   **Firestore** for real-time health data synchronization
+*   **BigQuery** for population health analytics
+
+## How we built it
+We architected PetTwin Care on Google Cloud to maximize AI capabilities:
+
+*   **Data ingestion pipeline**: Uses **Confluent Kafka** to stream real-time physiological data from pets.
+*   **Custom ML models**: Trained on **Vertex AI** (simulated via Scikit-Learn Isolation Forest) for pet-specific health scoring.
+*   **Gemini integration**: Translates complex health data into actionable insights and alerts (simulated via Python backend).
+*   **Real-time alerting**: Uses **ElevenLabs** API to generate audio alerts, allowing the pet to "speak" its status to the owner.
+*   **Observability**: Integrated **Datadog** to track system performance and pet health metrics in real-time.
+*   **Mobile-first interface**: Built with **Next.js** (replacing the initial Firebase frontend prototype) for a high-performance, premium user experience.
+
+## Challenges we ran into
+Adapting general anomaly detection to individual pet baselines required extensive model tuning. Each pet's "normal" is unique, so we had to build adaptive thresholds using Vertex AI AutoML strategies. Integrating the multi-modal feedback (text + audio) while maintaining low latency across the Kafka stream was also a complex engineering challenge.
+
+## Accomplishments that we're proud of
+*   Successfully simulating a full IoT-to-AI pipeline locally.
+*   Giving pets a "voice" using ElevenLabs, making alerts more emotional and impactful.
+*   Creating a premium, calming user interface that helps owners manage anxiety around pet health.
+
+## What we learned
+Google Cloud's AI tools made it possible to build sophisticated health monitoring without expensive hardware. Gemini's ability to explain complex health patterns in simple terms bridges the gap between data and action. We also learned how critical real-time observability (Datadog) is for maintaining trust in digital health applications.
+
+## What's next for PetTwin Care
+Expanding to veterinary practice integrations, partnering with pet insurance companies for risk-based pricing, and scaling the platform to support multiple species beyond dogs and cats.
+
+## Built With
+*   **Google Cloud**: Vertex AI, Gemini, Cloud Run, Firestore, BigQuery
+*   **Confluent**: Apache Kafka Streaming
+*   **Datadog**: Observability & Monitoring
+*   **ElevenLabs**: AI Voice Generation
+*   **Next.js**: Frontend Framework
+*   **Python / FastAPI**: Backend API
+*   **Scikit-Learn**: Machine Learning

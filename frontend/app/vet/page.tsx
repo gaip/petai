@@ -1,0 +1,81 @@
+export default function VetPortal() {
+    const patients = [
+        { id: 1, name: "Max", breed: "Golden Retriever", age: 7, risk: "High", issue: "Activity -30%, Kidney indicators", lastVisit: "2 months ago" },
+        { id: 2, name: "Charlie", breed: "Labrador", age: 5, risk: "Medium", issue: "Gait asymmetry detected", lastVisit: "6 months ago" },
+        { id: 3, name: "Bella", breed: "Siamese", age: 3, risk: "Low", issue: "Stable", lastVisit: "1 year ago" },
+        { id: 4, name: "Luna", breed: "French Bulldog", age: 4, risk: "Low", issue: "Stable", lastVisit: "3 months ago" },
+    ];
+
+    const getRiskColor = (risk: string) => {
+        if (risk === "High") return "#ef4444";
+        if (risk === "Medium") return "#eab308";
+        return "#22c55e"; // Green
+    };
+
+    return (
+        <div className="container" style={{ paddingTop: '8rem', paddingBottom: '4rem' }}>
+            <header style={{ marginBottom: '3rem' }}>
+                <h1>Veterinary Portal</h1>
+                <p>Patient Status Dashboard</p>
+            </header>
+
+            <div className="glass-panel" style={{ overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                    <thead>
+                        <tr style={{ borderBottom: '1px solid var(--border-light)', color: 'var(--text-muted)' }}>
+                            <th style={{ padding: '1.5rem' }}>Patient</th>
+                            <th style={{ padding: '1.5rem' }}>Risk Level</th>
+                            <th style={{ padding: '1.5rem' }}>AI Insight</th>
+                            <th style={{ padding: '1.5rem' }}>Last Visit</th>
+                            <th style={{ padding: '1.5rem' }}>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {patients.map(patient => (
+                            <tr key={patient.id} style={{ borderBottom: '1px solid var(--border-light)' }}>
+                                <td style={{ padding: '1.5rem' }}>
+                                    <div style={{ fontWeight: 600, fontSize: '1.1rem' }}>{patient.name}</div>
+                                    <div style={{ fontSize: '0.9rem', color: 'gray' }}>{patient.breed}, {patient.age}y</div>
+                                </td>
+                                <td style={{ padding: '1.5rem' }}>
+                                    <span style={{
+                                        padding: '0.25rem 0.75rem',
+                                        borderRadius: '99px',
+                                        backgroundColor: `${getRiskColor(patient.risk)}20`,
+                                        color: getRiskColor(patient.risk),
+                                        fontWeight: 600,
+                                        border: `1px solid ${getRiskColor(patient.risk)}40`
+                                    }}>
+                                        {patient.risk}
+                                    </span>
+                                </td>
+                                <td style={{ padding: '1.5rem', maxWidth: '300px' }}>
+                                    {patient.risk !== 'Low' && (
+                                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                            <span>⚠️</span>
+                                            <span>{patient.issue}</span>
+                                        </div>
+                                    )}
+                                    {patient.risk === 'Low' && <span style={{ color: 'gray' }}>No anomalies detected</span>}
+                                </td>
+                                <td style={{ padding: '1.5rem', color: 'gray' }}>{patient.lastVisit}</td>
+                                <td style={{ padding: '1.5rem' }}>
+                                    <button style={{
+                                        background: 'transparent',
+                                        border: '1px solid var(--text-muted)',
+                                        color: 'white',
+                                        padding: '0.5rem 1rem',
+                                        borderRadius: '8px',
+                                        cursor: 'pointer'
+                                    }}>
+                                        View Profile
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
