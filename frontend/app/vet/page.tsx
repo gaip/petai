@@ -15,8 +15,18 @@ async function getPatients() {
     }
 }
 
+interface Patient {
+    id: number;
+    name: string;
+    breed: string;
+    age: number;
+    risk: string;
+    health_score: number;
+    lastVisit: string;
+}
+
 export default async function VetPortal() {
-    const patients = await getPatients();
+    const patients: Patient[] = await getPatients();
 
     const getRiskColor = (risk: string) => {
         if (risk === "High") return "#ef4444";
@@ -41,7 +51,7 @@ export default async function VetPortal() {
                         </tr>
                     </thead>
                     <tbody>
-                        {patients.map(patient => (
+                        {patients.map((patient: Patient) => (
                             <tr key={patient.id} style={{ borderBottom: '1px solid var(--border-light)' }}>
                                 <td style={{ padding: '1.5rem' }}>
                                     <div style={{ fontWeight: 600, fontSize: '1.1rem' }}>{patient.name}</div>
