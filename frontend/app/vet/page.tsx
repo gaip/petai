@@ -69,24 +69,25 @@ export default async function VetPortal() {
                                     {patient.risk === 'Low' && <span style={{ color: 'gray' }}>Stable</span>}
                                 </td>
                                 <td style={{ padding: '1.5rem', color: 'gray' }}>{patient.lastVisit}</td>
-                                <Link href={`/dashboard?pet=${patient.name}`}>
-                                    <button style={{
-                                        background: 'transparent',
-                                        border: '1px solid var(--text-muted)',
-                                        color: 'white',
-                                        padding: '0.5rem 1rem',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer'
-                                    }}>
-                                        View Profile
-                                    </button>
-                                </Link>
-                            </td>
+                                <td style={{ padding: '1.5rem' }}>
+                                    <Link href={`/dashboard?pet=${patient.name}`}>
+                                        <button style={{
+                                            background: 'transparent',
+                                            border: '1px solid var(--text-muted)',
+                                            color: 'white',
+                                            padding: '0.5rem 1rem',
+                                            borderRadius: '8px',
+                                            cursor: 'pointer'
+                                        }}>
+                                            View Profile
+                                        </button>
+                                    </Link>
+                                </td>
                             </tr>
                         ))}
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
         </div >
     );
 }
