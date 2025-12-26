@@ -68,7 +68,7 @@ export default async function VetPortal() {
                                     {patient.risk === 'Low' && <span style={{ color: 'gray' }}>Stable</span>}
                                 </td>
                                 <td style={{ padding: '1.5rem', color: 'gray' }}>{patient.lastVisit}</td>
-                                <td style={{ padding: '1.5rem' }}>
+                                <Link href={`/dashboard?pet=${patient.name}`}>
                                     <button style={{
                                         background: 'transparent',
                                         border: '1px solid var(--text-muted)',
@@ -79,12 +79,13 @@ export default async function VetPortal() {
                                     }}>
                                         View Profile
                                     </button>
-                                </td>
+                                </Link>
+                            </td>
                             </tr>
                         ))}
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
         </div >
     );
 }

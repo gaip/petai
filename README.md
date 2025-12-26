@@ -65,13 +65,11 @@ Google Cloud's AI tools made it possible to build sophisticated health monitorin
 Expanding to veterinary practice integrations, partnering with pet insurance companies for risk-based pricing, and scaling the platform to support multiple species beyond dogs and cats.
 
 ## Built With
-*   **Google Cloud**: Vertex AI, Gemini, Cloud Run, Firestore, BigQuery
-*   **Confluent**: Apache Kafka Streaming
-*   **Datadog**: Observability & Monitoring
-*   **ElevenLabs**: AI Voice Generation
+*   **Google Cloud**: Cloud Run, Firestore
 *   **Next.js**: Frontend Framework
 *   **Python / FastAPI**: Backend API
-*   **Scikit-Learn**: Machine Learning
+*   **Scikit-Learn**: Machine Learning Logic
+*   **TailwindCSS**: Styling (Ported)
 
 ## 🚀 Speed Run (Local Demo)
 Want to see it in action without configuring cloud keys?

@@ -68,14 +68,14 @@ export default function Home() {
       </section>
 
       {/* Integration Banner */}
+      {/* Integration Banner */}
       <section style={{ padding: '4rem 0', borderTop: '1px solid var(--border-light)' }}>
         <div className="container" style={{ textAlign: 'center' }}>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Built with Industry Standards</p>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Built with Modern Tech</p>
           <div style={{ display: 'flex', gap: '3rem', justifyContent: 'center', opacity: 0.6, flexWrap: 'wrap' }}>
             <span style={{ fontWeight: 600 }}>Google Cloud</span>
-            <span style={{ fontWeight: 600 }}>Datadog</span>
-            <span style={{ fontWeight: 600 }}>Confluent</span>
-            <span style={{ fontWeight: 600 }}>Vertex AI</span>
+            <span style={{ fontWeight: 600 }}>Python</span>
+            <span style={{ fontWeight: 600 }}>TensorFlow</span>
             <span style={{ fontWeight: 600 }}>Next.js</span>
             <span style={{ fontWeight: 600 }}>FastAPI</span>
           </div>
