@@ -113,10 +113,12 @@ Want to see it in action without configuring cloud keys?
 The project is deployed using **Railway** (Backend + Kafka) and **Vercel** (Frontend).
 
 *   **Backend**: Deployed on Railway using Docker.
+    *   URL: `https://petai-production.up.railway.app`
     *   `POST /api/pets`: Registers new pet.
     *   `GET /api/pets`: Returns dynamic list of pets.
     *   **Kafka**: Managed within Railway service stack.
 *   **Frontend**: Deployed on Vercel.
+    *   URL: `https://petai-tau.vercel.app`
     *   Connects to Backend via `NEXT_PUBLIC_API_URL` environment variable.
 
 ### Deploying Yourself
