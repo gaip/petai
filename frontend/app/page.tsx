@@ -68,16 +68,26 @@ export default function Home() {
       </section>
 
       {/* Integration Banner */}
-      {/* Integration Banner */}
       <section style={{ padding: '4rem 0', borderTop: '1px solid var(--border-light)' }}>
         <div className="container" style={{ textAlign: 'center' }}>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Built with Modern Tech</p>
-          <div style={{ display: 'flex', gap: '3rem', justifyContent: 'center', opacity: 0.6, flexWrap: 'wrap' }}>
-            <span style={{ fontWeight: 600 }}>Google Cloud</span>
-            <span style={{ fontWeight: 600 }}>Python</span>
-            <span style={{ fontWeight: 600 }}>TensorFlow</span>
-            <span style={{ fontWeight: 600 }}>Next.js</span>
-            <span style={{ fontWeight: 600 }}>FastAPI</span>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Powered by Best-in-Class Architecture</p>
+          <div style={{ display: 'flex', gap: '3rem', justifyContent: 'center', opacity: 0.8, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Google Cloud</span>
+              <span style={{ fontSize: '0.8rem', color: 'gray' }}>Vertex AI & Compute</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Confluent</span>
+              <span style={{ fontSize: '0.8rem', color: 'gray' }}>Real-time Streaming</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>ElevenLabs</span>
+              <span style={{ fontSize: '0.8rem', color: 'gray' }}>Deep Voice AI</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Datadog</span>
+              <span style={{ fontSize: '0.8rem', color: 'gray' }}>Observability</span>
+            </div>
           </div>
         </div>
       </section>
