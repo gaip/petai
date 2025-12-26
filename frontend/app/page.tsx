@@ -2,59 +2,86 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="container" style={{ paddingTop: '6rem', paddingBottom: '4rem' }}>
+    <div style={{ minHeight: '100vh' }}>
       {/* Hero Section */}
-      <header style={{ textAlign: 'center', marginBottom: '6rem' }} className="animate-fade-up">
-        <div style={{ marginBottom: '1rem', display: 'inline-block', padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.1)', borderRadius: '99px', fontSize: '0.9rem', color: '#a78bfa' }}>
-          AWS Kiro Hackathon 2025 | Social Impact Track
-        </div>
-        <h1>
-          <span className="text-gradient">PetTwin Care</span>
-        </h1>
-        <h2 style={{ fontSize: '2rem', fontWeight: 500, color: '#e5e5e5', marginBottom: '2rem' }}>
-          Your Pet Can't Tell You When Something's Wrong.<br />
-          We Built Something That Can.
-        </h2>
-        <div style={{ marginTop: '3rem' }}>
-          <Link href="/dashboard">
-            <button className="btn-primary">Launch Demo</button>
-          </Link>
-        </div>
-      </header>
-
-      {/* Stats Section */}
-      <section className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
-          <div>
-            <h3>$15B+</h3>
-            <p style={{ fontSize: '0.9rem' }}>AI Pet Market by 2035</p>
-          </div>
-          <div>
-            <h3>3-5x</h3>
-            <p style={{ fontSize: '0.9rem' }}>Vet Suicide Rate vs. Avg</p>
-          </div>
-          <div>
-            <h3>2-3 wks</h3>
-            <p style={{ fontSize: '0.9rem' }}>Earlier Detection</p>
-          </div>
-          <div>
-            <h3>24,000</h3>
-            <p style={{ fontSize: '0.9rem' }}>Vet Shortage by 2030</p>
+      <section style={{
+        paddingTop: '8rem',
+        paddingBottom: '4rem',
+        textAlign: 'center',
+        background: 'radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 70%)'
+      }}>
+        <div className="container">
+          <div className="chip" style={{ marginBottom: '1.5rem' }}>✨ Powered by Google Gemini & Vertex AI</div>
+          <h1 className="text-gradient" style={{ fontSize: '4rem', fontWeight: 800, marginBottom: '1.5rem', lineHeight: 1.1 }}>
+            The First AI Digital Twin <br /> For Your Pet's Health
+          </h1>
+          <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto 2.5rem' }}>
+            PetTwin Care fuses <strong>real-time bio-data</strong>, <strong>vision AI analysis</strong>, and <strong>voice synthesis</strong> to give your pet a voice. Shift from reactive visits to predictive care.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+            <a href="/login" className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>Start Digital Twin</a>
+            <a href="https://github.com/gaip/petai" target="_blank" className="btn btn-secondary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>View on GitHub</a>
           </div>
         </div>
       </section>
 
-      {/* Story Section */}
-      <section style={{ marginTop: '6rem', maxWidth: '800px', marginLeft: 'auto', marginRight: 'auto' }}>
-        <h2>Here's What Nobody Talks About</h2>
-        <p>I want to tell you about a dog named Max. He was a seven-year-old Golden Retriever, and for weeks his owner Sarah thought he was just "slowing down."</p>
-        <p>By the time Sarah finally brought Max to the vet, it was Stage 4 kidney disease. The treatment cost over twelve thousand dollars. Max lived another eight months.</p>
-        <div className="glass-panel" style={{ padding: '2rem', marginTop: '2rem', borderLeft: '4px solid var(--color-primary)' }}>
-          <p style={{ marginBottom: 0, fontStyle: 'italic', color: 'white' }}>
-            "This isn't just Max's story. It's happening to millions of pets every year. It's because pets are hardwired to hide pain."
+      {/* How It Works Grid */}
+      <section style={{ padding: '4rem 0' }}>
+        <div className="container">
+          <h2 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '3rem' }}>The Intelligence Behind PetTwin</h2>
+          <div className="grid">
+
+            <div className="card">
+              <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>👁️</div>
+              <h3 style={{ marginBottom: '0.5rem' }}>Computer Vision</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                <strong>Google Gemini</strong> analyzes photos/videos of your pet to detect gait anomalies, skin issues, and mood shifts invisible to the naked eye.
+              </p>
+            </div>
+
+            <div className="card">
+              <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🩺</div>
+              <h3 style={{ marginBottom: '0.5rem' }}>Real-Time Telemetry</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem')}>
+              <strong>Apache Kafka</strong> streams bio-data (Heart Rate, Activity, Sleep) from smart collars, processing thousands of signals per second.
+            </p>
+          </div>
+
+          <div className="card">
+            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🧠</div>
+            <h3 style={{ marginBottom: '0.5rem' }}>Anomaly Detection</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem')}>
+            <strong>Scikit-Learn</strong> Isolation Forests continuously model your pet's baseline health, triggering alerts instantly when deviations occur.
           </p>
         </div>
-      </section>
+
+        <div className="card">
+          <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🗣️</div>
+          <h3 style={{ marginBottom: '0.5rem' }}>Voice Synthesis</h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem')}>
+          <strong>ElevenLabs</strong> gives your pet a voice. Health alerts and updates are spoken in a tone that matches your pet's personality.
+        </p>
     </div>
+
+          </div >
+        </div >
+      </section >
+
+    {/* Integration Banner */ }
+    < section style = {{ padding: '4rem 0', borderTop: '1px solid var(--border-light)' }
+}>
+  <div className="container" style={{ textAlign: 'center' }}>
+    <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Built with Industry Standards</p>
+    <div style={{ display: 'flex', gap: '3rem', justifyContent: 'center', opacity: 0.6, flexWrap: 'wrap' }}>
+      <span style={{ fontWeight: 600 }}>Google Cloud</span>
+      <span style={{ fontWeight: 600 }}>Datadog</span>
+      <span style={{ fontWeight: 600 }}>Confluent</span>
+      <span style={{ fontWeight: 600 }}>Vertex AI</span>
+      <span style={{ fontWeight: 600 }}>Next.js</span>
+      <span style={{ fontWeight: 600 }}>FastAPI</span>
+    </div>
+  </div>
+      </section >
+    </div >
   );
 }
