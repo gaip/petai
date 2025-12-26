@@ -31,13 +31,13 @@ export default function LoginPage() {
             alignItems: 'center',
             justifyContent: 'center',
             background: 'radial-gradient(circle at center, #1e293b 0%, #0f172a 100%)',
-            padding: '1rem'
+            padding: '1rem',
         }}>
-            <div className="glass-panel" style={{ width: '100%', maxWidth: '400px', padding: '2.5rem' }}>
+            <div className="glass-panel login-panel">
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                     <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🐾</div>
                     <h1 className="text-gradient" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Welcome Back</h1>
-                    <p style={{ color: 'var(--text-muted)' }}>Sign in to verify your pet's health</p>
+                    <p style={{ color: 'var(--text-muted)' }}>Sign in to verify your pet&apos;s health</p>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -118,6 +118,18 @@ export default function LoginPage() {
                     </form>
                 </div>
             </div>
+            <style jsx>{`
+                .login-panel {
+                    width: 100%;
+                    max-width: 400px;
+                    padding: 1.5rem; /* Mobile padding */
+                }
+                @media (min-width: 768px) {
+                    .login-panel {
+                        padding: 2.5rem; /* Desktop padding */
+                    }
+                }
+            `}</style>
         </div>
     );
 }

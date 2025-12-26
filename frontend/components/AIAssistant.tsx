@@ -8,37 +8,39 @@ interface Message {
     content: string;
 }
 
+function getInitialMsg(pathname: string | null): string {
+    switch (pathname) {
+        case '/':
+            return "👋 Hi! I'm your PetTwin AI Agent. Ask me about your pet's health, verify the **Datadog** connection, or check **Kafka** stream status.";
+        case '/login':
+            return "🔒 Secure Login Area. I can help you with authentication details or bypass this for the demo.";
+        case '/dashboard':
+            return "📊 Detailed Analysis Mode. I've correlated 7 days of sensor data with **Datadog** real-time metrics. Ask me to 'analyze trends' or 'check alerts'.";
+        case '/vet':
+            return "🏥 Veterinary Portal. I'm monitoring population health. Ask about 'risk factors' or 'patient status'.";
+        default:
+            return "🤖 Ready to assist. Ask me anything about the system status or pet health data.";
+    }
+}
+
 function AIAssistantContent({ healthScore }: { healthScore?: number }) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [isOpen, setIsOpen] = useState(false); // Start closed (minimized)
-    const [messages, setMessages] = useState<Message[]>([]);
+    const [messages, setMessages] = useState<Message[]>([{ role: 'ai', content: getInitialMsg(pathname) }]);
     const [input, setInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // Initial greeting based on context
     useEffect(() => {
-        let initialMsg = "";
-        switch (pathname) {
-            case '/':
-                initialMsg = "👋 Hi! I'm your PetTwin AI Agent. Ask me about your pet's health, verify the **Datadog** connection, or check **Kafka** stream status.";
-                break;
-            case '/login':
-                initialMsg = "🔒 Secure Login Area. I can help you with authentication details or bypass this for the demo.";
-                break;
-            case '/dashboard':
-                initialMsg = "📊 detailed Analysis Mode. I'm correlated 7 days of sensor data with **Datadog** real-time metrics. Ask me to 'analyze trends' or 'check alerts'.";
-                break;
-            case '/vet':
-                initialMsg = "🏥 Veterinary Portal. I'm monitoring population health. Ask about 'risk factors' or 'patient status'.";
-                break;
-            default:
-                initialMsg = "🤖 Ready to assist. Ask me anything about the system status or pet health data.";
+        // Auto-open only on large screens
+        if (typeof window !== 'undefined' && window.innerWidth > 768) {
+            // eslint-disable-next-line
+            setIsOpen(true);
+        } else {
+            setIsOpen(false);
         }
-        setMessages([{ role: 'ai', content: initialMsg }]);
-        setIsOpen(true); // Auto-open on page load/change
-    }, [pathname]);
+    }, []);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -141,24 +143,7 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
     }
 
     return (
-        <div style={{
-            position: 'fixed',
-            bottom: '2rem',
-            right: '2rem',
-            width: '380px',
-            height: '600px',
-            background: 'rgba(15, 23, 42, 0.95)',
-            border: '1px solid rgba(56, 189, 248, 0.3)',
-            borderRadius: '16px',
-            boxShadow: '0 0 30px rgba(0,0,0,0.5)',
-            zIndex: 50, // Reduced from 9999
-            backdropFilter: 'blur(10px)',
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden',
-            fontFamily: 'var(--font-geist-sans)',
-            animation: 'slideIn 0.3s ease-out'
-        }}>
+        <div className="ai-assistant-panel">
             {/* Header */}
             <div style={{
                 padding: '1rem',
@@ -182,6 +167,38 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
                     _
                 </button>
             </div>
+
+            <style jsx>{`
+                .ai-assistant-panel {
+                    position: fixed;
+                    bottom: 2rem;
+                    right: 2rem;
+                    width: 380px;
+                    height: 600px;
+                    background: rgba(15, 23, 42, 0.95);
+                    border: 1px solid rgba(56, 189, 248, 0.3);
+                    border-radius: 16px;
+                    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+                    z-index: 50;
+                    backdrop-filter: blur(10px);
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+                    font-family: var(--font-geist-sans);
+                    animation: slideIn 0.3s ease-out;
+                }
+                
+                @media (max-width: 768px) {
+                    .ai-assistant-panel {
+                        right: 1rem;
+                        bottom: 1rem;
+                        width: calc(100vw - 2rem); /* Full width minus padding */
+                        height: 500px; /* Shorter on mobile */
+                        max-height: 70vh;
+                        z-index: 1000; /* Ensure on top on mobile if open */
+                    }
+                }
+            `}</style>
 
             {/* Chat Area */}
             <div style={{
@@ -303,10 +320,15 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
     );
 }
 
+function AIAssistantWrapper(props: { healthScore?: number }) {
+    const pathname = usePathname();
+    return <AIAssistantContent key={pathname} {...props} />;
+}
+
 export default function AIAssistant(props: { healthScore?: number }) {
     return (
         <Suspense fallback={null}>
-            <AIAssistantContent {...props} />
+            <AIAssistantWrapper {...props} />
         </Suspense>
     );
 }

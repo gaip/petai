@@ -9,7 +9,7 @@ async function getPetData(petId: string) {
         const res = await fetch(`${API_URL}/api/health/${petId}`, { cache: 'no-store' });
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.json();
-    } catch (error) {
+    } catch {
         return {
             pet_id: petId,
             health_score: 92,
@@ -26,8 +26,8 @@ export default async function Dashboard(props: { searchParams: Promise<{ pet?: s
     const { pet_id, health_score, history, alerts } = data;
 
     // Transform history for chart
-    const activityData = history.map((h: any) => h.activity);
-    const labels = history.map((h: any) => h.day);
+    const activityData = history.map((h: { activity: number }) => h.activity);
+    const labels = history.map((h: { day: string }) => h.day);
 
     // Check trend from history (simple diff)
     const trend = activityData.length >= 2 && activityData[activityData.length - 1] < activityData[activityData.length - 2] ? 'down' : 'stable';
@@ -36,7 +36,7 @@ export default async function Dashboard(props: { searchParams: Promise<{ pet?: s
         <div className="container" style={{ paddingTop: '8rem', paddingBottom: '4rem' }}>
             <header style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                    <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{pet_id}'s Dashboard</h1>
+                    <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{pet_id}&apos;s Dashboard</h1>
                     <p style={{ marginBottom: 0 }}>Golden Retriever • 7 Years Old</p>
                 </div>
                 {alerts.length > 0 && (
@@ -50,7 +50,7 @@ export default async function Dashboard(props: { searchParams: Promise<{ pet?: s
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
                 {/* Left Column: Alerts & Score */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                    {alerts.map((alert: any, i: number) => (
+                    {alerts.map((alert: { title: string; message: string; severity: 'high' | 'medium' | 'low'; audio?: string }, i: number) => (
                         <AlertCard
                             key={i}
                             title={alert.title}
@@ -86,7 +86,7 @@ export default async function Dashboard(props: { searchParams: Promise<{ pet?: s
                     <div style={{ marginTop: '3rem' }}>
                         <h3>Sleep Quality</h3>
                         <div style={{ height: '100px', display: 'flex', alignItems: 'end', gap: '10px' }}>
-                            {history.map((h: any, i: number) => (
+                            {history.map((h: { sleep: number; day: string }, i: number) => (
                                 <div key={i} style={{
                                     flex: 1,
                                     background: 'rgba(255,255,255,0.1)',
@@ -118,6 +118,7 @@ export default async function Dashboard(props: { searchParams: Promise<{ pet?: s
                                     transition: 'transform 0.2s'
                                 }}>
                                     {/* Using CATAAS for random cats, adding param to avoid cache duplication */}
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
                                         src={`https://cataas.com/cat?width=200&height=200&_t=${i}`}
                                         alt="Pet moment"

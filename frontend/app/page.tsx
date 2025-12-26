@@ -10,7 +10,7 @@ export default function Home() {
         <div className="container">
           <div className="chip animate-fade-up" style={{ marginBottom: '1.5rem', animationDelay: '0.1s' }}>✨ Powered by Google Gemini & Vertex AI</div>
           <h1 className="hero-title text-gradient animate-fade-up" style={{ animationDelay: '0.2s' }}>
-            The First AI Digital Twin <br /> For Your Pet's Health
+            The First AI Digital Twin <br /> For Your Pet&apos;s Health
           </h1>
           <p className="hero-description animate-fade-up" style={{ animationDelay: '0.3s' }}>
             PetTwin Care fuses <strong>real-time bio-data</strong>, <strong>vision AI analysis</strong>, and <strong>voice synthesis</strong> to give your pet a voice. Shift from reactive visits to predictive care.
@@ -62,7 +62,7 @@ export default function Home() {
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🧠</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Anomaly Detection</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                <strong>Scikit-Learn</strong> Isolation Forests continuously model your pet's baseline health, triggering alerts instantly when deviations occur.
+                <strong>Scikit-Learn</strong> Isolation Forests continuously model your pet&apos;s baseline health, triggering alerts instantly when deviations occur.
               </p>
             </div>
 
@@ -70,7 +70,7 @@ export default function Home() {
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🗣️</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Voice Synthesis</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                <strong>ElevenLabs</strong> gives your pet a voice. Health alerts and updates are spoken in a tone that matches your pet's personality.
+                <strong>ElevenLabs</strong> gives your pet a voice. Health alerts and updates are spoken in a tone that matches your pet&apos;s personality.
               </p>
             </div>
 
@@ -107,11 +107,11 @@ export default function Home() {
         /* Utilities */
         .grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          grid-template-columns: 1fr; /* Mobile default: 1 column */
           gap: 2rem;
           margin-top: 2rem;
         }
-        
+
         .btn {
           display: inline-block;
           text-decoration: none;
@@ -119,53 +119,54 @@ export default function Home() {
 
         /* Hero Section */
         .hero-section {
-          padding-top: 8rem;
-          padding-bottom: 4rem;
+          padding-top: 6rem; /* Mobile padding */
+          padding-bottom: 3rem;
           text-align: center;
           background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
         }
         .hero-title {
-          font-size: 4rem;
+          font-size: 2.5rem; /* Mobile size */
           font-weight: 800;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           line-height: 1.1;
         }
         .hero-description {
-          font-size: 1.25rem;
+          font-size: 1rem; /* Mobile size */
           color: var(--text-muted);
           max-width: 600px;
-          margin: 0 auto 2.5rem;
+          margin: 0 auto 2rem;
+          padding: 0 1rem;
         }
         .hero-actions {
           display: flex;
+          flex-direction: column; /* Mobile stack */
+          align-items: center;
           gap: 1rem;
           justify-content: center;
-          margin-bottom: 4rem;
+          margin-bottom: 3rem;
         }
-        
+
         /* Video Container */
         .video-container {
           max-width: 900px;
           margin: 0 auto;
-          border-radius: 24px;
+          border-radius: 16px; /* Smaller radius on mobile */
           overflow: hidden;
           box-shadow: 0 20px 50px rgba(56, 189, 248, 0.2);
           border: 1px solid rgba(255,255,255,0.1);
         }
-        .video-wrapper {
-          position: relative;
-          padding-bottom: 56.25%;
-          height: 0;
-        }
 
         /* Features Section */
         .features-section {
-          padding: 4rem 0;
+          padding: 3rem 0;
         }
         .section-title {
-          font-size: 2rem;
+          font-size: 1.75rem;
           text-align: center;
-          margin-bottom: 3rem;
+          margin-bottom: 2rem;
+        }
+        .hover-scale {
+          transition: transform 0.3s ease;
         }
         .hover-scale:hover {
           transform: translateY(-5px);
@@ -175,7 +176,7 @@ export default function Home() {
 
         /* Integration Section */
         .integration-section {
-          padding: 4rem 0;
+          padding: 3rem 0;
           border-top: 1px solid var(--border-light);
         }
         .integration-subtitle {
@@ -187,10 +188,11 @@ export default function Home() {
         }
         .partners-grid {
           display: flex;
-          gap: 3rem;
+          gap: 2rem;
           justify-content: center;
           opacity: 0.8;
           flex-wrap: wrap;
+          flex-direction: column; /* Mobile stack */
         }
         .partner-item {
           display: flex;
@@ -207,50 +209,44 @@ export default function Home() {
           color: gray;
         }
 
-        /* Mobile Optimization */
-        @media (max-width: 768px) {
+        /* Desktop Optimization */
+        @media (min-width: 768px) {
+          .grid {
+             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          }
           .hero-section {
-            padding-top: 6rem;
-            padding-bottom: 3rem;
+            padding-top: 8rem;
+            padding-bottom: 4rem;
           }
           .hero-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
           }
           .hero-description {
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            padding: 0 1rem;
+            font-size: 1.25rem;
+            margin: 0 auto 2.5rem;
+            padding: 0;
           }
           .hero-actions {
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
+            flex-direction: row;
+            margin-bottom: 4rem;
           }
-          .btn {
-            width: 100%;
-            max-width: 320px;
-            text-align: center;
+          .video-container {
+            border-radius: 24px;
           }
-          
           .features-section {
-            padding: 3rem 0;
+            padding: 4rem 0;
           }
           .section-title {
-            font-size: 1.75rem;
-            margin-bottom: 2rem;
+            font-size: 2rem;
+            margin-bottom: 3rem;
           }
-          
           .integration-section {
-            padding: 3rem 0;
+            padding: 4rem 0;
           }
           .partners-grid {
-            gap: 2rem;
-            flex-direction: column;
-          }
-          .grid {
-            grid-template-columns: 1fr;
+             gap: 3rem;
+             flex-direction: row;
           }
         }
       `}</style>

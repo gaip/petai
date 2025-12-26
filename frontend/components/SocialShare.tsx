@@ -34,7 +34,7 @@ export default function SocialShare({ petName, score }: SocialShareProps) {
             border: '1px solid rgba(255,255,255,0.1)'
         }}>
             <div style={{ fontSize: '0.85rem', color: '#94a3b8', marginBottom: '0.2rem' }}>
-                Share {petName}'s Score:
+                Share {petName}&apos;s Score:
             </div>
 
             <div style={{ display: 'flex', gap: '0.8rem' }}>
