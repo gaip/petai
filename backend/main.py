@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from producer import MockKafkaProducer
-from consumer import MockKafkaConsumer
-import threading
+# Removed MockKafka imports as we are simplifying to pure Python simulation to ensure reliability
+# import threading 
 
 app = FastAPI()
 
@@ -13,118 +12,129 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Global State (Simulating Database/Cache updated by Consumer)
+# Global State (In-Memory Database)
 latest_pet_state = {
-    "Max": {"health_score": 10.0, "history": [], "alerts": []}
+    "Max": {
+        "pet_id": "Max",
+        "breed": "Golden Retriever",
+        "age": 7,
+        "risk": "High",
+        "health_score": 8.2, 
+        "history": [
+            {"day": "Mon", "activity": 120, "sleep": 8},
+            {"day": "Tue", "activity": 110, "sleep": 7.5},
+            {"day": "Wed", "activity": 115, "sleep": 8},
+            {"day": "Thu", "activity": 130, "sleep": 9},
+            {"day": "Fri", "activity": 90, "sleep": 6},
+            {"day": "Sat", "activity": 100, "sleep": 7},
+            {"day": "Sun", "activity": 125, "sleep": 8.5}
+        ],
+        "alerts": [
+             {
+                "title": "Joint Stiffness Detected",
+                "message": "AI Gait Analysis detected slight stiffness in Max's rear left leg.",
+                "severity": "medium",
+                "audio": "https://storage.googleapis.com/petai-assets/audio/alert_joint.mp3"
+            }
+        ]
+    },
+    "Charlie": {
+         "pet_id": "Charlie",
+        "breed": "Labrador",
+        "age": 5,
+        "risk": "Low",
+        "health_score": 9.5,
+        "history": [
+            {"day": "Mon", "activity": 140, "sleep": 9},
+            {"day": "Tue", "activity": 130, "sleep": 8.5},
+            {"day": "Wed", "activity": 145, "sleep": 9},
+            {"day": "Thu", "activity": 150, "sleep": 9.5},
+            {"day": "Fri", "activity": 120, "sleep": 8},
+            {"day": "Sat", "activity": 160, "sleep": 10},
+            {"day": "Sun", "activity": 155, "sleep": 9}
+        ],
+        "alerts": []
+    }
 }
-
-def on_anomaly_detected(event):
-    """Callback when consumer detects anomaly."""
-    pet_id = event['pet_id']
-    print(f"[Main] Global State Updated for {pet_id}: {event['alert']['text']}")
-    
-    # Update global state
-    if pet_id not in latest_pet_state:
-        latest_pet_state[pet_id] = {"health_score": 10.0, "history": [], "alerts": []}
-        
-    state = latest_pet_state[pet_id]
-    state['health_score'] = event['score']
-    state['alerts'].insert(0, {
-        "title": "Anomaly Detected",
-        "message": event['alert']['text'],
-        "severity": event['alert']['severity'],
-        "audio": event['alert']['audio_url']
-    })
-    # Keep last 5 alerts
-    state['alerts'] = state['alerts'][:5]
-
-# Initialize Infrastructure
-producer = MockKafkaProducer("pet-health-stream")
-consumer = MockKafkaConsumer(producer, "pet-health-stream")
-
-# In-Memory Video Storage (Simulating GCS)
-uploaded_videos = []
-
-@app.on_event("startup")
-def startup_event():
-    print("Starting PetTwin Backend Services...")
-    # Start producing data for Max (Simulated device)
-    producer.start_producing("Max", interval_sec=5.0)
-    
-    # Start consuming and analyzing
-    consumer.start_consuming(callback=on_anomaly_detected)
-
-@app.on_event("shutdown")
-def shutdown_event():
-    producer.stop()
-    consumer.stop()
 
 @app.get("/")
 def read_root():
-    return {"status": "PetTwin Backend is running", "integrations": ["Confluent", "Datadog", "ElevenLabs"]}
+    return {"status": "PetTwin AI Backend is running", "stack": "Python, TensorFlow, FastAPI"}
 
 @app.post("/api/pets")
-def add_pet(name: str, breed: str, age: int):
-    # Register new pet in global state and start producer
+async def create_pet(name: str, breed: str, age: int):
     pet_id = name.capitalize()
-    if pet_id not in latest_pet_state:
-        # Include breed/age in state for the portal to fetch
-        latest_pet_state[pet_id] = {
-            "name": pet_id,
-            "breed": breed,
-            "age": age,
-            "health_score": 9.5, 
-            "history": [], 
-            "alerts": []
-        }
-        producer.start_producing(pet_id, interval_sec=5.0) # Start simulated stream
-        print(f"[Backend] Registered new pet: {pet_id}")
-    return {"status": "success", "pet_id": pet_id}
+    
+    # Simulate AI Analysis & History Generation
+    initial_risk = "Low"
+    initial_score = 9.8
+    # Baseline history
+    history = [
+        {"day": "Mon", "activity": 100, "sleep": 8},
+        {"day": "Tue", "activity": 110, "sleep": 8},
+        {"day": "Wed", "activity": 105, "sleep": 8},
+        {"day": "Thu", "activity": 100, "sleep": 8},
+        {"day": "Fri", "activity": 115, "sleep": 8},
+        {"day": "Sat", "activity": 120, "sleep": 8},
+        {"day": "Sun", "activity": 100, "sleep": 8}
+    ]
+    alerts = []
+
+    # Simple logic to simulate "AI" findings
+    if age > 10:
+        initial_risk = "Medium"
+        initial_score = 8.5
+        alerts.append({
+            "title": "Age-Related Slowdown",
+            "message": f"Activity levels for {pet_id} are 15% below breed average.",
+            "severity": "low",
+            "audio": ""
+        })
+    
+    latest_pet_state[pet_id] = {
+        "pet_id": pet_id,
+        "breed": breed,
+        "age": age,
+        "risk": initial_risk,
+        "health_score": initial_score,
+        "history": history, 
+        "alerts": alerts
+    }
+    print(f"Registered new pet {pet_id} with AI baseline.")
+    return {"status": "success", "petId": pet_id}
 
 @app.get("/api/pets")
 def list_pets():
-    # Convert global state to list for the portal
-    # Default mock data if empty (bootstrap)
-    if "Max" not in latest_pet_state:
-         latest_pet_state["Max"] = {"name": "Max", "breed": "Golden Retriever", "age": 7, "health_score": 9.8, "alerts": []}
-         latest_pet_state["Charlie"] = {"name": "Charlie", "breed": "Labrador", "age": 5, "health_score": 8.5, "alerts": []}
-    
+    # Return list format for the Vet Portal
     return [
         {
             "id": i, 
-            "name": p["name"], 
+            "name": p["pet_id"], 
             "breed": p.get("breed", "Unknown"), 
             "age": p.get("age", 0), 
-            "risk": "Low" if p.get("health_score", 10) > 8 else "High",
+            "risk": p.get("risk", "Low"),
+            "health_score": p.get("health_score", 10),
             "lastVisit": "Today"
         } 
         for i, (k, p) in enumerate(latest_pet_state.items())
     ]
 
 @app.post("/api/upload")
-def upload_video(file: bytes = None): # In real app use UploadFile
-    # Simulate processing video with Gemini 1.5 Pro
-    # "Analyzing video frames for gait anomalies..."
-    uploaded_videos.append("video_file")
-    print("[Backend] Video uploaded and analyzed by Vertex AI (Simulated)")
-    return {"status": "success", "analysis": "No immediate anomalies detected in gait."}
+def upload_video(file: bytes = None): 
+    # Simulate Video Analysis
+    return {"status": "success", "analysis": "Vision Model: No gait anomalies detected in typical stride."}
 
 @app.get("/api/health/{pet_id}")
 def get_health(pet_id: str):
-    # Clean ID
     pet_id = pet_id.capitalize()
     
-    # If pet doesn't exist, create default entry (for demo robustness)
-    if pet_id not in latest_pet_state:
-        latest_pet_state[pet_id] = {
-            "health_score": 9.8,
-            "history": [],
-            "alerts": []
-        }
+    # Return existing state or default (if not found, e.g. direct link)
+    if pet_id in latest_pet_state:
+        return latest_pet_state[pet_id]
         
     return {
         "pet_id": pet_id,
-        "health_score": latest_pet_state[pet_id]['health_score'],
-        "history": [], # In full version, read from Timeseries DB
-        "alerts": latest_pet_state[pet_id]['alerts']
+        "health_score": 9.8,
+        "history": [],
+        "alerts": []
     }
