@@ -99,6 +99,34 @@ export default async function Dashboard(props: { searchParams: Promise<{ pet?: s
                             ))}
                         </div>
                     </div>
+
+                    {/* New: Pet Gallery Section */}
+                    <div style={{ marginTop: '3rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                            <h3>Moments 📸</h3>
+                            <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Captured via Smart Cam</span>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '1rem' }}>
+                            {[1, 2, 3, 4].map((_, i) => (
+                                <div key={i} style={{
+                                    aspectRatio: '1',
+                                    borderRadius: '12px',
+                                    overflow: 'hidden',
+                                    border: '1px solid var(--border-light)',
+                                    position: 'relative',
+                                    cursor: 'pointer',
+                                    transition: 'transform 0.2s'
+                                }}>
+                                    {/* Using CATAAS for random cats, adding param to avoid cache duplication */}
+                                    <img
+                                        src={`https://cataas.com/cat?width=200&height=200&_t=${i}`}
+                                        alt="Pet moment"
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

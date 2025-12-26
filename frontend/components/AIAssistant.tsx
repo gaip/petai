@@ -1,14 +1,16 @@
 "use client";
-import { useState, useEffect, useRef } from 'react';
-import { usePathname } from 'next/navigation';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import SocialShare from './SocialShare';
 
 interface Message {
     role: 'ai' | 'user';
     content: string;
 }
 
-export default function AIAssistant() {
+function AIAssistantContent({ healthScore }: { healthScore?: number }) {
     const pathname = usePathname();
+    const searchParams = useSearchParams();
     const [isOpen, setIsOpen] = useState(false); // Start closed (minimized)
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState("");
@@ -63,25 +65,39 @@ export default function AIAssistant() {
         setIsTyping(true);
 
         // Simulate network processing delay for realism
-        setTimeout(() => {
-            const response = generateAIResponse(userMsg);
+        setTimeout(async () => {
+            const response = await generateAIResponse(userMsg);
             setMessages(prev => [...prev, { role: 'ai', content: response }]);
             setIsTyping(false);
         }, 1000);
     };
 
-    const generateAIResponse = (query: string): string => {
+    const generateAIResponse = async (query: string): Promise<string> => {
         const lowerQ = query.toLowerCase();
+        const petName = searchParams?.get('pet') || 'Max';
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
 
         // 1. Friendly Pet Health (Priority)
         if (lowerQ.includes('doing') || lowerQ.includes('health') || lowerQ.includes('status') && !lowerQ.includes('system')) {
-            return "❤️ **Health Analysis**: Max is doing great today! \n\nI've analyzed his latest movement data and his **Health Score is 92/100**. \n- Activity: Normal ✅\n- Sleep: 8h (Restful) 💤\n- Mood: Playful 🎾";
+            try {
+                // Try to fetch real data
+                const res = await fetch(`${API_URL}/api/health/${petName}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    return `❤️ ** Health Analysis **: ${petName} is doing great today! \n\nI've analyzed the latest movement data and the **Health Score is ${data.health_score}/100**. \n- Activity: Normal ✅\n- Sleep: 8h (Restful) 💤\n- Mood: Playful 🎾<SocialShare score={${data.health_score}} petName="${petName}" />`;
+                }
+            } catch (e) {
+                console.error("Failed to fetch AI context", e);
+            }
+            // Fallback
+            const displayScore = healthScore || 92;
+            return `❤️ **Health Analysis**: ${petName} is doing great today! \n\nI've analyzed the latest movement data and the **Health Score is ${displayScore}/100**. \n- Activity: Normal ✅\n- Sleep: 8h (Restful) 💤\n- Mood: Playful 🎾<SocialShare score={${displayScore}} petName="${petName}" />`;
         }
         if (lowerQ.includes('alert') || lowerQ.includes('risk')) {
-            return "🛡️ **Safety Check**: I detected one minor anomaly yesterday.\n\n- **Issue**: Slight gait irregularity (Joint Stiffness?)\n- **Confidence**: 89%\n- **Suggestion**: Keep an eye on his evening walk. No urgent vet visit needed yet.";
+            return "🛡️ **Safety Check**: I detected one minor anomaly yesterday.\n\n- **Issue**: Slight gait irregularity (Joint Stiffness?)\n- **Confidence**: 89%\n- **Suggestion**: Keep an eye on his evening walk. No urgent vet visit needed yet. 🐕";
         }
         if (lowerQ.includes('activity') || lowerQ.includes('trend') || lowerQ.includes('sleep')) {
-            return "🏃 **Activity Insights**: Max has been very active!\n\n- **Today**: 12,400 steps (Top 10% for his breed)\n- **Sleep**: He slept soundly from 11 PM to 7 AM.\n\nMy projection models show he's maintaining peak physical condition.";
+            return `🏃 **Activity Insights**: ${petName} has been very active!\n\n- **Today**: 12,400 steps (Top 10% for his breed)\n- **Sleep**: He slept soundly from 11 PM to 7 AM.\n\nMy projection models show he's maintaining peak physical condition. 😺`;
         }
 
         // 2. Technical Demo Specs (Secondary)
@@ -112,7 +128,7 @@ export default function AIAssistant() {
                     fontSize: '2rem',
                     cursor: 'pointer',
                     boxShadow: '0 0 20px rgba(56, 189, 248, 0.4)',
-                    zIndex: 9999,
+                    zIndex: 50, // Reduced from 9999 to avoid modal occlusion
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -135,7 +151,7 @@ export default function AIAssistant() {
             border: '1px solid rgba(56, 189, 248, 0.3)',
             borderRadius: '16px',
             boxShadow: '0 0 30px rgba(0,0,0,0.5)',
-            zIndex: 9999,
+            zIndex: 50, // Reduced from 9999
             backdropFilter: 'blur(10px)',
             display: 'flex',
             flexDirection: 'column',
@@ -161,8 +177,10 @@ export default function AIAssistant() {
                 </div>
                 <button
                     onClick={() => setIsOpen(false)}
-                    style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '1.2rem' }}
-                >×</button>
+                    style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '1.2rem', padding: '0 0.5rem' }}
+                >
+                    _
+                </button>
             </div>
 
             {/* Chat Area */}
@@ -188,7 +206,20 @@ export default function AIAssistant() {
                         lineHeight: '1.5',
                         whiteSpace: 'pre-wrap'
                     }}>
-                        {msg.content}
+                        {msg.content.split('<SocialShare').map((part, i) => {
+                            if (i === 0) return part;
+                            const [props, rest] = part.split('/>');
+                            const scoreMatch = props.match(/score={(\d+)}/);
+                            const nameMatch = props.match(/petName="([^"]+)"/);
+                            const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
+                            const name = nameMatch ? nameMatch[1] : 'Pet';
+                            return (
+                                <span key={i}>
+                                    <SocialShare score={score} petName={name} />
+                                    {rest}
+                                </span>
+                            );
+                        })}
                     </div>
                 ))}
 
@@ -269,5 +300,13 @@ export default function AIAssistant() {
                 </button>
             </div>
         </div>
+    );
+}
+
+export default function AIAssistant(props: { healthScore?: number }) {
+    return (
+        <Suspense fallback={null}>
+            <AIAssistantContent {...props} />
+        </Suspense>
     );
 }
