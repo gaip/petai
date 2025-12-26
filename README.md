@@ -40,36 +40,44 @@ PetTwin Care creates a personalized AI health baseline for each pet using Google
 *   **Firestore** for real-time health data synchronization
 *   **BigQuery** for population health analytics
 
-## How we built it
-We architected PetTwin Care on Google Cloud to maximize AI capabilities:
+## Architecture & Implementation Plan
 
-*   **Data ingestion pipeline**: Uses **Confluent Kafka** to stream real-time physiological data from pets.
-*   **Custom ML models**: Trained on **Vertex AI** (simulated via Scikit-Learn Isolation Forest) for pet-specific health scoring.
-*   **Gemini integration**: Translates complex health data into actionable insights and alerts (simulated via Python backend).
-*   **Real-time alerting**: Uses **ElevenLabs** API to generate audio alerts, allowing the pet to "speak" its status to the owner.
-*   **Observability**: Integrated **Datadog** to track system performance and pet health metrics in real-time.
-*   **Mobile-first interface**: Built with **Next.js** (replacing the initial Firebase frontend prototype) for a high-performance, premium user experience.
+We have designed a robust, scalable architecture leveraging **Google Cloud Platform (GCP)**, **Confluent (Kafka)**, **ElevenLabs**, and **Datadog**.
 
-## Challenges we ran into
-Adapting general anomaly detection to individual pet baselines required extensive model tuning. Each pet's "normal" is unique, so we had to build adaptive thresholds using Vertex AI AutoML strategies. Integrating the multi-modal feedback (text + audio) while maintaining low latency across the Kafka stream was also a complex engineering challenge.
+### Phase 1: Core Data Pipeline & Digital Twin Baseline
+This phase establishes the foundational infrastructure for data ingestion, streaming, and personalized health baseline calculation.
 
-## Accomplishments that we're proud of
-*   Successfully simulating a full IoT-to-AI pipeline locally.
-*   Giving pets a "voice" using ElevenLabs, making alerts more emotional and impactful.
-*   Creating a premium, calming user interface that helps owners manage anxiety around pet health.
+| Component             | Tech Stack equivalent | Key Features & Rationale                                                                                                                                                                                                                           |
+| :-------------------- | :------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Data Ingestion**    | **GCP Cloud Pub/Sub** (IoT Gateway)         | Replaces AWS IoT Core. Highly scalable, decoupled messaging for ingesting pet video analysis (Edge ML results), optional BLE sensor data, and owner input.                                                                                         |
+| **Data Streaming**    | **Confluent Cloud (Kafka)**                 | Central data backbone. All raw data streams through Kafka topics (e.g., `raw_activity`, `sensor_events`) for reliable processing and replayability.                                                            |
+| **Database**          | **GCP Firestore** (NoSQL)                   | Stores pet profiles, owner accounts, and the rolling 30-day health baseline (Digital Twin). Offers low-latency access for the user app.                                                                                         |
+| **Anomaly Detection** | **GCP Cloud Run** (Microservice)            | A containerized service (Python/FastAPI) subscribes to Kafka topics, calculates the 7-day rolling baseline from Firestore, and applies the Isolation Forest/Z-Score model. Writes results to a new Kafka topic (`anomaly_alerts`). |
+| **Backend API**       | **GCP Cloud Run / FastAPI**         | RESTful API for mobile app, managing profiles, and serving real-time Health Scores.                                                                                                                         |
 
-## What we learned
-Google Cloud's AI tools made it possible to build sophisticated health monitoring without expensive hardware. Gemini's ability to explain complex health patterns in simple terms bridges the gap between data and action. We also learned how critical real-time observability (Datadog) is for maintaining trust in digital health applications.
+### Phase 2: Predictive Intelligence & User Experience
+This phase builds the intelligence layer, focusing on generating predictive alerts and a compelling user experience.
 
-## What's next for PetTwin Care
-Expanding to veterinary practice integrations, partnering with pet insurance companies for risk-based pricing, and scaling the platform to support multiple species beyond dogs and cats.
+| Component                         | Tech Stack equivalent          | Key Features & Rationale                                                                                                                                                                                                          |
+| :-------------------------------- | :--------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Natural Language** | **GCP Cloud Functions** + **Vertex AI** | The Gemini API is used to perform prompt chaining to generate contextual, owner-friendly text alerts based on the raw anomaly data.                             |
+| **Voice Alerts**                  | **ElevenLabs API**                                   | The generated text from Vertex AI is sent to the ElevenLabs API to create a unique, urgent, and professional voice-over for the "Smart Alert" feature.  |
+| **Mobile/Web App**                | **Google Firebase / Next.js**              | Provides reliable user authentication, real-time updates via Firestore, and robust push support.                                                                          |
+| **Analytics**         | **GCP BigQuery**                                     | Used for trend visualization, deep-dive vet reports, and training new AI models. Data streams from Kafka into BigQuery via a Confluent Connector. |
 
-## Built With
-*   **Google Cloud**: Cloud Run, Firestore
-*   **Next.js**: Frontend Framework
-*   **Python / FastAPI**: Backend API
-*   **Scikit-Learn**: Machine Learning Logic
-*   **TailwindCSS**: Styling (Ported)
+### Phase 3: Observability & Scale
+The final phase focuses on scaling the system and establishing end-to-end monitoring.
+
+| Component                      | Tech Stack equivalent | Key Features & Rationale                                                                                                                                                                                                                                                                             |
+| :----------------------------- | :------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Monitoring** | **Datadog** (APM, Logs, Metrics)            | Datadog Agents and Tracers are deployed across all Cloud Run services to provide full-stack Application Performance Monitoring (APM), tracing, and consolidated logging. |
+| **Veterinary Portal**          | **GCP Compute Engine**                | Hosts the web-based portal. Provides the Pre-visit Health Summaries, integrating with the **BigQuery** time-series data.                                                                                                                                                        |
+
+## The "AI Agent" Concept
+At the heart of PetTwin Care is the **AI Agent**, powered by **Google Cloud Vertex AI**. 
+*   **Role**: It acts as the bridge between complex sensor data (ingested via Confluent) and the pet owner.
+*   **Function**: Instead of just showing raw charts, the Agent analyzes the `anomaly_alerts` stream, synthesizes a natural language explanation using Gemini, and can even speak to the owner via ElevenLabs.
+*   **Guidance**: The Agent lives in the application (see the bottom-right chat bubble) to guide users through the process, explaining how their data is being analyzed in real-time.
 
 ## 🚀 Speed Run (Local Demo)
 Want to see it in action without configuring cloud keys?
