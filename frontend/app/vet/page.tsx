@@ -42,12 +42,13 @@ export default async function VetPortal() {
                     <tbody>
                         {patients.map(patient => (
                             <tr key={patient.id} style={{ borderBottom: '1px solid var(--border-light)' }}>
-                                    <div style={{fontWeight: 600, fontSize: '1.1rem'}}>{patient.name}</div>
-                                    <div style={{fontSize: '0.9rem', color: 'gray'}}>{patient.breed}, {patient.age}y</div>
+                                <td style={{ padding: '1.5rem' }}>
+                                    <div style={{ fontWeight: 600, fontSize: '1.1rem' }}>{patient.name}</div>
+                                    <div style={{ fontSize: '0.9rem', color: 'gray' }}>{patient.breed}, {patient.age}y</div>
                                 </td>
-                                <td style={{padding: '1.5rem'}}>
+                                <td style={{ padding: '1.5rem' }}>
                                     <span style={{
-                                        padding: '0.25rem 0.75rem', 
+                                        padding: '0.25rem 0.75rem',
                                         borderRadius: '99px',
                                         backgroundColor: `${getRiskColor(patient.risk)}20`,
                                         color: getRiskColor(patient.risk),
@@ -57,16 +58,16 @@ export default async function VetPortal() {
                                         {patient.risk}
                                     </span>
                                 </td>
-                                <td style={{padding: '1.5rem', maxWidth: '300px'}}>
+                                <td style={{ padding: '1.5rem', maxWidth: '300px' }}>
                                     {patient.risk !== 'Low' && (
-                                        <div style={{display: 'flex', gap: '0.5rem', alignItems: 'center'}}>
+                                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                                             <span>⚠️</span>
                                             <span>Abnormal vitals detected</span>
                                         </div>
                                     )}
-                                    {patient.risk === 'Low' && <span style={{color: 'gray'}}>Stable</span>}
+                                    {patient.risk === 'Low' && <span style={{ color: 'gray' }}>Stable</span>}
                                 </td>
-                                <td style={{padding: '1.5rem', color: 'gray'}}>{patient.lastVisit}</td>
+                                <td style={{ padding: '1.5rem', color: 'gray' }}>{patient.lastVisit}</td>
                                 <td style={{ padding: '1.5rem' }}>
                                     <button style={{
                                         background: 'transparent',
@@ -81,9 +82,9 @@ export default async function VetPortal() {
                                 </td>
                             </tr>
                         ))}
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
         </div >
     );
 }
