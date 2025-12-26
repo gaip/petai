@@ -6,36 +6,23 @@ export default function Home() {
   return (
     <div style={{ minHeight: '100vh', overflowX: 'hidden' }}>
       {/* Hero Section */}
-      <section style={{
-        paddingTop: '8rem',
-        paddingBottom: '4rem',
-        textAlign: 'center',
-        background: 'radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 70%)'
-      }}>
+      <section className="hero-section">
         <div className="container">
           <div className="chip animate-fade-up" style={{ marginBottom: '1.5rem', animationDelay: '0.1s' }}>✨ Powered by Google Gemini & Vertex AI</div>
-          <h1 className="text-gradient animate-fade-up" style={{ fontSize: '4rem', fontWeight: 800, marginBottom: '1.5rem', lineHeight: 1.1, animationDelay: '0.2s' }}>
+          <h1 className="hero-title text-gradient animate-fade-up" style={{ animationDelay: '0.2s' }}>
             The First AI Digital Twin <br /> For Your Pet's Health
           </h1>
-          <p className="animate-fade-up" style={{ fontSize: '1.25rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto 2.5rem', animationDelay: '0.3s' }}>
+          <p className="hero-description animate-fade-up" style={{ animationDelay: '0.3s' }}>
             PetTwin Care fuses <strong>real-time bio-data</strong>, <strong>vision AI analysis</strong>, and <strong>voice synthesis</strong> to give your pet a voice. Shift from reactive visits to predictive care.
           </p>
 
-          <div className="animate-fade-up" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginBottom: '4rem', animationDelay: '0.4s' }}>
+          <div className="hero-actions animate-fade-up" style={{ animationDelay: '0.4s' }}>
             <Link href="/login" className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem', animation: 'pulse 2s infinite' }}>Start Digital Twin</Link>
             <a href="https://github.com/gaip/petai" target="_blank" className="btn btn-secondary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>View on GitHub</a>
           </div>
 
           {/* YouTube Video Embed */}
-          <div className="animate-fade-up" style={{
-            maxWidth: '900px',
-            margin: '0 auto',
-            borderRadius: '24px',
-            overflow: 'hidden',
-            boxShadow: '0 20px 50px rgba(56, 189, 248, 0.2)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            animationDelay: '0.6s'
-          }}>
+          <div className="video-container animate-fade-up" style={{ animationDelay: '0.6s' }}>
             <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
               <iframe
                 src="https://www.youtube.com/embed/r1d-tVPNA74"
