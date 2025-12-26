@@ -19,7 +19,7 @@ latest_pet_state = {
         "breed": "Golden Retriever",
         "age": 7,
         "risk": "High",
-        "health_score": 8.2, 
+        "health_score": 82, 
         "history": [
             {"day": "Mon", "activity": 120, "sleep": 8},
             {"day": "Tue", "activity": 110, "sleep": 7.5},
@@ -43,7 +43,7 @@ latest_pet_state = {
         "breed": "Labrador",
         "age": 5,
         "risk": "Low",
-        "health_score": 9.5,
+        "health_score": 95,
         "history": [
             {"day": "Mon", "activity": 140, "sleep": 9},
             {"day": "Tue", "activity": 130, "sleep": 8.5},
@@ -67,7 +67,7 @@ async def create_pet(name: str, breed: str, age: int):
     
     # Simulate AI Analysis & History Generation
     initial_risk = "Low"
-    initial_score = 9.8
+    initial_score = 98
     # Baseline history
     history = [
         {"day": "Mon", "activity": 100, "sleep": 8},
@@ -83,7 +83,7 @@ async def create_pet(name: str, breed: str, age: int):
     # Simple logic to simulate "AI" findings
     if age > 10:
         initial_risk = "Medium"
-        initial_score = 8.5
+        initial_score = 85
         alerts.append({
             "title": "Age-Related Slowdown",
             "message": f"Activity levels for {pet_id} are 15% below breed average.",
@@ -134,7 +134,7 @@ def get_health(pet_id: str):
         
     return {
         "pet_id": pet_id,
-        "health_score": 9.8,
+        "health_score": 98,
         "history": [],
         "alerts": []
     }

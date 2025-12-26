@@ -10,12 +10,13 @@ export default function HealthScoreRing({ score, trend }: HealthScoreProps) {
     const stroke = 8;
     const normalizedRadius = radius - stroke * 2;
     const circumference = normalizedRadius * 2 * Math.PI;
-    const strokeDashoffset = circumference - (score / 10) * circumference;
+    // Calculate progress for 0-100 scale
+    const strokeDashoffset = circumference - (score / 100) * circumference;
 
-    // Color based on score
+    // Color based on score (0-100)
     let color = 'var(--color-primary)';
-    if (score < 5) color = '#ef4444'; // Red
-    else if (score < 8) color = '#eab308'; // Yellow
+    if (score < 50) color = '#ef4444'; // Red
+    else if (score < 80) color = '#eab308'; // Yellow
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -50,7 +51,7 @@ export default function HealthScoreRing({ score, trend }: HealthScoreProps) {
                     textAlign: 'center'
                 }}>
                     <div style={{ fontSize: '2.5rem', fontWeight: 800, lineHeight: 1 }}>{score}</div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>/10</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>/100</div>
                 </div>
             </div>
             {trend && (

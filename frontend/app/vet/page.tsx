@@ -70,17 +70,18 @@ export default async function VetPortal() {
                                 </td>
                                 <td style={{ padding: '1.5rem', color: 'gray' }}>{patient.lastVisit}</td>
                                 <td style={{ padding: '1.5rem' }}>
-                                    <Link href={`/dashboard?pet=${patient.name}`}>
-                                        <button style={{
-                                            background: 'transparent',
-                                            border: '1px solid var(--text-muted)',
-                                            color: 'white',
-                                            padding: '0.5rem 1rem',
-                                            borderRadius: '8px',
-                                            cursor: 'pointer'
-                                        }}>
-                                            View Profile
-                                        </button>
+                                    <Link href={`/dashboard?pet=${patient.name}`} style={{
+                                        display: 'inline-block',
+                                        background: 'transparent',
+                                        border: '1px solid var(--text-muted)',
+                                        color: 'white',
+                                        padding: '0.5rem 1rem',
+                                        borderRadius: '8px',
+                                        cursor: 'pointer',
+                                        textDecoration: 'none',
+                                        fontSize: '0.9rem'
+                                    }}>
+                                        View Profile
                                     </Link>
                                 </td>
                             </tr>

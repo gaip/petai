@@ -63,27 +63,25 @@ export default function AddPet() {
                     />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Age</label>
-                        <input
-                            type="number"
-                            required
-                            value={age}
-                            onChange={(e) => setAge(e.target.value)}
-                            style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-light)', background: 'rgba(255,255,255,0.05)', color: 'white' }}
-                        />
-                    </div>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Breed</label>
-                        <input
-                            type="text"
-                            required
-                            value={breed}
-                            onChange={(e) => setBreed(e.target.value)}
-                            style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-light)', background: 'rgba(255,255,255,0.05)', color: 'white' }}
-                        />
-                    </div>
+                <div>
+                    <label style={{ display: 'block', marginBottom: '0.5rem' }}>Age</label>
+                    <input
+                        type="number"
+                        required
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
+                        style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-light)', background: 'rgba(255,255,255,0.05)', color: 'white' }}
+                    />
+                </div>
+                <div>
+                    <label style={{ display: 'block', marginBottom: '0.5rem' }}>Breed</label>
+                    <input
+                        type="text"
+                        required
+                        value={breed}
+                        onChange={(e) => setBreed(e.target.value)}
+                        style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-light)', background: 'rgba(255,255,255,0.05)', color: 'white' }}
+                    />
                 </div>
 
                 <div>

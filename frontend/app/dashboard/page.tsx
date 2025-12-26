@@ -12,7 +12,7 @@ async function getPetData(petId: string) {
     } catch (error) {
         return {
             pet_id: petId,
-            health_score: 9.8,
+            health_score: 92,
             history: [],
             alerts: []
         };
