@@ -74,7 +74,7 @@ Expanding to veterinary practice integrations, partnering with pet insurance com
 *   **Scikit-Learn**: Machine Learning
 
 ## 🚀 Speed Run (Local Demo)
-Want to see it in action?
+Want to see it in action without configuring cloud keys?
 
 1.  **Clone the repo**
     ```bash
@@ -101,3 +101,26 @@ Want to see it in action?
 
 4.  **Open Demo**
     Visit `http://localhost:3000` to start the PetTwin experience.
+
+## ☁️ Deployment (Live)
+
+The project is deployed using **Railway** (Backend + Kafka) and **Vercel** (Frontend).
+
+*   **Backend**: Deployed on Railway using Docker.
+    *   `POST /api/pets`: Registers new pet.
+    *   `GET /api/pets`: Returns dynamic list of pets.
+    *   **Kafka**: Managed within Railway service stack.
+*   **Frontend**: Deployed on Vercel.
+    *   Connects to Backend via `NEXT_PUBLIC_API_URL` environment variable.
+
+### Deploying Yourself
+
+**Backend (Railway)**
+1.  Fork repo and login to Railway.
+2.  Import repo and select `/backend` as root.
+3.  Add `kafka` and `zookeeper` services manually or use the provided `docker-compose.yml`.
+
+**Frontend (Vercel)**
+1.  Import `/frontend` directory to Vercel.
+2.  Add Environment Variable: `NEXT_PUBLIC_API_URL` (Your Railway Backend URL).
+3.  Deploy!
