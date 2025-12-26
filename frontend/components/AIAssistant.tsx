@@ -46,10 +46,18 @@ export default function AIAssistant() {
         scrollToBottom();
     }, [messages]);
 
-    const handleSend = async () => {
-        if (!input.trim()) return;
+    // Context-aware suggestions
+    const suggestions = [
+        "How is my pet doing? 🐶",
+        "Check recent alerts ⚠️",
+        "Analyze activity trends 📊",
+        "System Status 🛠️"
+    ];
 
-        const userMsg = input;
+    const handleSend = async (explicitMsg?: string) => {
+        const userMsg = explicitMsg || input;
+        if (!userMsg.trim()) return;
+
         setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
         setInput("");
         setIsTyping(true);
@@ -65,23 +73,26 @@ export default function AIAssistant() {
     const generateAIResponse = (query: string): string => {
         const lowerQ = query.toLowerCase();
 
-        if (lowerQ.includes('datadog') || lowerQ.includes('metric') || lowerQ.includes('monitor')) {
-            return "📡 **Datadog Live Metrics**:\n- System Latency: 45ms (Healthy)\n- API Error Rate: 0.01%\n- Active Traces: 1,420\n\nI'm successfully streaming telemetry to your Datadog dashboard.";
+        // 1. Friendly Pet Health (Priority)
+        if (lowerQ.includes('doing') || lowerQ.includes('health') || lowerQ.includes('status') && !lowerQ.includes('system')) {
+            return "❤️ **Health Analysis**: Max is doing great today! \n\nI've analyzed his latest movement data and his **Health Score is 92/100**. \n- Activity: Normal ✅\n- Sleep: 8h (Restful) 💤\n- Mood: Playful 🎾";
         }
-        if (lowerQ.includes('kafka') || lowerQ.includes('stream') || lowerQ.includes('event')) {
-            return "🌊 **Confluent Kafka Status**:\n- Topic: `pet-sensor-events`\n- Throughput: 150 msg/sec\n- Consumer Group: Stable\n- Lag: 0ms\n\nReal-time sensor data is flowing correctly.";
+        if (lowerQ.includes('alert') || lowerQ.includes('risk')) {
+            return "🛡️ **Safety Check**: I detected one minor anomaly yesterday.\n\n- **Issue**: Slight gait irregularity (Joint Stiffness?)\n- **Confidence**: 89%\n- **Suggestion**: Keep an eye on his evening walk. No urgent vet visit needed yet.";
         }
-        if (lowerQ.includes('health') || lowerQ.includes('score') || lowerQ.includes('status')) {
-            return "❤️ **Pet Health Analysis**:\n- Current Score: 92/100\n- Trend: Stable\n- Anomaly Check: Negative (Last 12h)\n\nBased on the latest sensor fusion, your pet is doing great.";
-        }
-        if (lowerQ.includes('alert') || lowerQ.includes('risk') || lowerQ.includes('problem')) {
-            return "🚨 **Recent Alerts**:\n1. [Yesterday 14:30] **Joint Stiffness Detected** (Confidence: 89%)\n   - Triggered by: Sustained gait irregularity.\n   - Action: Monitor for 24h.\n\nNo other critical alerts found in the last 48h.";
-        }
-        if (lowerQ.includes('google') || lowerQ.includes('cloud') || lowerQ.includes('vertex')) {
-            return "☁️ **Google Cloud Status**:\n- Vertex AI Model Endpoint: Online\n- Firestore Database: Connected\n- Cloud Run Instance: Active\n\nInfrastructure is fully operational.";
+        if (lowerQ.includes('activity') || lowerQ.includes('trend') || lowerQ.includes('sleep')) {
+            return "🏃 **Activity Insights**: Max has been very active!\n\n- **Today**: 12,400 steps (Top 10% for his breed)\n- **Sleep**: He slept soundly from 11 PM to 7 AM.\n\nMy projection models show he's maintaining peak physical condition.";
         }
 
-        return "🤖 I can help you with that. Try asking about:\n- **Datadog** metrics\n- **Kafka** streams\n- **Health** status\n- **Alerts** history";
+        // 2. Technical Demo Specs (Secondary)
+        if (lowerQ.includes('datadog') || lowerQ.includes('metric') || lowerQ.includes('system')) {
+            return "📡 **System Telemetry (Datadog)**:\n- API Latency: 45ms (Fast)\n- Ingestion Rate: 150 events/sec\n- AI Model Inference: 12ms\n\nAll systems are green and logging to Datadog.";
+        }
+        if (lowerQ.includes('kafka') || lowerQ.includes('stream')) {
+            return "🌊 **Data Pipeline (Kafka)**:\n- Topic: `pet-sensor-raw`\n- Throughput: Stable\n- Lag: 0ms\n\nReal-time sensor data is flowing perfectly into the Digital Twin model.";
+        }
+
+        return "🤖 I can help! Try asking about:\n- **Health Status**\n- **Recent Alerts**\n- **Activity Trends**";
     };
 
     if (!isOpen) {
@@ -119,7 +130,7 @@ export default function AIAssistant() {
             bottom: '2rem',
             right: '2rem',
             width: '380px',
-            height: '500px',
+            height: '600px',
             background: 'rgba(15, 23, 42, 0.95)',
             border: '1px solid rgba(56, 189, 248, 0.3)',
             borderRadius: '16px',
@@ -145,7 +156,7 @@ export default function AIAssistant() {
                     <span style={{ fontSize: '1.5rem' }}>🤖</span>
                     <div>
                         <h4 style={{ margin: 0, color: '#38bdf8', fontSize: '0.95rem', fontWeight: 600 }}>PetTwin AI Agent</h4>
-                        <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Online • Datadog Connected</span>
+                        <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Online • Monitoring Active</span>
                     </div>
                 </div>
                 <button
@@ -180,6 +191,34 @@ export default function AIAssistant() {
                         {msg.content}
                     </div>
                 ))}
+
+                {/* Suggested Questions Chips */}
+                {messages.length < 3 && !isTyping && (
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
+                        {suggestions.map((s, i) => (
+                            <button
+                                key={i}
+                                onClick={() => {
+                                    setInput(s);
+                                    handleSend(s);
+                                }}
+                                style={{
+                                    background: 'rgba(56, 189, 248, 0.1)',
+                                    border: '1px solid rgba(56, 189, 248, 0.3)',
+                                    color: '#bae6fd',
+                                    padding: '0.4rem 0.8rem',
+                                    borderRadius: '20px',
+                                    fontSize: '0.8rem',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s'
+                                }}
+                            >
+                                {s}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
                 {isTyping && (
                     <div style={{ alignSelf: 'flex-start', color: '#94a3b8', fontSize: '0.8rem', paddingLeft: '0.5rem' }}>
                         Typing...
@@ -200,7 +239,7 @@ export default function AIAssistant() {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                    placeholder="Ask about Datadog, Kafka, or Alerts..."
+                    placeholder="Ask about Max's health..."
                     style={{
                         flex: 1,
                         background: 'rgba(0,0,0,0.3)',
@@ -213,7 +252,7 @@ export default function AIAssistant() {
                     }}
                 />
                 <button
-                    onClick={handleSend}
+                    onClick={() => handleSend()}
                     style={{
                         background: '#38bdf8',
                         border: 'none',
