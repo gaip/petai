@@ -19,7 +19,7 @@ export default function Home() {
             PetTwin Care fuses <strong>real-time bio-data</strong>, <strong>vision AI analysis</strong>, and <strong>voice synthesis</strong> to give your pet a voice. Shift from reactive visits to predictive care.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <a href="/login" className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>Start Digital Twin</a>
+            <Link href="/login" className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>Start Digital Twin</Link>
             <a href="https://github.com/gaip/petai" target="_blank" className="btn btn-secondary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>View on GitHub</a>
           </div>
         </div>
@@ -42,46 +42,45 @@ export default function Home() {
             <div className="card">
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🩺</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Real-Time Telemetry</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem')}>
-              <strong>Apache Kafka</strong> streams bio-data (Heart Rate, Activity, Sleep) from smart collars, processing thousands of signals per second.
-            </p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                <strong>Apache Kafka</strong> streams bio-data (Heart Rate, Activity, Sleep) from smart collars, processing thousands of signals per second.
+              </p>
+            </div>
+
+            <div className="card">
+              <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🧠</div>
+              <h3 style={{ marginBottom: '0.5rem' }}>Anomaly Detection</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                <strong>Scikit-Learn</strong> Isolation Forests continuously model your pet's baseline health, triggering alerts instantly when deviations occur.
+              </p>
+            </div>
+
+            <div className="card">
+              <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🗣️</div>
+              <h3 style={{ marginBottom: '0.5rem' }}>Voice Synthesis</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                <strong>ElevenLabs</strong> gives your pet a voice. Health alerts and updates are spoken in a tone that matches your pet's personality.
+              </p>
+            </div>
+
           </div>
-
-          <div className="card">
-            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🧠</div>
-            <h3 style={{ marginBottom: '0.5rem' }}>Anomaly Detection</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem')}>
-            <strong>Scikit-Learn</strong> Isolation Forests continuously model your pet's baseline health, triggering alerts instantly when deviations occur.
-          </p>
         </div>
+      </section>
 
-        <div className="card">
-          <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🗣️</div>
-          <h3 style={{ marginBottom: '0.5rem' }}>Voice Synthesis</h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem')}>
-          <strong>ElevenLabs</strong> gives your pet a voice. Health alerts and updates are spoken in a tone that matches your pet's personality.
-        </p>
+      {/* Integration Banner */}
+      <section style={{ padding: '4rem 0', borderTop: '1px solid var(--border-light)' }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Built with Industry Standards</p>
+          <div style={{ display: 'flex', gap: '3rem', justifyContent: 'center', opacity: 0.6, flexWrap: 'wrap' }}>
+            <span style={{ fontWeight: 600 }}>Google Cloud</span>
+            <span style={{ fontWeight: 600 }}>Datadog</span>
+            <span style={{ fontWeight: 600 }}>Confluent</span>
+            <span style={{ fontWeight: 600 }}>Vertex AI</span>
+            <span style={{ fontWeight: 600 }}>Next.js</span>
+            <span style={{ fontWeight: 600 }}>FastAPI</span>
+          </div>
+        </div>
+      </section>
     </div>
-
-          </div >
-        </div >
-      </section >
-
-    {/* Integration Banner */ }
-    < section style = {{ padding: '4rem 0', borderTop: '1px solid var(--border-light)' }
-}>
-  <div className="container" style={{ textAlign: 'center' }}>
-    <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Built with Industry Standards</p>
-    <div style={{ display: 'flex', gap: '3rem', justifyContent: 'center', opacity: 0.6, flexWrap: 'wrap' }}>
-      <span style={{ fontWeight: 600 }}>Google Cloud</span>
-      <span style={{ fontWeight: 600 }}>Datadog</span>
-      <span style={{ fontWeight: 600 }}>Confluent</span>
-      <span style={{ fontWeight: 600 }}>Vertex AI</span>
-      <span style={{ fontWeight: 600 }}>Next.js</span>
-      <span style={{ fontWeight: 600 }}>FastAPI</span>
-    </div>
-  </div>
-      </section >
-    </div >
   );
 }
