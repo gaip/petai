@@ -17,10 +17,10 @@ export default function AIAssistant() {
                 setMessage("🔒 Secure Login: I'll retrieve your encrypted pet records from the database. Don't worry, I'm just a demo, so you can click 'Continue with Google' to skip Auth.");
                 break;
             case '/dashboard':
-                setMessage("📊 Analysis Complete! I've processed 7 days of sensor data. Notice the 'Joint Stiffness' alert? My Anomaly Detection model flagged a gait irregularity yesterday.");
+                setMessage("📊 Analysis Complete! I've correlated 7 days of sensor data with **Datadog** real-time metrics. My Anomaly Detection model flagged a gait irregularity yesterday.");
                 break;
             case '/vet':
-                setMessage("🏥 Vet Portal: Here I aggregate population health data. I flag high-risk patients (like Max) so vets can prioritize care.");
+                setMessage("🏥 Vet Portal: I use **Datadog** to monitor population health trends. I've flagged high-risk patients (like Max) so vets can prioritize care based on real-time telemetry.");
                 break;
             case '/add-pet':
                 setMessage("📹 Vision Analysis: Upload a video here! I'll break it down frame-by-frame to establish a baseline for your pet's movement.");
