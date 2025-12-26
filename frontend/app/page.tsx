@@ -50,7 +50,7 @@ export default function Home() {
       </section>
 
       {/* How It Works Grid */}
-      <section style={{ padding: '4rem 0' }}>
+      <section className="features-section">
         <div className="container">
           <h2 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '3rem' }}>The Intelligence Behind PetTwin</h2>
           <div className="grid">
@@ -92,35 +92,166 @@ export default function Home() {
       </section>
 
       {/* Integration Banner */}
-      <section style={{ padding: '4rem 0', borderTop: '1px solid var(--border-light)' }}>
+      <section className="integration-section">
         <div className="container" style={{ textAlign: 'center' }}>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Powered by Best-in-Class Architecture</p>
-          <div style={{ display: 'flex', gap: '3rem', justifyContent: 'center', opacity: 0.8, flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Google Cloud</span>
-              <span style={{ fontSize: '0.8rem', color: 'gray' }}>Vertex AI & Compute</span>
+          <p className="integration-subtitle">Powered by Best-in-Class Architecture</p>
+          <div className="partners-grid">
+            <div className="partner-item">
+              <span className="partner-name">Google Cloud</span>
+              <span className="partner-desc">Vertex AI & Compute</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Confluent</span>
-              <span style={{ fontSize: '0.8rem', color: 'gray' }}>Real-time Streaming</span>
+            <div className="partner-item">
+              <span className="partner-name">Confluent</span>
+              <span className="partner-desc">Real-time Streaming</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>ElevenLabs</span>
-              <span style={{ fontSize: '0.8rem', color: 'gray' }}>Deep Voice AI</span>
+            <div className="partner-item">
+              <span className="partner-name">ElevenLabs</span>
+              <span className="partner-desc">Deep Voice AI</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Datadog</span>
-              <span style={{ fontSize: '0.8rem', color: 'gray' }}>Observability</span>
+            <div className="partner-item">
+              <span className="partner-name">Datadog</span>
+              <span className="partner-desc">Observability</span>
             </div>
           </div>
         </div>
       </section>
 
       <style jsx global>{`
+        /* Hero Section */
+        .hero-section {
+          padding-top: 8rem;
+          padding-bottom: 4rem;
+          text-align: center;
+          background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+        }
+        .hero-title {
+          font-size: 4rem;
+          font-weight: 800;
+          margin-bottom: 1.5rem;
+          line-height: 1.1;
+        }
+        .hero-description {
+          font-size: 1.25rem;
+          color: var(--text-muted);
+          max-width: 600px;
+          margin: 0 auto 2.5rem;
+        }
+        .hero-actions {
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+          margin-bottom: 4rem;
+        }
+        
+        /* Video Container */
+        .video-container {
+          max-width: 900px;
+          margin: 0 auto;
+          border-radius: 24px;
+          overflow: hidden;
+          box-shadow: 0 20px 50px rgba(56, 189, 248, 0.2);
+          border: 1px solid rgba(255,255,255,0.1);
+        }
+        .video-wrapper {
+          position: relative;
+          padding-bottom: 56.25%;
+          height: 0;
+        }
+
+        /* Features Section */
+        .features-section {
+          padding: 4rem 0;
+        }
+        .section-title {
+          font-size: 2rem;
+          text-align: center;
+          margin-bottom: 3rem;
+        }
         .hover-scale:hover {
           transform: translateY(-5px);
           box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.3);
           border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        /* Integration Section */
+        .integration-section {
+          padding: 4rem 0;
+          border-top: 1px solid var(--border-light);
+        }
+        .integration-subtitle {
+          color: var(--text-muted);
+          margin-bottom: 1.5rem;
+          font-size: 0.9rem;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+        }
+        .partners-grid {
+          display: flex;
+          gap: 3rem;
+          justify-content: center;
+          opacity: 0.8;
+          flex-wrap: wrap;
+        }
+        .partner-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        .partner-name {
+          font-weight: 700;
+          font-size: 1.1rem;
+        }
+        .partner-desc {
+          font-size: 0.8rem;
+          color: gray;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+          .hero-section {
+            padding-top: 6rem;
+            padding-bottom: 3rem;
+          }
+          .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+          }
+          .hero-description {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+          }
+          .hero-actions {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+          }
+          .btn {
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+          }
+          
+          .features-section {
+            padding: 3rem 0;
+          }
+          .section-title {
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+          }
+          
+          .integration-section {
+            padding: 3rem 0;
+          }
+          .partners-grid {
+            gap: 2rem;
+            flex-direction: column;
+          }
+          .grid {
+            grid-template-columns: 1fr;
+          }
         }
       `}</style>
     </div>
