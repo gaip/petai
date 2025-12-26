@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div style={{ minHeight: '100vh' }}>
+    <div style={{ minHeight: '100vh', overflowX: 'hidden' }}>
       {/* Hero Section */}
       <section style={{
         paddingTop: '8rem',
@@ -11,16 +11,38 @@ export default function Home() {
         background: 'radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 70%)'
       }}>
         <div className="container">
-          <div className="chip" style={{ marginBottom: '1.5rem' }}>✨ Powered by Google Gemini & Vertex AI</div>
-          <h1 className="text-gradient" style={{ fontSize: '4rem', fontWeight: 800, marginBottom: '1.5rem', lineHeight: 1.1 }}>
+          <div className="chip animate-fade-up" style={{ marginBottom: '1.5rem', animationDelay: '0.1s' }}>✨ Powered by Google Gemini & Vertex AI</div>
+          <h1 className="text-gradient animate-fade-up" style={{ fontSize: '4rem', fontWeight: 800, marginBottom: '1.5rem', lineHeight: 1.1, animationDelay: '0.2s' }}>
             The First AI Digital Twin <br /> For Your Pet's Health
           </h1>
-          <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto 2.5rem' }}>
+          <p className="animate-fade-up" style={{ fontSize: '1.25rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto 2.5rem', animationDelay: '0.3s' }}>
             PetTwin Care fuses <strong>real-time bio-data</strong>, <strong>vision AI analysis</strong>, and <strong>voice synthesis</strong> to give your pet a voice. Shift from reactive visits to predictive care.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <Link href="/login" className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>Start Digital Twin</Link>
+
+          <div className="animate-fade-up" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginBottom: '4rem', animationDelay: '0.4s' }}>
+            <Link href="/login" className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem', animation: 'pulse 2s infinite' }}>Start Digital Twin</Link>
             <a href="https://github.com/gaip/petai" target="_blank" className="btn btn-secondary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>View on GitHub</a>
+          </div>
+
+          {/* YouTube Video Embed */}
+          <div className="animate-fade-up" style={{
+            maxWidth: '900px',
+            margin: '0 auto',
+            borderRadius: '24px',
+            overflow: 'hidden',
+            boxShadow: '0 20px 50px rgba(56, 189, 248, 0.2)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            animationDelay: '0.6s'
+          }}>
+            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+              <iframe
+                src="https://www.youtube.com/embed/r1d-tVPNA74"
+                title="PetTwin AI Demo"
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -31,7 +53,7 @@ export default function Home() {
           <h2 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '3rem' }}>The Intelligence Behind PetTwin</h2>
           <div className="grid">
 
-            <div className="card">
+            <div className="card hover-scale" style={{ transition: 'transform 0.3s ease' }}>
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>👁️</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Computer Vision</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
@@ -39,7 +61,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="card">
+            <div className="card hover-scale" style={{ transition: 'transform 0.3s ease' }}>
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🩺</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Real-Time Telemetry</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
@@ -47,7 +69,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="card">
+            <div className="card hover-scale" style={{ transition: 'transform 0.3s ease' }}>
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🧠</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Anomaly Detection</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
@@ -55,7 +77,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="card">
+            <div className="card hover-scale" style={{ transition: 'transform 0.3s ease' }}>
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🗣️</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Voice Synthesis</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
@@ -91,6 +113,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <style jsx global>{`
+        .hover-scale:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.3);
+          border-color: rgba(56, 189, 248, 0.4);
+        }
+      `}</style>
     </div>
   );
 }
