@@ -32,7 +32,7 @@ latest_pet_state = {
         "alerts": [
              {
                 "title": "Joint Stiffness Detected",
-                "message": "AI Gait Analysis detected slight stiffness in Max's rear left leg.",
+                "message": "Vertex AI Vision detected a 15% asymmetry in rear-left gait mechanics versus 30-day baseline.",
                 "severity": "medium",
                 "audio": "https://storage.googleapis.com/petai-assets/audio/alert_joint.mp3"
             }

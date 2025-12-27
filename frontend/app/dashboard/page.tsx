@@ -64,7 +64,7 @@ export default async function Dashboard(props: { searchParams: Promise<{ pet?: s
                         <h3 style={{ marginBottom: '2rem' }}>Current Health Score</h3>
                         <HealthScoreRing score={health_score} trend={trend} />
                         <p style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.9rem' }}>
-                            Real-time analysis based on {history.length} days of data.
+                            AI Multi-Factor Analysis correlating {history.length} days of sensor data with breed-specific benchmarks.
                         </p>
                     </div>
                 </div>

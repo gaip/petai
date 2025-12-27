@@ -46,7 +46,7 @@ export default function Home() {
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>👁️</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Computer Vision</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                <strong>Google Gemini</strong> analyzes photos/videos of your pet to detect gait anomalies, skin issues, and mood shifts invisible to the naked eye.
+                <strong>Google Gemini</strong> processes visual inputs from home cameras, detecting subtle gait changes, skin conditions, and posture signifiers that indicate pain.
               </p>
             </div>
 
@@ -54,7 +54,7 @@ export default function Home() {
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🩺</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Real-Time Telemetry</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                <strong>Apache Kafka</strong> streams bio-data (Heart Rate, Activity, Sleep) from smart collars, processing thousands of signals per second.
+                <strong>Apache Kafka</strong> acts as the central nervous system, ingesting 100+ data points/sec from smart collars to feed our real-time Digital Twin models.
               </p>
             </div>
 
@@ -62,7 +62,7 @@ export default function Home() {
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🧠</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Anomaly Detection</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                <strong>Scikit-Learn</strong> Isolation Forests continuously model your pet&apos;s baseline health, triggering alerts instantly when deviations occur.
+                <strong>Custom ML Models</strong> (Isolation Forests) run on Google Cloud Run to learn your pet's unique normal. You get alerts only when data deviates from *their* baseline.
               </p>
             </div>
 
@@ -70,7 +70,7 @@ export default function Home() {
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🗣️</div>
               <h3 style={{ marginBottom: '0.5rem' }}>Voice Synthesis</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                <strong>ElevenLabs</strong> gives your pet a voice. Health alerts and updates are spoken in a tone that matches your pet&apos;s personality.
+                <strong>ElevenLabs</strong> converts technical health data into a comforting, synthesized voice, allowing your pet to "speak" their needs directly to you.
               </p>
             </div>
 
