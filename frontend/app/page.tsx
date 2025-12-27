@@ -42,7 +42,7 @@ export default function Home() {
         <div className="container">
           <h2 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '1rem' }}>Built on Google Vertex AI</h2>
           <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '3rem' }}>
-            Enterprise-grade anomalies detection pipeline normally reserved for industrial IoT, now applied to your pet's health.
+            Enterprise-grade anomalies detection pipeline normally reserved for industrial IoT, now applied to your pet&apos;s health.
           </p>
 
           <div className="grid">

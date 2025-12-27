@@ -275,69 +275,68 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
                 )}
 
                 {isTyping && (
-                    <div style={{ alignSelf: 'flex-start', color: '#94a3b8', fontSize: '0.8rem', paddingLeft: '0.5rem' }}>
-                        <div style={{ alignSelf: 'flex-start', color: '#94a3b8', fontSize: '0.8rem', paddingLeft: '0.5rem', fontStyle: 'italic' }}>
-                            <span style={{ marginRight: '6px' }}>⚡</span>
-                            {thinkingStep || "Thinking..."}
-                        </div>
-                )}
-                        <div ref={messagesEndRef} />
+                    <div style={{ alignSelf: 'flex-start', color: '#94a3b8', fontSize: '0.8rem', paddingLeft: '0.5rem', fontStyle: 'italic' }}>
+                        <span style={{ marginRight: '6px' }}>⚡</span>
+                        {thinkingStep || "Thinking..."}
                     </div>
+                )}
+                <div ref={messagesEndRef} />
+            </div>
 
             {/* Input Area */}
-                <div style={{
-                    padding: '1rem',
-                    borderTop: '1px solid rgba(255,255,255,0.1)',
-                    display: 'flex',
-                    gap: '0.5rem'
-                }}>
-                    <input
-                        type="text"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                        placeholder="Ask about Max's health..."
-                        style={{
-                            flex: 1,
-                            background: 'rgba(0,0,0,0.3)',
-                            border: '1px solid rgba(255,255,255,0.2)',
-                            borderRadius: '8px',
-                            padding: '0.75rem',
-                            color: 'white',
-                            fontSize: '0.9rem',
-                            outline: 'none'
-                        }}
-                    />
-                    <button
-                        onClick={() => handleSend()}
-                        style={{
-                            background: '#38bdf8',
-                            border: 'none',
-                            borderRadius: '8px',
-                            width: '40px',
-                            color: '#0f172a',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}
-                    >
-                        ➤
-                    </button>
-                </div>
+            <div style={{
+                padding: '1rem',
+                borderTop: '1px solid rgba(255,255,255,0.1)',
+                display: 'flex',
+                gap: '0.5rem'
+            }}>
+                <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                    placeholder="Ask about Max's health..."
+                    style={{
+                        flex: 1,
+                        background: 'rgba(0,0,0,0.3)',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        borderRadius: '8px',
+                        padding: '0.75rem',
+                        color: 'white',
+                        fontSize: '0.9rem',
+                        outline: 'none'
+                    }}
+                />
+                <button
+                    onClick={() => handleSend()}
+                    style={{
+                        background: '#38bdf8',
+                        border: 'none',
+                        borderRadius: '8px',
+                        width: '40px',
+                        color: '#0f172a',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                >
+                    ➤
+                </button>
             </div>
-            );
+        </div>
+    );
 }
 
-            function AIAssistantWrapper(props: {healthScore ?: number}) {
+function AIAssistantWrapper(props: { healthScore?: number }) {
     const pathname = usePathname();
-            return <AIAssistantContent key={pathname} {...props} />;
+    return <AIAssistantContent key={pathname} {...props} />;
 }
 
-            export default function AIAssistant(props: {healthScore ?: number}) {
+export default function AIAssistant(props: { healthScore?: number }) {
     return (
-            <Suspense fallback={null}>
-                <AIAssistantWrapper {...props} />
-            </Suspense>
-            );
+        <Suspense fallback={null}>
+            <AIAssistantWrapper {...props} />
+        </Suspense>
+    );
 }
