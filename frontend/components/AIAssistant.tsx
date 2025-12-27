@@ -30,6 +30,7 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
     const [messages, setMessages] = useState<Message[]>([{ role: 'ai', content: getInitialMsg(pathname) }]);
     const [input, setInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
+    const [thinkingStep, setThinkingStep] = useState<string | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -65,13 +66,19 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
         setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
         setInput("");
         setIsTyping(true);
+        setThinkingStep("Initializing Vertex AI Context...");
 
-        // Simulate network processing delay for realism
+        // Simulate complex AI processing pipeline
+        setTimeout(() => setThinkingStep("Querying Gemini Pro via GCP..."), 600);
+        setTimeout(() => setThinkingStep("Correlating with Kafka Telemetry..."), 1200);
+        setTimeout(() => setThinkingStep("Synthesizing Natural Language Response..."), 1800);
+
         setTimeout(async () => {
             const response = await generateAIResponse(userMsg);
             setMessages(prev => [...prev, { role: 'ai', content: response }]);
             setIsTyping(false);
-        }, 1000);
+            setThinkingStep(null);
+        }, 2200);
     };
 
     const generateAIResponse = async (query: string): Promise<string> => {
@@ -269,66 +276,68 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
 
                 {isTyping && (
                     <div style={{ alignSelf: 'flex-start', color: '#94a3b8', fontSize: '0.8rem', paddingLeft: '0.5rem' }}>
-                        Typing...
-                    </div>
+                        <div style={{ alignSelf: 'flex-start', color: '#94a3b8', fontSize: '0.8rem', paddingLeft: '0.5rem', fontStyle: 'italic' }}>
+                            <span style={{ marginRight: '6px' }}>⚡</span>
+                            {thinkingStep || "Thinking..."}
+                        </div>
                 )}
-                <div ref={messagesEndRef} />
-            </div>
+                        <div ref={messagesEndRef} />
+                    </div>
 
             {/* Input Area */}
-            <div style={{
-                padding: '1rem',
-                borderTop: '1px solid rgba(255,255,255,0.1)',
-                display: 'flex',
-                gap: '0.5rem'
-            }}>
-                <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                    placeholder="Ask about Max's health..."
-                    style={{
-                        flex: 1,
-                        background: 'rgba(0,0,0,0.3)',
-                        border: '1px solid rgba(255,255,255,0.2)',
-                        borderRadius: '8px',
-                        padding: '0.75rem',
-                        color: 'white',
-                        fontSize: '0.9rem',
-                        outline: 'none'
-                    }}
-                />
-                <button
-                    onClick={() => handleSend()}
-                    style={{
-                        background: '#38bdf8',
-                        border: 'none',
-                        borderRadius: '8px',
-                        width: '40px',
-                        color: '#0f172a',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
-                >
-                    ➤
-                </button>
+                <div style={{
+                    padding: '1rem',
+                    borderTop: '1px solid rgba(255,255,255,0.1)',
+                    display: 'flex',
+                    gap: '0.5rem'
+                }}>
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                        placeholder="Ask about Max's health..."
+                        style={{
+                            flex: 1,
+                            background: 'rgba(0,0,0,0.3)',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '8px',
+                            padding: '0.75rem',
+                            color: 'white',
+                            fontSize: '0.9rem',
+                            outline: 'none'
+                        }}
+                    />
+                    <button
+                        onClick={() => handleSend()}
+                        style={{
+                            background: '#38bdf8',
+                            border: 'none',
+                            borderRadius: '8px',
+                            width: '40px',
+                            color: '#0f172a',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        ➤
+                    </button>
+                </div>
             </div>
-        </div>
-    );
+            );
 }
 
-function AIAssistantWrapper(props: { healthScore?: number }) {
+            function AIAssistantWrapper(props: {healthScore ?: number}) {
     const pathname = usePathname();
-    return <AIAssistantContent key={pathname} {...props} />;
+            return <AIAssistantContent key={pathname} {...props} />;
 }
 
-export default function AIAssistant(props: { healthScore?: number }) {
+            export default function AIAssistant(props: {healthScore ?: number}) {
     return (
-        <Suspense fallback={null}>
-            <AIAssistantWrapper {...props} />
-        </Suspense>
-    );
+            <Suspense fallback={null}>
+                <AIAssistantWrapper {...props} />
+            </Suspense>
+            );
 }
