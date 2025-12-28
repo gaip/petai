@@ -109,6 +109,23 @@ export default function AddPet() {
                                 <span style={{ fontSize: '0.8rem', color: 'gray' }}>Helps AI establish movement baseline</span>
                             </div>
                         )}
+                        {/* Progress Bar (Simulated) */}
+                        {uploading && (
+                            <div style={{ marginTop: '1rem', width: '100%', height: '8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', overflow: 'hidden' }}>
+                                <div className="progress-bar-fill" style={{ height: '100%', background: '#2dd4bf', transition: 'width 0.2s' }}></div>
+                            </div>
+                        )}
+                        <style jsx>{`
+                            @keyframes progressRun {
+                                0% { width: 0%; }
+                                20% { width: 45%; }
+                                50% { width: 70%; }
+                                100% { width: 95%; }
+                            }
+                            .progress-bar-fill {
+                                animation: progressRun 3s ease-out forwards;
+                            }
+                        `}</style>
                     </div>
                     <input
                         type="file"

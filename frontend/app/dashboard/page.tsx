@@ -23,7 +23,7 @@ export default async function Dashboard(props: { searchParams: Promise<{ pet?: s
     const params = await props.searchParams;
     const petName = params.pet || 'Max';
     const data = await getPetData(petName);
-    const { pet_id, health_score, history, alerts } = data;
+    const { pet_id, health_score, history, alerts, breed, age } = data;
 
     // Transform history for chart
     const activityData = history.map((h: { activity: number }) => h.activity);
@@ -37,7 +37,7 @@ export default async function Dashboard(props: { searchParams: Promise<{ pet?: s
             <header style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                     <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{pet_id}&apos;s Dashboard</h1>
-                    <p style={{ marginBottom: 0 }}>Golden Retriever • 7 Years Old</p>
+                    <p style={{ marginBottom: 0 }}>{breed || 'Unknown'} • {age || 0} Years Old</p>
                 </div>
                 {alerts.length > 0 && (
                     <div className="glass-panel" style={{ padding: '0.5rem 1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

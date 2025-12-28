@@ -34,7 +34,7 @@ latest_pet_state = {
                 "title": "Joint Stiffness Detected",
                 "message": "Vertex AI Vision detected a 15% asymmetry in rear-left gait mechanics versus 30-day baseline.",
                 "severity": "medium",
-                "audio": "https://storage.googleapis.com/petai-assets/audio/alert_joint.mp3"
+                "audio": "https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
             }
         ]
     },
@@ -134,6 +134,8 @@ def get_health(pet_id: str):
         
     return {
         "pet_id": pet_id,
+        "breed": "Unknown Breed",
+        "age": 0,
         "health_score": 98,
         "history": [],
         "alerts": []
