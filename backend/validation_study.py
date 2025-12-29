@@ -271,13 +271,13 @@ class ValidationStudy:
 
 ### What These Metrics Mean
 
-**94.3% Detection Accuracy**
-→ In a veterinary clinic seeing 100 at-risk pets, PetTwin Care would correctly identify 94 developing conditions
+**{metrics['detection_accuracy']*100:.1f}% Detection Accuracy**
+→ In a veterinary clinic seeing 100 at-risk pets, PetTwin Care would correctly identify {int(metrics['detection_accuracy']*100)} developing conditions
 
-**11.2 Days Average Early Warning**
+**{metrics['early_warning']['mean_days']:.1f} Days Average Early Warning**
 → Owners get actionable alerts nearly 2 weeks before symptoms become obvious
 
-**98% Accuracy on Severe Cases**
+**{metrics['severity_breakdown']['severe']['accuracy']*100:.0f}% Accuracy on Severe Cases**
 → Life-threatening conditions (heart failure, advanced kidney disease) are caught earliest when intervention matters most
 
 ### Real-World Impact
