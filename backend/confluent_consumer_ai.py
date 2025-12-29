@@ -4,7 +4,7 @@ Real-time processing pipeline for AI Partner Catalyst Hackathon.
 
 Features:
 - Confluent Cloud: SASL_SSL, optimized batching, auto-reconnect
-- Vertex AI: Gemini 1.5 Pro (Agentic Mode) for reasoning-based analysis
+- Vertex AI: Gemini 2.0/1.5 (Agentic Mode) for reasoning-based analysis
 - Output: Structured JSON for direct frontend consumption
 """
 import os
@@ -32,48 +32,71 @@ LOCATION = "us-central1"
 TOPIC = 'pet-health-stream'
 
 # Initialize Vertex AI
+GEMINI_ENABLED = False
 try:
     import vertexai
     from vertexai.generative_models import GenerativeModel, GenerationConfig
     
     vertexai.init(project=PROJECT_ID, location=LOCATION)
     
-    # Use Gemini Pro to support advanced reasoning prompts
-    MODEL_NAME = "gemini-pro"
+    # --- MODEL SELECTION (Cutting Edge) ---
+    # Trying the latest available models (Gemini 2.0 Flash Exp / 1.5 Pro)
+    POSSIBLE_MODELS = [
+        "gemini-2.0-flash-exp", # Next-Gen Reasoner
+        "gemini-1.5-pro-002",   # Stable High Intelligence
+        "gemini-1.5-flash-002", # Fast
+        "gemini-pro"            # Legacy Fallback
+    ]
+    
+    MODEL_NAME = "gemini-pro" # Default
     
     # Enforce JSON output for reliable parsing
     generation_config = GenerationConfig(
-        temperature=0.4,
-        top_p=0.8,
-        top_k=40,
+        temperature=0.3, 
+        top_p=0.95,
         response_mime_type="application/json",
-        max_output_tokens=1024,
+        max_output_tokens=2048,
     )
     
-    # AGENTIC SYSTEM INSTRUCTION (Vertex AI Agent Engine Style)
-    model = GenerativeModel(
-        model_name=MODEL_NAME,
-        system_instruction="""You are the PetTwin Virtual Veterinarian Agent (powered by Vertex AI).
+    # AGENTIC SYSTEM INSTRUCTION
+    SYSTEM_INSTRUCTION = """You are the PetTwin Virtual Veterinarian Agent (powered by Vertex AI).
         
-        Your Goal: specific, actionable, and empathetic veterinary analysis.
-        
-        AGENT REASONING PROTOCOL:
-        1. OBSERVE: Analyze the Z-Scores and metrics.
-        2. REASON: Determine the likely physiological cause (e.g., pain, stress, infection).
-        3. ACT: Generate a structured JSON alert.
-        
-        Your output MUST be a valid JSON object with the following schema:
-        {
-            "alert_title": "Short, urgent title (e.g., 'High Heart Rate Detected')",
-            "severity_level": "LOW|MEDIUM|HIGH|CRITICAL",
-            "medical_explanation": "Simple, non-jargon explanation for the owner (1 sentence)",
-            "recommended_action": "Clear, actionable advice (e.g., 'Contact your vet today')",
-            "confidence_score": 0.0-1.0
-        }
-        ALWAYS return PURE JSON. Do not use markdown blocks."""
-    )
-    GEMINI_ENABLED = True
-    logger.info(f"✅ Vertex AI Agent initialized: {MODEL_NAME} @ {PROJECT_ID}")
+    Your Goal: specific, actionable, and empathetic veterinary analysis.
+    
+    AGENT REASONING PROTOCOL:
+    1. OBSERVE: Analyze the Z-Scores and metrics.
+    2. REASON: Determine the likely physiological cause (e.g., pain, stress, infection).
+    3. ACT: Generate a structured JSON alert.
+    
+    Your output MUST be a valid JSON object with the following schema:
+    {
+        "alert_title": "Short, urgent title (e.g., 'High Heart Rate Detected')",
+        "severity_level": "LOW|MEDIUM|HIGH|CRITICAL",
+        "medical_explanation": "Simple, non-jargon explanation for the owner (1 sentence)",
+        "recommended_action": "Clear, actionable advice (e.g., 'Contact your vet today')",
+        "confidence_score": 0.0-1.0
+    }
+    ALWAYS return PURE JSON. Do not use markdown blocks."""
+
+    # Select best model
+    model = None
+    for m in POSSIBLE_MODELS:
+        try:
+            # Attempt init
+            temp_model = GenerativeModel(model_name=m, system_instruction=SYSTEM_INSTRUCTION)
+            MODEL_NAME = m
+            model = temp_model
+            logger.info(f"✅ Selected Cutting-Edge Model: {MODEL_NAME}")
+            GEMINI_ENABLED = True
+            break
+        except Exception:
+            continue
+            
+    if not GEMINI_ENABLED:
+        # Fallback to base
+        logger.warning("⚠️ Could not load specific models, trying default gemini-pro")
+        model = GenerativeModel("gemini-pro", system_instruction=SYSTEM_INSTRUCTION)
+        GEMINI_ENABLED = True
 
 except ImportError:
     logger.error("❌ google-cloud-aiplatform not installed. Running in limited mode.")
@@ -166,6 +189,7 @@ class AnomalyDetector:
         
         try:
             start_time = time.time()
+            # Note: We must create a new request but reuse the config
             response = model.generate_content(
                 prompt,
                 generation_config=generation_config
@@ -173,7 +197,7 @@ class AnomalyDetector:
             latency = (time.time() - start_time) * 1000
             
             ai_response = json.loads(response.text)
-            logger.info(f"🧠 Vertex AI Agent Reasoned in {latency:.0f}ms")
+            logger.info(f"🧠 Vertex AI Agent ({MODEL_NAME}) Reasoned in {latency:.0f}ms")
             
             return {**analysis_result, "ai_analysis": ai_response}
             
@@ -273,15 +297,9 @@ def main():
                     # Log the alert (In prod, this would push to Firestore/Frontend)
                     ai = alert['ai_analysis']
                     logger.info("\n" + "="*60)
-                    logger.info(f"🚨 AGENT ALERT: {ai['alert_title']} ({ai['severity_level']})")
+                    logger.info(f"🚨 AGENT ALERT ({MODEL_NAME}): {ai['alert_title']} ({ai['severity_level']})")
                     logger.info(f"📝 Reasoning: {ai['medical_explanation']}")
-                    logger.info(f"👉 Action: {ai['recommended_action']}")
-                    logger.info(f"📊 Stats: {alert['anomalies']}")
                     logger.info("="*60 + "\n")
-                else:
-                    # Heartbeat log every 50 msgs or verbose
-                    if int(time.time()) % 10 == 0:
-                        logger.debug(f"Processing: {data['pet_id']} - Nominal")
 
             except json.JSONDecodeError:
                 logger.error("Failed to decode JSON message")

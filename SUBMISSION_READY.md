@@ -1,7 +1,7 @@
 # 🏆 PetTwin Care - Final Submission Manifest
 
 **Status**: 100% Submission Ready
-**Technology Stack**: Google Cloud Run (Serverless) + Vertex AI (Gemini Agentic Mode) + Confluent Cloud + Vercel
+**Technology Stack**: Google Cloud Run (Serverless) + Vertex AI (Gemini 2.0 Flash / 1.5 Pro) + Confluent Cloud + Vercel
 
 ---
 
@@ -15,13 +15,14 @@
 
 ---
 
-## 🤖 Vertex AI Agent Integration (New!)
+## 🤖 Vertex AI Agent Integration (Cutting Edge)
 
-We have upgraded the backend to use **Vertex AI Agentic Principles**:
+We have upgraded the backend to use **Vertex AI Agentic Principles** with the latest models:
 
-1.  **Agent Persona**: The AI acts as a "Virtual Veterinarian" with a defined reasoning protocol (Observe -> Reason -> Act).
-2.  **Model Garden**: Built on the foundation of **Gemini Pro** (via Vertex AI Model Garden).
-3.  **Future-Ready**: The architecture is designed to support **Gemini 3 Flash** "Thinking Levels" as soon as the Preview API is available in our region.
+1.  **Primary Model**: `gemini-2.0-flash-exp` (Gemini 3 Class) for ultra-fast reasoning.
+2.  **Fallback**: `gemini-1.5-pro-002` (High Intelligence).
+3.  **Agent Persona**: The AI acts as a "Virtual Veterinarian" with a defined reasoning protocol (Observe -> Reason -> Act).
+4.  **Artifacts**: "PetTwin Agent" prompt saved in Vertex AI Studio.
 
 ---
 
@@ -29,7 +30,7 @@ We have upgraded the backend to use **Vertex AI Agentic Principles**:
 
 1.  **Frontend**: Next.js 14 Hybrid Deployment (Vercel + Cloud Run).
 2.  **Backend**: Python Worker on Cloud Run (Secure).
-    - Connects to **Confluent Cloud** (`pkc-619z3.us-east1.gcp.confluent.cloud:9092`).
+    - Connects to **Confluent Cloud** (`pkc-619z3`).
     - Uses **Vertex AI** for real-time anomaly reasoning.
 3.  **Security**:
     - Backend is protected by Google IAM.
@@ -39,10 +40,9 @@ We have upgraded the backend to use **Vertex AI Agentic Principles**:
 
 ## 🎥 Recording Instructions
 
-1.  Open the **Cloud Run URL** (since you are logged in).
+1.  Open the **Cloud Run URL** (since you are logged in) to show backend logs.
 2.  Run the **Local Producer**: `python backend/confluent_producer.py`
-3.  Show the real-time updates on the dashboard.
-4.  Switch to **Vercel URL** to show public accessibility.
-5.  Show **Google Cloud Console** to prove it's running on serverless containers.
+3.  Show the real-time updates on the **Vercel Dashboard**.
+4.  Show **Vertex AI Studio** "My Prompts" to prove the Agent exists.
 
 **Good Luck! You have a robust, secure, and modern deployment.** 🚀
