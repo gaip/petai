@@ -22,15 +22,17 @@ export default function Home() {
             <a href="https://github.com/gaip/petai" target="_blank" className="btn btn-secondary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>View on GitHub</a>
           </div>
 
-          {/* YouTube Video Embed */}
+          {/* Local Video Embed */}
           <div className="video-container animate-fade-up" style={{ animationDelay: '0.6s' }}>
             <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
-              <iframe
-                src="https://www.youtube.com/embed/r1d-tVPNA74"
+              <video
+                src="/demo.mp4"
                 title="PetTwin AI Demo"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none', borderRadius: 'inherit' }}
+                loop
+                muted
+                controls
+                playsInline
               />
             </div>
           </div>
