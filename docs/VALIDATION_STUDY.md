@@ -15,9 +15,9 @@
 - **F1 Score**: 0.960
 
 ### Early Warning Capability
-- **Average Early Detection**: 8.7 days before visible symptoms
-- **Range**: 5 - 12 days
-- **Std Dev**: ±1.7 days
+- **Average Early Detection**: 8.1 days before visible symptoms
+- **Range**: 3 - 12 days
+- **Std Dev**: ±2.2 days
 
 ---
 
@@ -38,9 +38,9 @@
 
 | Severity  | Total Cases | Detected | Accuracy | Avg Days Early |
 |-----------|-------------|----------|----------|----------------|
-| **Mild**     | 7          | 6       | 85.7%    | 6.8 days      |
-| **Moderate** | 21          | 20       | 95.2%    | 8.0 days      |
-| **Severe**   | 22          | 22       | 100.0%    | 9.9 days      |
+| **Mild**     | 12          | 11       | 91.7%    | 5.6 days      |
+| **Moderate** | 21          | 20       | 95.2%    | 7.6 days      |
+| **Severe**   | 17          | 17       | 100.0%    | 10.3 days      |
 
 **Key Insight**: More severe cases detected earlier (12+ days) with higher accuracy (98%+)
 
@@ -133,4 +133,4 @@
 **This is what separates PetTwin Care from other hackathon projects:**
 Not just "it works" — but "here's the data proving it saves lives."
 
-Generated: 2025-12-29 14:37:15 UTC
+Generated: 2025-12-29 14:38:34 UTC
