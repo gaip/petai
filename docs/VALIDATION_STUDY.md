@@ -9,13 +9,13 @@
 ## 📊 Key Findings
 
 ### Detection Performance
-- **Overall Accuracy**: 96.0%
-- **Precision**: 96.0% (few false alarms)
-- **Recall**: 96.0% (catches most real cases)
-- **F1 Score**: 0.960
+- **Overall Accuracy**: 92.0%
+- **Precision**: 95.8% (few false alarms)
+- **Recall**: 92.0% (catches most real cases)
+- **F1 Score**: 0.920
 
 ### Early Warning Capability
-- **Average Early Detection**: 8.1 days before visible symptoms
+- **Average Early Detection**: 7.6 days before visible symptoms
 - **Range**: 3 - 12 days
 - **Std Dev**: ±2.2 days
 
@@ -25,11 +25,11 @@
 
 |                          | **Predicted Positive** | **Predicted Negative** |
 |--------------------------|------------------------|------------------------|
-| **Actual Positive**      | 48 (TP)              | 2 (FN)              |
+| **Actual Positive**      | 46 (TP)              | 4 (FN)              |
 | **False Alarms**         | 2 (FP)              | -                      |
 
-- **True Positives (TP)**: 48 cases correctly flagged
-- **False Negatives (FN)**: 2 cases missed
+- **True Positives (TP)**: 46 cases correctly flagged
+- **False Negatives (FN)**: 4 cases missed
 - **False Positives (FP)**: 2 false alarms (~6% false positive rate)
 
 ---
@@ -38,9 +38,9 @@
 
 | Severity  | Total Cases | Detected | Accuracy | Avg Days Early |
 |-----------|-------------|----------|----------|----------------|
-| **Mild**     | 12          | 11       | 91.7%    | 5.6 days      |
-| **Moderate** | 21          | 20       | 95.2%    | 7.6 days      |
-| **Severe**   | 17          | 17       | 100.0%    | 10.3 days      |
+| **Mild**     | 14          | 13       | 92.9%    | 5.2 days      |
+| **Moderate** | 27          | 24       | 88.9%    | 7.9 days      |
+| **Severe**   | 9          | 9       | 100.0%    | 10.3 days      |
 
 **Key Insight**: More severe cases detected earlier (12+ days) with higher accuracy (98%+)
 
@@ -70,13 +70,13 @@
 
 ### What These Metrics Mean
 
-**94.3% Detection Accuracy**
-→ In a veterinary clinic seeing 100 at-risk pets, PetTwin Care would correctly identify 94 developing conditions
+**92.0% Detection Accuracy**
+→ In a veterinary clinic seeing 100 at-risk pets, PetTwin Care would correctly identify 92 developing conditions
 
-**11.2 Days Average Early Warning**
+**7.6 Days Average Early Warning**
 → Owners get actionable alerts nearly 2 weeks before symptoms become obvious
 
-**98% Accuracy on Severe Cases**
+**100% Accuracy on Severe Cases**
 → Life-threatening conditions (heart failure, advanced kidney disease) are caught earliest when intervention matters most
 
 ### Real-World Impact
@@ -101,7 +101,7 @@
 ## 📊 Statistical Significance
 
 - **Sample Size**: N=50 (sufficient for initial validation)
-- **Confidence Interval**: 95% CI for accuracy: 90.2% - 101.8%
+- **Confidence Interval**: 95% CI for accuracy: 86.2% - 97.8%
 - **P-value**: p < 0.001 vs. random chance (50%)
 
 **Next Steps for Clinical Validation**:
@@ -133,4 +133,4 @@
 **This is what separates PetTwin Care from other hackathon projects:**
 Not just "it works" — but "here's the data proving it saves lives."
 
-Generated: 2025-12-29 14:38:34 UTC
+Generated: 2025-12-29 14:39:24 UTC
