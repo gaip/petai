@@ -1,76 +1,46 @@
 # 🏆 PetTwin Care - Final Submission Manifest
 
 **Status**: 100% Submission Ready
-**Technology Stack**: Google Cloud Run (Serverless) + Vertex AI (Gemini 1.5 Flash) + Confluent Cloud (Kafka)
+**Technology Stack**: Google Cloud Run (Serverless) + Vertex AI (Gemini Pro) + Confluent Cloud (Kafka)
 
 ---
 
-## ⚡️ Quick Start (Demo Mode)
+## 🌍 LIVE WEB DEMO
 
-**1. Run the "Best Possible" Demo Locally:**
-To demonstrate the full **Real-Time AI Dashboard** with live polling and Vertex AI integration:
-
-```bash
-# Terminal 1: Start Backend (Telemetry + AI)
-cd backend
-source venv/bin/activate
-python confluent_consumer_ai.py
-
-# Terminal 2: Start Frontend (Live Dashboard)
-cd frontend
-npm run dev
-```
-
-👉 Open **http://localhost:3000/dashboard**
-
-- Wait 5 seconds for telemetry to flow.
-- You will see **Live Anomaly Alerts** with "✨ Vertex AI Gemini 1.5" badges.
-- Shows: **Medical Explanation** (from Gemini) and **Recommended Actions**.
+- **Frontend UI**: [https://pettwin-frontend-587597274680.us-central1.run.app](https://pettwin-frontend-587597274680.us-central1.run.app)
+- **Backend API**: [https://pettwin-backend-587597274680.us-central1.run.app](https://pettwin-backend-587597274680.us-central1.run.app)
 
 ---
 
-## ☁️ Google Cloud Deployment (Production)
+## 🔧 Backend Configuration (Critical)
 
-We have containerized the application for **Google Cloud Run**.
+The Backend is currently deployed but needs **Confluent Cloud Credentials** to be 100% operational.
+**Action Required:**
 
-**Docker Images Built:**
-
-- Backend: `us-central1-docker.pkg.dev/mindful-pillar-482716-r9/pettwin-repo/backend:latest`
-- Frontend: `us-central1-docker.pkg.dev/mindful-pillar-482716-r9/pettwin-repo/frontend:latest (Building...)`
-
-**One-Click Deploy:**
-Run the included script to deploy live to the internet:
-
-```bash
-./deploy_to_cloud_run.sh
-```
+1.  Go to [Google Cloud Run Console](https://console.cloud.google.com/run/detail/us-central1/pettwin-backend/revisions).
+2.  Click **Edit & Deploy New Revision**.
+3.  Add Environment Variables:
+    - `CONFLUENT_BOOTSTRAP_SERVERS`: `pkc-619z3.us-east1.gcp.confluent.cloud:9092`
+    - `CONFLUENT_API_KEY`: _(Your Key)_
+    - `CONFLUENT_API_SECRET`: _(Your Secret)_
+4.  Click **Deploy**.
 
 ---
 
-## 📸 Devpost Assets (Updated)
+## ⚡️ Architecture Highlights
 
-I have remotely updated your Devpost "How we built it" section with:
-
-1.  **Google Cloud Native**: Cloud Run + Cloud Build.
-2.  **Vertex AI Gemini 1.5 Flash**: Sub-second medical analysis.
-3.  **Real-Time Architecture**: Confluent Cloud + Live Polling UI.
-
-**Screenshots** are located in `/devpost_screenshots/`.
-
-- `01_architecture_confluent_vertexai.png`
-- `02_confluent_cloud_dashboard.png`
-- `03_live_dashboard_vertex_ai.png`
-- `04_vertex_ai_gemini_code.png`
-
-(Please ensure these images are uploaded to the Devpost "Image Gallery" section if not already present).
+1.  **Frontend**: Next.js 14 on Cloud Run. Real-Time Polling Dashboard.
+2.  **Backend**: Python Worker on Cloud Run.
+    - Connects to **Confluent Cloud** (`pkc-619z3...`).
+    - Uses **Vertex AI Gemini Pro** for anomaly analysis.
+3.  **Deployment**: Fully containerized with Docker and Cloud Build.
 
 ---
 
-## ✅ Compliance Checklist
+## 📸 Assets & Proof
 
-- [x] **Confluent Cloud**: Used for all streaming data.
-- [x] **Google Cloud AI**: Used Vertex AI Gemini 1.5 Flash.
-- [x] **Real-Time**: Dashboard updates every 2 seconds.
-- [x] **Submission**: Devpost text updated remotely.
+- **Code**: GitHub Main Branch.
+- **Screenshots**: `/devpost_screenshots/`
+- **Video**: Record using the live URL above!
 
-**Good Luck! You have a winning architecture here.** 🚀
+**Good Luck! You have a pure Google Cloud Native deployment.** 🚀
