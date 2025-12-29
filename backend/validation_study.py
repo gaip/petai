@@ -12,6 +12,7 @@ Generates publication-ready metrics for Devpost submission:
 
 import numpy as np
 import json
+import os
 from datetime import datetime, timedelta
 from typing import List, Dict, Tuple
 from dataclasses import dataclass
@@ -407,25 +408,28 @@ def main():
     report = study.generate_report()
 
     # Save outputs
-    with open('/home/user/petai/docs/VALIDATION_STUDY.md', 'w') as f:
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    docs_dir = os.path.join(base_dir, 'docs')
+    
+    with open(os.path.join(docs_dir, 'VALIDATION_STUDY.md'), 'w') as f:
         f.write(report)
-    print("   ✅ Saved: docs/VALIDATION_STUDY.md")
+    print(f"   ✅ Saved: {os.path.join(docs_dir, 'VALIDATION_STUDY.md')}")
 
-    with open('/home/user/petai/docs/validation_metrics.json', 'w') as f:
+    with open(os.path.join(docs_dir, 'validation_metrics.json'), 'w') as f:
         json.dump(metrics, f, indent=2, default=str)
-    print("   ✅ Saved: docs/validation_metrics.json")
+    print(f"   ✅ Saved: {os.path.join(docs_dir, 'validation_metrics.json')}")
 
     chart_data = study.export_charts_data()
-    with open('/home/user/petai/docs/chart_data.json', 'w') as f:
+    with open(os.path.join(docs_dir, 'chart_data.json'), 'w') as f:
         json.dump(chart_data, f, indent=2)
-    print("   ✅ Saved: docs/chart_data.json (use this for matplotlib/plotly)")
+    print(f"   ✅ Saved: {os.path.join(docs_dir, 'chart_data.json')} (use this for matplotlib/plotly)")
 
     print()
     print("=" * 80)
     print("🎉 Validation study complete!")
     print()
     print("Next steps:")
-    print("1. Review docs/VALIDATION_STUDY.md")
+    print(f"1. Review {os.path.join(docs_dir, 'VALIDATION_STUDY.md')}")
     print("2. Add charts using chart_data.json (matplotlib or Canva)")
     print("3. Include key metrics in Devpost submission:")
     print(f"   - 94.3% detection accuracy")
