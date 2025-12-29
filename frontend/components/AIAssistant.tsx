@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import SocialShare from './SocialShare';
+import styles from './AIAssistant.module.css';
 
 interface Message {
     role: 'ai' | 'user';
@@ -26,7 +27,7 @@ function getInitialMsg(pathname: string | null): string {
 function AIAssistantContent({ healthScore }: { healthScore?: number }) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const [isOpen, setIsOpen] = useState(false); // Start closed (minimized)
+    const [isOpen, setIsOpen] = useState(false); 
     const [messages, setMessages] = useState<Message[]>([{ role: 'ai', content: getInitialMsg(pathname) }]);
     const [input, setInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
@@ -36,10 +37,7 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
     useEffect(() => {
         // Auto-open only on large screens
         if (typeof window !== 'undefined' && window.innerWidth > 768) {
-            // eslint-disable-next-line
-            setIsOpen(true);
-        } else {
-            setIsOpen(false);
+             setIsOpen(true);
         }
     }, []);
 
@@ -49,7 +47,7 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages]);
+    }, [messages, isTyping, thinkingStep]);
 
     // Context-aware suggestions
     const suggestions = [
@@ -69,9 +67,15 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
         setThinkingStep("Initializing Vertex AI Context...");
 
         // Simulate complex AI processing pipeline
-        setTimeout(() => setThinkingStep("Querying Gemini Pro via GCP..."), 600);
-        setTimeout(() => setThinkingStep("Correlating with Kafka Telemetry..."), 1200);
-        setTimeout(() => setThinkingStep("Synthesizing Natural Language Response..."), 1800);
+        const steps = [
+             { msg: "Querying Gemini Pro via GCP...", delay: 600 },
+             { msg: "Correlating with Kafka Telemetry...", delay: 1200 },
+             { msg: "Synthesizing Natural Language Response...", delay: 1800 }
+        ];
+
+        steps.forEach(step => {
+            setTimeout(() => setThinkingStep(step.msg), step.delay);
+        });
 
         setTimeout(async () => {
             const response = await generateAIResponse(userMsg);
@@ -123,26 +127,9 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
     if (!isOpen) {
         return (
             <button
+                className={styles.triggerButton}
                 onClick={() => setIsOpen(true)}
-                style={{
-                    position: 'fixed',
-                    bottom: '2rem',
-                    right: '2rem',
-                    background: '#0f172a',
-                    border: '1px solid #38bdf8',
-                    color: '#38bdf8',
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '50%',
-                    fontSize: '2rem',
-                    cursor: 'pointer',
-                    boxShadow: '0 0 20px rgba(56, 189, 248, 0.4)',
-                    zIndex: 50, // Reduced from 9999 to avoid modal occlusion
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'all 0.3s ease'
-                }}
+                aria-label="Open AI Assistant"
             >
                 🤖
             </button>
@@ -150,21 +137,14 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
     }
 
     return (
-        <div className="ai-assistant-panel">
+        <div className={styles.panel}>
             {/* Header */}
-            <div style={{
-                padding: '1rem',
-                background: 'rgba(56, 189, 248, 0.1)',
-                borderBottom: '1px solid rgba(56, 189, 248, 0.2)',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-            }}>
+            <div className={styles.header}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <span style={{ fontSize: '1.5rem' }}>🤖</span>
                     <div>
-                        <h4 style={{ margin: 0, color: '#38bdf8', fontSize: '0.95rem', fontWeight: 600 }}>PetTwin AI Agent</h4>
-                        <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Online • Monitoring Active</span>
+                        <h4 className={styles.headerTitle}>PetTwin AI Agent</h4>
+                        <span className={styles.headerStatus}>Online • Monitoring Active</span>
                     </div>
                 </div>
                 <button
@@ -175,61 +155,10 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
                 </button>
             </div>
 
-            <style jsx>{`
-                .ai-assistant-panel {
-                    position: fixed;
-                    bottom: 2rem;
-                    right: 2rem;
-                    width: 380px;
-                    height: 600px;
-                    background: rgba(15, 23, 42, 0.95);
-                    border: 1px solid rgba(56, 189, 248, 0.3);
-                    border-radius: 16px;
-                    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-                    z-index: 50;
-                    backdrop-filter: blur(10px);
-                    display: flex;
-                    flex-direction: column;
-                    overflow: hidden;
-                    font-family: var(--font-geist-sans);
-                    animation: slideIn 0.3s ease-out;
-                }
-                
-                @media (max-width: 768px) {
-                    .ai-assistant-panel {
-                        right: 1rem;
-                        bottom: 1rem;
-                        width: calc(100vw - 2rem); /* Full width minus padding */
-                        height: 500px; /* Shorter on mobile */
-                        max-height: 70vh;
-                        z-index: 1000; /* Ensure on top on mobile if open */
-                    }
-                }
-            `}</style>
-
             {/* Chat Area */}
-            <div style={{
-                flex: 1,
-                padding: '1rem',
-                overflowY: 'auto',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1rem'
-            }}>
+            <div className={styles.chatArea}>
                 {messages.map((msg, idx) => (
-                    <div key={idx} style={{
-                        alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
-                        maxWidth: '85%',
-                        background: msg.role === 'user' ? '#38bdf8' : 'rgba(255,255,255,0.05)',
-                        color: msg.role === 'user' ? '#0f172a' : '#e2e8f0',
-                        padding: '0.75rem 1rem',
-                        borderRadius: '12px',
-                        borderBottomRightRadius: msg.role === 'user' ? '4px' : '12px',
-                        borderBottomLeftRadius: msg.role === 'ai' ? '4px' : '12px',
-                        fontSize: '0.9rem',
-                        lineHeight: '1.5',
-                        whiteSpace: 'pre-wrap'
-                    }}>
+                    <div key={idx} className={`${styles.message} ${msg.role === 'user' ? styles.messageUser : styles.messageAi}`}>
                         {msg.content.split('<SocialShare').map((part, i) => {
                             if (i === 0) return part;
                             const [props, rest] = part.split('/>');
@@ -249,7 +178,7 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
 
                 {/* Suggested Questions Chips */}
                 {messages.length < 3 && !isTyping && (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
+                    <div className={styles.suggestionsContainer}>
                         {suggestions.map((s, i) => (
                             <button
                                 key={i}
@@ -257,16 +186,7 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
                                     setInput(s);
                                     handleSend(s);
                                 }}
-                                style={{
-                                    background: 'rgba(56, 189, 248, 0.1)',
-                                    border: '1px solid rgba(56, 189, 248, 0.3)',
-                                    color: '#bae6fd',
-                                    padding: '0.4rem 0.8rem',
-                                    borderRadius: '20px',
-                                    fontSize: '0.8rem',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s'
-                                }}
+                                className={styles.suggestionChip}
                             >
                                 {s}
                             </button>
@@ -275,51 +195,31 @@ function AIAssistantContent({ healthScore }: { healthScore?: number }) {
                 )}
 
                 {isTyping && (
-                    <div style={{ alignSelf: 'flex-start', color: '#94a3b8', fontSize: '0.8rem', paddingLeft: '0.5rem', fontStyle: 'italic' }}>
-                        <span style={{ marginRight: '6px' }}>⚡</span>
-                        {thinkingStep || "Thinking..."}
+                    <div className={styles.typingIndicator}>
+                         <div className="spinner" style={{width: '12px', height: '12px', border: '2px solid rgba(56, 189, 248, 0.3)', borderTopColor: '#38bdf8', borderRadius: '50%', animation: 'spin 1s linear infinite'}}></div>
+                        <span>{thinkingStep || "Thinking..."}</span>
+                        <style jsx>{`
+                            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+                        `}</style>
                     </div>
                 )}
                 <div ref={messagesEndRef} />
             </div>
 
             {/* Input Area */}
-            <div style={{
-                padding: '1rem',
-                borderTop: '1px solid rgba(255,255,255,0.1)',
-                display: 'flex',
-                gap: '0.5rem'
-            }}>
+            <div className={styles.inputArea}>
                 <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                     placeholder="Ask about Max's health..."
-                    style={{
-                        flex: 1,
-                        background: 'rgba(0,0,0,0.3)',
-                        border: '1px solid rgba(255,255,255,0.2)',
-                        borderRadius: '8px',
-                        padding: '0.75rem',
-                        color: 'white',
-                        fontSize: '0.9rem',
-                        outline: 'none'
-                    }}
+                    className={styles.inputField}
                 />
                 <button
                     onClick={() => handleSend()}
-                    style={{
-                        background: '#38bdf8',
-                        border: 'none',
-                        borderRadius: '8px',
-                        width: '40px',
-                        color: '#0f172a',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
+                    className={styles.sendButton}
+                    aria-label="Send Message"
                 >
                     ➤
                 </button>
