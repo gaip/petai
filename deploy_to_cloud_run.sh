@@ -14,12 +14,18 @@ echo "🚀 Deploying Backend (Python + Confluent + VertexAI)"
 echo "==================================================="
 
 # Deploy Backend
+# Fetch Git Metadata for Datadog Source Code Integration
+GIT_COMMIT_SHA=$(git rev-parse HEAD)
+GIT_REPOSITORY_URL="https://github.com/gaip/petai"
+
+echo "🔗 Linking Deployment to Git Commit: $GIT_COMMIT_SHA"
+
 gcloud run deploy pettwin-backend \
     --image us-central1-docker.pkg.dev/mindful-pillar-482716-r9/pettwin-repo/backend \
     --region us-central1 \
     --platform managed \
     --allow-unauthenticated \
-    --set-env-vars "PROJECT_ID=mindful-pillar-482716-r9" \
+    --set-env-vars "PROJECT_ID=mindful-pillar-482716-r9,DD_GIT_REPOSITORY_URL=${GIT_REPOSITORY_URL},DD_GIT_COMMIT_SHA=${GIT_COMMIT_SHA}" \
     --project mindful-pillar-482716-r9
     # Removed explicit env vars here so it doesn't crash if they are missing locally.
     # You can set them in Cloud Console later if needed.
@@ -38,7 +44,7 @@ gcloud run deploy pettwin-frontend \
     --region us-central1 \
     --platform managed \
     --allow-unauthenticated \
-    --set-env-vars "NEXT_PUBLIC_API_URL=$BACKEND_URL" \
+    --set-env-vars "NEXT_PUBLIC_API_URL=$BACKEND_URL,DD_GIT_REPOSITORY_URL=${GIT_REPOSITORY_URL},DD_GIT_COMMIT_SHA=${GIT_COMMIT_SHA}" \
     --project mindful-pillar-482716-r9
 
 FRONTEND_URL=$(gcloud run services describe pettwin-frontend --region us-central1 --format 'value(status.url)' --project mindful-pillar-482716-r9)

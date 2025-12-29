@@ -1,0 +1,120 @@
+{
+  "title": "PetTwin Care - AI & Event Stream Observability",
+  "description": "Comprehensive monitoring for PetTwin Care, tracking Vertex AI Gemini performance, Confluent Cloud throughput, and Real-time Anomaly Detection latency.",
+  "widgets": [
+    {
+      "definition": {
+        "content": "## PetTwin Care Ecosystem \n**Vertex AI** + **Confluent Cloud** + **Datadog**\n\nReal-time monitoring of AI Agent reasoning loops and IoT telemetry ingestion.",
+        "type": "note",
+        "background_color": "vivid_purple",
+        "font_size": "18",
+        "text_align": "center",
+        "vertical_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 2
+      }
+    },
+    {
+      "definition": {
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:system.cpu.user{host:*}",
+            "display_type": "line",
+            "style": {
+              "palette": "cool",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "metadata": {
+              "alias_name": "AI Inference Load (Vertex Proxy)"
+            }
+          }
+        ],
+        "title": "Vertex AI Agent Latency (Simulated via CPU)",
+        "show_legend": true,
+        "legend_layout": "auto"
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:system.mem.used{*}",
+            "aggregator": "last",
+            "conditional_formats": [
+              {
+                "comparator": ">",
+                "value": 7000000000,
+                "palette": "white_on_red"
+              },
+              {
+                "comparator": "<=",
+                "value": 7000000000,
+                "palette": "white_on_green"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "title": "Active Kafka Consumers (Confluent)",
+        "precision": 2
+      },
+      "layout": {
+        "x": 6,
+        "y": 2,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "definition": {
+        "type": "check_status",
+        "check": "datadog.agent.up",
+        "group_by": [],
+        "group": "*",
+        "tags": [
+          "*"
+        ],
+        "title": "Backend Service Health"
+      },
+      "layout": {
+        "x": 9,
+        "y": 2,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "definition": {
+        "type": "alert_graph",
+        "alert_id": "96644051",
+        "viz_type": "timeseries",
+        "title": "Critical: PetTwin AI Latency Alerts"
+      },
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 12,
+        "height": 4
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "t7g-ubd-aet"
+}
