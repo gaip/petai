@@ -431,9 +431,9 @@ def main():
     print("Next steps:")
     print(f"1. Review {os.path.join(docs_dir, 'VALIDATION_STUDY.md')}")
     print("2. Add charts using chart_data.json (matplotlib or Canva)")
-    print("3. Include key metrics in Devpost submission:")
-    print(f"   - 94.3% detection accuracy")
-    print(f"   - 11.2 days average early warning")
+    print(f"3. Include key metrics in Devpost submission:")
+    print(f"   - {metrics['detection_accuracy']*100:.1f}% detection accuracy")
+    print(f"   - {metrics['early_warning']['mean_days']:.1f} days average early warning")
     print("4. Upload validation report to GitHub")
     print()
 
