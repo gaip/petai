@@ -15,6 +15,8 @@ from collections import deque
 from typing import Dict, Any, Optional
 import numpy as np
 from confluent_kafka import Consumer, KafkaError
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 # Configure professional logging
 logging.basicConfig(
@@ -202,6 +204,29 @@ def get_confluent_config():
             'group.id': 'pettwin-local-group',
             'auto.offset.reset': 'latest'
         }
+
+# ==========================================
+# 🏥 CLOUD RUN HEALTH CHECK SERVER
+# ==========================================
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"OK")
+    
+    def log_message(self, format, *args):
+        return # Silence health check logs
+
+def start_health_check_server():
+    port = int(os.environ.get("PORT", 8080))
+    server = HTTPServer(('0.0.0.0', port), HealthCheckHandler)
+    logger.info(f"🏥 Health check server listening on port {port}")
+    server.serve_forever()
+
+# Start health check in background thread
+health_thread = threading.Thread(target=start_health_check_server, daemon=True)
+health_thread.start()
+# ==========================================
 
 def main():
     logger.info("🚀 Starting PetTwin AI Processor...")
