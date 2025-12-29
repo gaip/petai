@@ -78,8 +78,8 @@ Create 5-7 compelling screenshots that show judges **real proof** of Confluent i
 
 **What to Show**:
 - Key metrics displayed prominently:
-  - **96.0% Detection Accuracy**
-  - **8.0 Days Average Early Warning**
+  - **92.0% Detection Accuracy**
+  - **7.6 Days Average Early Warning**
 - Confusion matrix table
 - Performance by severity table
 
@@ -87,7 +87,7 @@ Create 5-7 compelling screenshots that show judges **real proof** of Confluent i
 1. Open `docs/VALIDATION_STUDY.md`
 2. Copy the key metrics section
 3. Use Canva or Figma to create a clean infographic:
-   - Large numbers for 96.0% and 8.0 days
+   - Large numbers for 92.0% and 7.6 days
    - Clean table layout
    - Professional medical/tech aesthetic (blue/green color scheme)
 
@@ -97,21 +97,21 @@ Create 5-7 compelling screenshots that show judges **real proof** of Confluent i
 │  VALIDATION STUDY RESULTS        │
 ├──────────────────────────────────┤
 │                                  │
-│    96.0%    │    8.0 days        │
+│    92.0%    │    7.6 days        │
 │  Detection  │  Early Warning     │
 │  Accuracy   │  (avg)             │
 │                                  │
 ├──────────────────────────────────┤
 │  Confusion Matrix:               │
-│  TP: 48  FN: 2  FP: 3            │
+│  TP: 46  FN: 4  FP: 2            │
 │                                  │
-│  Severe Cases: 98% accuracy      │
-│  (detected 12+ days early)       │
+│  Severe Cases: 100% accuracy     │
+│  (detected 10+ days early)       │
 └──────────────────────────────────┘
 ```
 
 **Caption**:
-> "Retrospective validation study on 50 simulated cases. 96% detection accuracy with 8-day average early warning before symptoms become visible. Severe cases (heart failure, advanced kidney disease) detected earliest when intervention matters most."
+> "Retrospective validation study on 50 simulated cases. 92% detection accuracy with 7.6-day average early warning before symptoms become visible. Severe cases (heart failure, advanced kidney disease) detected earliest when intervention matters most."
 
 ---
 

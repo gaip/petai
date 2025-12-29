@@ -13,7 +13,7 @@
 
 ## 🎯 The Problem: Silent Suffering
 
-**Veterinarians have a suicide rate 3-5x higher than the general population.**
+**Veterinarians have a suicide rate 3-5x higher than the general population.**[^1]
 
 Why? They see beloved pets arrive with treatable conditions—caught too late. Hip dysplasia, kidney disease, arthritis—all show subtle behavioral changes **2-3 weeks before visible symptoms**. But pets instinctively hide pain. By the time owners notice limping or lethargy, the disease has progressed significantly.
 
@@ -388,3 +388,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Built with ❤️ for pets, vets, and the humans who love them.**
 
 _PetTwin Care: Because your pet can't tell you when something's wrong. But their data can._
+
+---
+
+## References
+
+[^1]: Nett, R. J., Witte, T. K., Holzbauer, S. M., et al. (2015). Risk factors for suicide, attitudes toward mental illness, and practice-related stressors among US veterinarians. *Journal of the American Veterinary Medical Association*, 247(8), 945-955. [https://doi.org/10.2460/javma.247.8.945](https://doi.org/10.2460/javma.247.8.945)

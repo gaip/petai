@@ -79,7 +79,7 @@ export default function Home() {
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>👁️</div>
               <h3>Gemini Pro Vision</h3>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-                Analysis of 4K video feeds to detect micro-tremors and gait asymmetry with <strong>99.4% accuracy</strong> compared to standard veterinary observation.
+                Computer vision analysis using <strong>MobileNetV2</strong> architecture to detect subtle gait asymmetry and movement patterns invisible to human observation.
               </p>
             </div>
             <div className="card hover-scale">

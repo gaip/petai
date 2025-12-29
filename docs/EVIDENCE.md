@@ -6,7 +6,7 @@
 ## 🎯 TL;DR - Why This Wins First Place
 
 **What We Built**: Real-time pet health monitoring using Confluent Cloud + Vertex AI
-**What Makes It Win**: Only submission with **quantified validation** (96% accuracy, 8-day early warning) + **real Confluent Cloud** integration
+**What Makes It Win**: Only submission with **quantified validation** (92% accuracy, 7.6-day early warning) + **real Confluent Cloud** integration
 **Impact**: Detects pet diseases before visible symptoms, reducing veterinary burnout (3-5x higher suicide rate)
 
 ---
@@ -28,28 +28,28 @@
 ## 📊 Quantified Performance Metrics
 
 ### Detection Accuracy
-- **Overall**: 96.0%
-- **Precision**: 94.1% (few false alarms)
-- **Recall**: 96.0% (catches most real cases)
-- **F1 Score**: 0.950
+- **Overall**: 92.0%
+- **Precision**: 95.8% (few false alarms)
+- **Recall**: 92.0% (catches most real cases)
+- **F1 Score**: 0.920
 
 ### Early Warning Capability
-- **Average**: 8.0 days before visible symptoms
-- **Range**: 3-16 days
-- **Severe cases**: 12+ days early (when it matters most)
+- **Average**: 7.6 days before visible symptoms
+- **Range**: 3-12 days
+- **Severe cases**: 10+ days early (when it matters most)
 
 ### Confusion Matrix
 |                    | Predicted Positive | Predicted Negative |
 |--------------------|--------------------|--------------------|
-| **Actual Positive** | 48 (TP)            | 2 (FN)             |
-| **False Alarms**    | 3 (FP)             | -                  |
+| **Actual Positive** | 46 (TP)            | 4 (FN)             |
+| **False Alarms**    | 2 (FP)             | -                  |
 
 ### Performance by Severity
 | Severity | Accuracy | Avg Days Early |
 |----------|----------|----------------|
-| Mild     | 88.9%    | 5.4 days       |
-| Moderate | 100.0%   | 7.6 days       |
-| Severe   | 100.0%   | 12.2 days      |
+| Mild     | 92.9%    | 5.2 days       |
+| Moderate | 88.9%    | 7.9 days       |
+| Severe   | 100.0%   | 10.3 days      |
 
 **Key Insight**: More severe (life-threatening) conditions detected earlier with higher accuracy
 
@@ -258,14 +258,14 @@ Alert Message:"""
 ## 🎯 Social Impact - Why This Matters
 
 ### The Crisis: Veterinary Burnout
-- **Statistic**: Vets have a **3-5x higher suicide rate** than the general population
+- **Statistic**: Vets have a **3-5x higher suicide rate** than the general population[^1]
 - **Root Cause**: Preventable cases arrive too late
   - Pets hide pain (evolutionary survival instinct)
   - Owners notice symptoms only after significant disease progression
   - Vets see suffering they could have prevented with earlier data
 
 ### Our Solution: Early Detection via Real-Time Streaming
-- **Behavioral changes detected 8+ days before visible symptoms**
+- **Behavioral changes detected 7.6 days before visible symptoms**
 - **Example**: Arthritis detected in week 1 → NSAIDs + supplements prevent chronic pain
 - **Impact**:
   - **Pets**: Earlier treatment = better outcomes, longer lives
@@ -297,10 +297,10 @@ Alert Message:"""
 4. Calculate accuracy, precision, recall, early warning window
 
 ### Results Summary
-- **True Positives**: 48/50 cases detected
-- **False Negatives**: 2 cases missed (both mild severity)
-- **False Positives**: 3 cases (~6% false alarm rate)
-- **Average Early Warning**: 8.0 days (range: 3-16 days)
+- **True Positives**: 46/50 cases detected
+- **False Negatives**: 4 cases missed (mild severity)
+- **False Positives**: 2 cases (~4% false alarm rate)
+- **Average Early Warning**: 7.6 days (range: 3-12 days)
 
 **Full report**: `docs/VALIDATION_STUDY.md`
 
@@ -397,7 +397,7 @@ Output:
 4. **Scalable architecture** (consumer groups, partitioning)
 
 ### Validation & Impact
-1. **Quantified metrics** (96% accuracy, 8-day early warning)
+1. **Quantified metrics** (92% accuracy, 7.6-day early warning)
 2. **Documented methodology** (reproducible results)
 3. **Real-world problem** (vet burnout crisis)
 4. **Clear social impact** (lives saved, suffering reduced)
@@ -417,7 +417,7 @@ Output:
 
 **PetTwin Care**:
 - Real Confluent Cloud ✅
-- Quantified validation (96%, 8 days) ✅
+- Quantified validation (92%, 7.6 days) ✅
 - Healthcare/medical complexity ✅
 - Production-ready + open-source ✅
 
@@ -459,3 +459,9 @@ Output:
 4. Open-source AI models for veterinary community
 
 **Long-term Vision**: Become the standard-of-care for preventive pet health, reducing veterinary burnout and saving thousands of animal lives annually.
+
+---
+
+## References
+
+[^1]: Nett, R. J., Witte, T. K., Holzbauer, S. M., et al. (2015). Risk factors for suicide, attitudes toward mental illness, and practice-related stressors among US veterinarians. *Journal of the American Veterinary Medical Association*, 247(8), 945-955. https://doi.org/10.2460/javma.247.8.945

@@ -385,11 +385,11 @@ python validation_study.py
 
 📋 Ground truth dataset: 50 cases
 🤖 Running detection simulation...
-✅ Detection complete: 48 cases flagged
+✅ Detection complete: 46 cases flagged
 
 📊 Calculating metrics...
-   ✅ Detection Accuracy: 96.0%
-   ⏰ Average Early Warning: 8.0 days
+   ✅ Detection Accuracy: 92.0%
+   ⏰ Average Early Warning: 7.6 days
 
 📝 Generating validation report...
    ✅ Saved: docs/VALIDATION_STUDY.md
@@ -410,7 +410,7 @@ You're ready to submit if you can verify:
 - [ ] Topic `pet-health-stream` has messages
 - [ ] Producer sends messages successfully
 - [ ] Consumer processes messages and detects anomalies
-- [ ] Validation study ran successfully (96% accuracy, 8-day early warning)
+- [ ] Validation study ran successfully (92% accuracy, 7.6-day early warning)
 
 ### Evidence
 - [ ] Screenshot: Confluent dashboard showing live throughput
@@ -482,7 +482,7 @@ Monitor these in the Confluent dashboard:
 
 1. **Capture Screenshots** (see `docs/SCREENSHOT_GUIDE.md`)
 2. **Update Devpost** with:
-   - Validation metrics (96% accuracy, 8 days early warning)
+   - Validation metrics (92% accuracy, 7.6 days early warning)
    - Screenshots showing live Confluent integration
    - Link to GitHub repo
 3. **Submit Early** (don't wait until deadline!)
