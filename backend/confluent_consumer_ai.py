@@ -4,7 +4,7 @@ Real-time processing pipeline for AI Partner Catalyst Hackathon.
 
 Features:
 - Confluent Cloud: SASL_SSL, optimized batching, auto-reconnect
-- Vertex AI: Gemini 1.5 Flash for sub-second analysis
+- Vertex AI: Gemini 1.5 Pro (Agentic Mode) for reasoning-based analysis
 - Output: Structured JSON for direct frontend consumption
 """
 import os
@@ -38,7 +38,7 @@ try:
     
     vertexai.init(project=PROJECT_ID, location=LOCATION)
     
-    # Use Gemini 1.5 Flash for low-latency real-time alerts
+    # Use Gemini Pro to support advanced reasoning prompts
     MODEL_NAME = "gemini-pro"
     
     # Enforce JSON output for reliable parsing
@@ -50,22 +50,30 @@ try:
         max_output_tokens=1024,
     )
     
+    # AGENTIC SYSTEM INSTRUCTION (Vertex AI Agent Engine Style)
     model = GenerativeModel(
         model_name=MODEL_NAME,
-        system_instruction="""You are PetTwin AI, a veterinary health monitoring system.
-        Analyze pet telemetry data anomalies.
+        system_instruction="""You are the PetTwin Virtual Veterinarian Agent (powered by Vertex AI).
+        
+        Your Goal: specific, actionable, and empathetic veterinary analysis.
+        
+        AGENT REASONING PROTOCOL:
+        1. OBSERVE: Analyze the Z-Scores and metrics.
+        2. REASON: Determine the likely physiological cause (e.g., pain, stress, infection).
+        3. ACT: Generate a structured JSON alert.
+        
         Your output MUST be a valid JSON object with the following schema:
         {
             "alert_title": "Short, urgent title (e.g., 'High Heart Rate Detected')",
             "severity_level": "LOW|MEDIUM|HIGH|CRITICAL",
             "medical_explanation": "Simple, non-jargon explanation for the owner (1 sentence)",
-            "recommended_action": "Clear, actionable advice (e.g., 'Rest pet immediately')",
+            "recommended_action": "Clear, actionable advice (e.g., 'Contact your vet today')",
             "confidence_score": 0.0-1.0
         }
         ALWAYS return PURE JSON. Do not use markdown blocks."""
     )
     GEMINI_ENABLED = True
-    logger.info(f"✅ Vertex AI initialized: {MODEL_NAME} @ {PROJECT_ID}")
+    logger.info(f"✅ Vertex AI Agent initialized: {MODEL_NAME} @ {PROJECT_ID}")
 
 except ImportError:
     logger.error("❌ google-cloud-aiplatform not installed. Running in limited mode.")
@@ -140,16 +148,20 @@ class AnomalyDetector:
             return {**analysis_result, "ai_analysis": self._fallback_analysis(analysis_result)}
 
         prompt = f"""
-        Analyze this anomaly event:
-        - Pet: {analysis_result['pet_id']}
-        - Anomalies Detected: {analysis_result['anomalies']}
+        Analyze this anomaly event for Pet {analysis_result['pet_id']}:
+        
+        [OBSERVATION]
+        - Anomalies: {analysis_result['anomalies']}
         - Severity (Z-Score): {analysis_result['max_severity_z']:.2f}
         - Current Metrics: {json.dumps(analysis_result['metrics'])}
         
-        Context:
-        - Heart Rate baseline is ~90bpm
-        - Activity is 0-100 score
-        - Gait 1.0 is perfect symmetry
+        [CONTEXT]
+        - Heart Rate baseline: ~90bpm
+        - Activity: 0-100 score
+        - Gait: 1.0 is perfect symmetry
+        
+        [TASK]
+        Apply veterinary reasoning to determine the urgency and cause.
         """
         
         try:
@@ -161,7 +173,7 @@ class AnomalyDetector:
             latency = (time.time() - start_time) * 1000
             
             ai_response = json.loads(response.text)
-            logger.info(f"🧠 Vertex AI Analysis generated in {latency:.0f}ms")
+            logger.info(f"🧠 Vertex AI Agent Reasoned in {latency:.0f}ms")
             
             return {**analysis_result, "ai_analysis": ai_response}
             
@@ -229,7 +241,7 @@ health_thread.start()
 # ==========================================
 
 def main():
-    logger.info("🚀 Starting PetTwin AI Processor...")
+    logger.info("🚀 Starting PetTwin AI Processor (Agentic Mode)...")
     
     conf = get_confluent_config()
     consumer = Consumer(conf)
@@ -261,9 +273,9 @@ def main():
                     # Log the alert (In prod, this would push to Firestore/Frontend)
                     ai = alert['ai_analysis']
                     logger.info("\n" + "="*60)
-                    logger.info(f"🚨 ALERT: {ai['alert_title']} ({ai['severity_level']})")
-                    logger.info(f"📝 {ai['medical_explanation']}")
-                    logger.info(f"👉 {ai['recommended_action']}")
+                    logger.info(f"🚨 AGENT ALERT: {ai['alert_title']} ({ai['severity_level']})")
+                    logger.info(f"📝 Reasoning: {ai['medical_explanation']}")
+                    logger.info(f"👉 Action: {ai['recommended_action']}")
                     logger.info(f"📊 Stats: {alert['anomalies']}")
                     logger.info("="*60 + "\n")
                 else:
