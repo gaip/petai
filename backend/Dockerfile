@@ -1,23 +1,23 @@
-# Use official Python image
-FROM python:3.9-slim
+# Backend Dockerfile for Python Consumer on Cloud Run
+FROM python:3.10-slim
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies (build-essential regarding scikit-learn/numpy sometimes needed)
-RUN apt-get update && apt-get install -y build-essential && rm -rf /var/lib/apt/lists/*
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    librdkafka-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements
+# Install Python dependencies
 COPY requirements.txt .
-
-# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app code
+# Copy backend code
 COPY . .
 
-# Expose port (Internal 8000)
-EXPOSE 8000
+# Environment variables (overwritten by Cloud Run env vars)
+ENV PYTHONUNBUFFERED=1
 
-# Run command
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the consumer logic
+CMD ["python", "confluent_consumer_ai.py"]
