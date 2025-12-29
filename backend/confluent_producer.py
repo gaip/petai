@@ -14,18 +14,37 @@ import os
 
 # Confluent Cloud Configuration
 # To use: Set environment variables or replace with your actual values
-CONFLUENT_CONFIG = {
-    'bootstrap.servers': os.getenv('CONFLUENT_BOOTSTRAP_SERVERS', 'YOUR_CONFLUENT_CLOUD_ENDPOINT'),
-    'security.protocol': 'SASL_SSL',
-    'sasl.mechanisms': 'PLAIN',
-    'sasl.username': os.getenv('CONFLUENT_API_KEY', 'YOUR_API_KEY'),
-    'sasl.password': os.getenv('CONFLUENT_API_SECRET', 'YOUR_API_SECRET'),
-    # Additional performance configs
-    'linger.ms': 10,
-    'batch.size': 32768,
-    'compression.type': 'snappy',
-    'acks': 'all'  # Ensure durability
-}
+# Confluent Cloud Configuration
+# To use: Set environment variables or replace with your actual values
+bootstrap_servers = os.getenv('CONFLUENT_BOOTSTRAP_SERVERS')
+api_key = os.getenv('CONFLUENT_API_KEY')
+api_secret = os.getenv('CONFLUENT_API_SECRET')
+
+if not bootstrap_servers or not api_key:
+    print("⚠️  No Confluent Cloud credentials found. Defaulting to LOCAL KAFKA (Docker)...")
+    CONFLUENT_CONFIG = {
+        'bootstrap.servers': 'localhost:9092',
+        'security.protocol': 'PLAINTEXT',
+        # Optimization configs
+        'linger.ms': 10,
+        'batch.size': 32768,
+        'compression.type': 'snappy',
+        'acks': 'all'
+    }
+else:
+    print(f"✅ Using Confluent Cloud: {bootstrap_servers}")
+    CONFLUENT_CONFIG = {
+        'bootstrap.servers': bootstrap_servers,
+        'security.protocol': 'SASL_SSL',
+        'sasl.mechanisms': 'PLAIN',
+        'sasl.username': api_key,
+        'sasl.password': api_secret,
+        # Optimization configs
+        'linger.ms': 10,
+        'batch.size': 32768,
+        'compression.type': 'snappy',
+        'acks': 'all'
+    }
 
 TOPIC = 'pet-health-stream'
 

@@ -14,17 +14,34 @@ from collections import deque
 import os
 
 # Confluent Configuration
-CONFLUENT_CONFIG = {
-    'bootstrap.servers': os.getenv('CONFLUENT_BOOTSTRAP_SERVERS', 'YOUR_CONFLUENT_CLOUD_ENDPOINT'),
-    'security.protocol': 'SASL_SSL',
-    'sasl.mechanisms': 'PLAIN',
-    'sasl.username': os.getenv('CONFLUENT_API_KEY', 'YOUR_API_KEY'),
-    'sasl.password': os.getenv('CONFLUENT_API_SECRET', 'YOUR_API_SECRET'),
-    'group.id': 'pettwin-ai-processor',
-    'auto.offset.reset': 'earliest',
-    'enable.auto.commit': True,
-    'auto.commit.interval.ms': 5000
-}
+# Confluent Configuration
+bootstrap_servers = os.getenv('CONFLUENT_BOOTSTRAP_SERVERS')
+api_key = os.getenv('CONFLUENT_API_KEY')
+api_secret = os.getenv('CONFLUENT_API_SECRET')
+
+if not bootstrap_servers or not api_key:
+    print("⚠️  No Confluent Cloud credentials found. Defaulting to LOCAL KAFKA (Docker)...")
+    CONFLUENT_CONFIG = {
+        'bootstrap.servers': 'localhost:9092',
+        'security.protocol': 'PLAINTEXT',
+        'group.id': 'pettwin-ai-processor',
+        'auto.offset.reset': 'earliest',
+        'enable.auto.commit': True,
+        'auto.commit.interval.ms': 5000
+    }
+else:
+    print(f"✅ Using Confluent Cloud: {bootstrap_servers}")
+    CONFLUENT_CONFIG = {
+        'bootstrap.servers': bootstrap_servers,
+        'security.protocol': 'SASL_SSL',
+        'sasl.mechanisms': 'PLAIN',
+        'sasl.username': api_key,
+        'sasl.password': api_secret,
+        'group.id': 'pettwin-ai-processor',
+        'auto.offset.reset': 'earliest',
+        'enable.auto.commit': True,
+        'auto.commit.interval.ms': 5000
+    }
 
 TOPIC = 'pet-health-stream'
 
