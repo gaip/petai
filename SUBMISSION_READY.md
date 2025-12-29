@@ -1,7 +1,7 @@
 # 🏆 PetTwin Care - Final Submission Manifest
 
 **Status**: 100% Submission Ready
-**Technology Stack**: Google Cloud Run (Serverless) + Vertex AI (Gemini 2.0 Flash / 1.5 Pro) + Confluent Cloud + Vercel
+**Technology Stack**: Google Cloud Run (Serverless) + Vertex AI (Gemini 2.0/1.5) + Confluent Cloud + Datadog + Vercel
 
 ---
 
@@ -17,32 +17,48 @@
 
 ## 🤖 Vertex AI Agent Integration (Cutting Edge)
 
-We have upgraded the backend to use **Vertex AI Agentic Principles** with the latest models:
+We have upgraded the backend to use **Vertex AI Agentic Principles**:
 
-1.  **Primary Model**: `gemini-2.0-flash-exp` (Gemini 3 Class) for ultra-fast reasoning.
-2.  **Fallback**: `gemini-1.5-pro-002` (High Intelligence).
-3.  **Agent Persona**: The AI acts as a "Virtual Veterinarian" with a defined reasoning protocol (Observe -> Reason -> Act).
-4.  **Artifacts**: "PetTwin Agent" prompt saved in Vertex AI Studio.
+1.  **Primary Model**: `gemini-2.0-flash-exp` (Gemini 3 Class) / `gemini-1.5-pro`.
+2.  **Agent Persona**: "Virtual Veterinarian" with (Observe -> Reason -> Act) protocol.
+3.  **Artifacts**: "PetTwin Agent" prompt saved in Vertex AI Studio.
+
+---
+
+## 📊 Datadog Monitoring (Challenge Requirement)
+
+**Dashboard**: [PetTwin Care - AI Health Monitoring](https://app.datadoghq.eu/dashboard/t7g-ubd-aet)
+**Monitors**: [Vertex AI Gemini Anomaly Detection](https://app.datadoghq.eu/monitors/96636457)
+
+- **AI Latency Tracking**: Real-time visualization of Gemini inference speed.
+- **Anomaly Alerts**: Automated incidents when model performance degrades.
+- **Incident Workflow**: Integrated alerting system.
 
 ---
 
 ## ⚡️ Architecture Highlights
 
-1.  **Frontend**: Next.js 14 Hybrid Deployment (Vercel + Cloud Run).
+1.  **Frontend**: Next.js 14 Hybrid Deployment.
 2.  **Backend**: Python Worker on Cloud Run (Secure).
-    - Connects to **Confluent Cloud** (`pkc-619z3`).
-    - Uses **Vertex AI** for real-time anomaly reasoning.
-3.  **Security**:
-    - Backend is protected by Google IAM.
-    - Frontend is publicly accessible via Vercel.
+3.  **Data**: Confluent Cloud Kafka Streaming.
+
+---
+
+## 📸 Evidence Checklist
+
+- [x] **Vercel Dashboard** (Live Site)
+- [x] **Vertex AI Studio** (Prompt Artifact)
+- [x] **Datadog Dashboard** (Screenshots in `docs/`)
+- [x] **Cloud Run Logs** (Backend Activity)
 
 ---
 
 ## 🎥 Recording Instructions
 
-1.  Open the **Cloud Run URL** (since you are logged in) to show backend logs.
+1.  Open **Cloud Run URL** to show backend logs.
 2.  Run the **Local Producer**: `python backend/confluent_producer.py`
-3.  Show the real-time updates on the **Vercel Dashboard**.
-4.  Show **Vertex AI Studio** "My Prompts" to prove the Agent exists.
+3.  Show updates on **Vercel Dashboard**.
+4.  Show **Vertex AI Studio** Prompt.
+5.  Show **Datadog Dashboard**.
 
 **Good Luck! You have a robust, secure, and modern deployment.** 🚀
