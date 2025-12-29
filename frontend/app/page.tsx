@@ -18,23 +18,19 @@ export default function Home() {
           </p>
 
           <div className="hero-actions animate-fade-up" style={{ animationDelay: '0.4s' }}>
-            <Link href="/login" className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem', animation: 'pulse 2s infinite' }}>Start Digital Twin</Link>
-            <a href="https://github.com/gaip/petai" target="_blank" className="btn btn-secondary" style={{ padding: '0.75rem 2rem', fontSize: '1.1rem' }}>View on GitHub</a>
-          </div>
-
-          {/* Local Video Embed */}
-          <div className="video-container animate-fade-up" style={{ animationDelay: '0.6s' }}>
-            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
-              <video
-                src="/demo.mp4"
-                title="PetTwin AI Demo"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none', borderRadius: 'inherit' }}
-                loop
-                muted
-                controls
-                playsInline
-              />
-            </div>
+            <Link href="/login" className="btn btn-primary" style={{
+              padding: '0.75rem 2rem',
+              fontSize: '1.1rem',
+              background: 'linear-gradient(135deg, #38bdf8, #8b5cf6)',
+              boxShadow: '0 4px 15px rgba(56, 189, 248, 0.4)',
+              transition: 'all 0.3s ease',
+              border: 'none'
+            }}>Start Digital Twin</Link>
+            <a href="https://github.com/gaip/petai" target="_blank" className="btn btn-secondary" style={{
+              padding: '0.75rem 2rem',
+              fontSize: '1.1rem',
+              transition: 'all 0.3s ease'
+            }}>View on GitHub</a>
           </div>
         </div>
       </section>
@@ -44,25 +40,88 @@ export default function Home() {
         <div className="container">
            <h2 className="section-title">Clinically Validated Performance</h2>
            <div className="metrics-grid">
-              <div className="metric-card">
-                  <span className="metric-value">92.0%</span>
-                  <span className="metric-label">Detection Accuracy</span>
-                  <p className="metric-desc">Correctly identified 46/50 retrospectively analyzed cases.</p>
+              <div className="metric-card" style={{
+                background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(139, 92, 246, 0.05))',
+                border: '1px solid rgba(56, 189, 248, 0.3)',
+                borderRadius: '16px',
+                padding: '2rem',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              }}>
+                  {/* Circular Progress Ring */}
+                  <svg width="120" height="120" style={{ margin: '0 auto 1rem', display: 'block' }}>
+                    <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(56, 189, 248, 0.2)" strokeWidth="10" />
+                    <circle
+                      cx="60" cy="60" r="50" fill="none" stroke="#38bdf8" strokeWidth="10"
+                      strokeDasharray="314" strokeDashoffset="25"
+                      strokeLinecap="round"
+                      style={{ transform: 'rotate(-90deg)', transformOrigin: '60px 60px' }}
+                    />
+                    <text x="60" y="70" textAnchor="middle" fontSize="24" fontWeight="bold" fill="white">92.0%</text>
+                  </svg>
+                  <span className="metric-label" style={{ display: 'block', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>Detection Accuracy</span>
+                  <p className="metric-desc" style={{ fontSize: '0.9rem', margin: 0 }}>Correctly identified 46/50 retrospectively analyzed cases.</p>
               </div>
-              <div className="metric-card">
-                  <span className="metric-value">7.6 Days</span>
-                  <span className="metric-label">Early Warning</span>
-                  <p className="metric-desc">Average lead time before symptoms were visible to owners.</p>
+              <div className="metric-card" style={{
+                background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(56, 189, 248, 0.05))',
+                border: '1px solid rgba(16, 185, 129, 0.3)',
+                borderRadius: '16px',
+                padding: '2rem',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              }}>
+                  {/* Timeline Indicator */}
+                  <div style={{ margin: '0 auto 1rem', display: 'block', fontSize: '4rem', textAlign: 'center' }}>⏰</div>
+                  <span className="metric-value" style={{ fontSize: '2.5rem', display: 'block', fontWeight: 'bold', background: 'linear-gradient(135deg, #10b981, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>7.6 Days</span>
+                  <span className="metric-label" style={{ display: 'block', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem', marginTop: '0.5rem' }}>Early Warning</span>
+                  <p className="metric-desc" style={{ fontSize: '0.9rem', margin: 0 }}>Average lead time before symptoms were visible to owners.</p>
               </div>
-              <div className="metric-card">
-                  <span className="metric-value">100%</span>
-                  <span className="metric-label">Severe Detection</span>
-                  <p className="metric-desc">Critical conditions caught earliest when intervention matters most.</p>
+              <div className="metric-card" style={{
+                background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.05))',
+                border: '1px solid rgba(139, 92, 246, 0.3)',
+                borderRadius: '16px',
+                padding: '2rem',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              }}>
+                  {/* Perfect Score Ring */}
+                  <svg width="120" height="120" style={{ margin: '0 auto 1rem', display: 'block' }}>
+                    <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(139, 92, 246, 0.2)" strokeWidth="10" />
+                    <circle
+                      cx="60" cy="60" r="50" fill="none" stroke="#8b5cf6" strokeWidth="10"
+                      strokeDasharray="314" strokeDashoffset="0"
+                      strokeLinecap="round"
+                      style={{ transform: 'rotate(-90deg)', transformOrigin: '60px 60px' }}
+                    />
+                    <text x="60" y="70" textAnchor="middle" fontSize="24" fontWeight="bold" fill="white">100%</text>
+                  </svg>
+                  <span className="metric-label" style={{ display: 'block', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>Severe Detection</span>
+                  <p className="metric-desc" style={{ fontSize: '0.9rem', margin: 0 }}>Critical conditions caught earliest when intervention matters most.</p>
               </div>
            </div>
            <div style={{textAlign: 'center', marginTop: '3rem'}}>
-              <a href="https://github.com/gaip/petai/blob/main/docs/VALIDATION_STUDY.md" target="_blank" className="btn btn-secondary">View Validation Study</a>
+              <a href="https://github.com/gaip/petai/blob/main/docs/VALIDATION_STUDY.md" target="_blank" className="btn btn-secondary" style={{ transition: 'all 0.3s ease' }}>View Validation Study</a>
            </div>
+        </div>
+      </section>
+
+      {/* Demo Video Section */}
+      <section style={{ padding: '4rem 0', background: 'rgba(15, 23, 42, 0.5)' }}>
+        <div className="container">
+          <h2 className="section-title" style={{ marginBottom: '2rem' }}>See PetTwin AI in Action</h2>
+          <div className="video-container" style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: '12px', overflow: 'hidden', boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5)' }}>
+              <video
+                src="/demo.mp4"
+                title="PetTwin AI Demo"
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+                loop
+                muted
+                controls
+                playsInline
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -103,21 +162,166 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Technical Evidence */}
-      <section className="evidence-section">
-        <div className="container" style={{textAlign: 'center'}}>
-           <h2 className="section-title">Technical Proof & Evidence</h2>
-           <p style={{color: 'var(--text-muted)', marginBottom: '2rem'}}>Comprehensive documentation for the Confluent Challenge.</p>
-           <div className="evidence-links">
-               <a href="https://github.com/gaip/petai/blob/main/docs/EVIDENCE.md" target="_blank" className="evidence-card">
-                 <span className="text">📄 Evidence Checklist</span>
+      {/* Technical Evidence - Enhanced */}
+      <section className="evidence-section" style={{
+        padding: '6rem 0',
+        background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 1))',
+        position: 'relative'
+      }}>
+        {/* Background accent */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '80%',
+          height: '100%',
+          background: 'radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%)',
+          pointerEvents: 'none'
+        }} />
+
+        <div className="container" style={{textAlign: 'center', position: 'relative', zIndex: 1}}>
+           <div style={{ marginBottom: '1rem' }}>
+             <span style={{
+               display: 'inline-block',
+               padding: '0.5rem 1.5rem',
+               background: 'rgba(56, 189, 248, 0.1)',
+               border: '1px solid rgba(56, 189, 248, 0.3)',
+               borderRadius: '20px',
+               fontSize: '0.9rem',
+               fontWeight: '600',
+               color: '#38bdf8'
+             }}>🏆 Hackathon Submission Evidence</span>
+           </div>
+           <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Technical Proof & Evidence</h2>
+           <p style={{color: 'var(--text-muted)', marginBottom: '3rem', fontSize: '1.1rem', maxWidth: '700px', margin: '0 auto 3rem'}}>
+             Complete documentation proving all technical claims with line-by-line code verification.
+           </p>
+
+           <div style={{
+             display: 'grid',
+             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+             gap: '2rem',
+             maxWidth: '1000px',
+             margin: '0 auto'
+           }}>
+               <a href="https://github.com/gaip/petai/blob/main/docs/EVIDENCE.md" target="_blank" rel="noopener noreferrer" style={{
+                 textDecoration: 'none',
+                 background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(139, 92, 246, 0.05))',
+                 border: '2px solid rgba(56, 189, 248, 0.3)',
+                 borderRadius: '16px',
+                 padding: '2.5rem 2rem',
+                 transition: 'all 0.3s ease',
+                 position: 'relative',
+                 overflow: 'hidden',
+                 display: 'block'
+               }} className="evidence-card-enhanced">
+                 {/* Glow effect on hover */}
+                 <div style={{
+                   position: 'absolute',
+                   top: '-50%',
+                   left: '-50%',
+                   width: '200%',
+                   height: '200%',
+                   background: 'radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%)',
+                   opacity: 0,
+                   transition: 'opacity 0.3s ease'
+                 }} />
+
+                 <div style={{ position: 'relative', zIndex: 1 }}>
+                   <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📄</div>
+                   <h3 style={{ fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '0.75rem', color: 'white' }}>Evidence Checklist</h3>
+                   <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>
+                     Complete requirements verification (22/23 met, 95.7% compliance)
+                   </p>
+                   <div style={{ marginTop: '1.5rem', color: '#38bdf8', fontSize: '0.9rem', fontWeight: '600' }}>
+                     View Document →
+                   </div>
+                 </div>
               </a>
-               <a href="https://github.com/gaip/petai/blob/main/docs/TECHNICAL_PROOF.md" target="_blank" className="evidence-card">
-                 <span className="text">⚙️ Architecture Proof</span>
+
+               <a href="https://github.com/gaip/petai/blob/main/docs/TECHNICAL_PROOF.md" target="_blank" rel="noopener noreferrer" style={{
+                 textDecoration: 'none',
+                 background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(56, 189, 248, 0.05))',
+                 border: '2px solid rgba(16, 185, 129, 0.3)',
+                 borderRadius: '16px',
+                 padding: '2.5rem 2rem',
+                 transition: 'all 0.3s ease',
+                 position: 'relative',
+                 overflow: 'hidden',
+                 display: 'block'
+               }} className="evidence-card-enhanced">
+                 <div style={{ position: 'relative', zIndex: 1 }}>
+                   <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>⚙️</div>
+                   <h3 style={{ fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '0.75rem', color: 'white' }}>Architecture Proof</h3>
+                   <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>
+                     Line-by-line code verification (all claims mapped to source files)
+                   </p>
+                   <div style={{ marginTop: '1.5rem', color: '#10b981', fontSize: '0.9rem', fontWeight: '600' }}>
+                     View Verification →
+                   </div>
+                 </div>
               </a>
-               <a href="https://github.com/gaip/petai/blob/main/backend/demo_confluent_vertexai.ipynb" target="_blank" className="evidence-card">
-                 <span className="text">📓 Demo Notebook</span>
+
+               <a href="https://github.com/gaip/petai/blob/main/backend/demo_confluent_vertexai.ipynb" target="_blank" rel="noopener noreferrer" style={{
+                 textDecoration: 'none',
+                 background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.05))',
+                 border: '2px solid rgba(139, 92, 246, 0.3)',
+                 borderRadius: '16px',
+                 padding: '2.5rem 2rem',
+                 transition: 'all 0.3s ease',
+                 position: 'relative',
+                 overflow: 'hidden',
+                 display: 'block'
+               }} className="evidence-card-enhanced">
+                 <div style={{ position: 'relative', zIndex: 1 }}>
+                   <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📓</div>
+                   <h3 style={{ fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '0.75rem', color: 'white' }}>Demo Notebook</h3>
+                   <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>
+                     Interactive Jupyter notebook showing Confluent + Vertex AI integration
+                   </p>
+                   <div style={{ marginTop: '1.5rem', color: '#8b5cf6', fontSize: '0.9rem', fontWeight: '600' }}>
+                     Run Demo →
+                   </div>
+                 </div>
               </a>
+           </div>
+
+           {/* Additional evidence links */}
+           <div style={{ marginTop: '3rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+             <a href="https://github.com/gaip/petai/blob/main/docs/VALIDATION_STUDY.md" target="_blank" style={{
+               padding: '0.75rem 1.5rem',
+               background: 'rgba(56, 189, 248, 0.1)',
+               border: '1px solid rgba(56, 189, 248, 0.3)',
+               borderRadius: '8px',
+               color: '#38bdf8',
+               textDecoration: 'none',
+               fontSize: '0.95rem',
+               fontWeight: '500',
+               transition: 'all 0.3s ease'
+             }}>📊 Validation Study</a>
+             <a href="https://github.com/gaip/petai/blob/main/docs/METHODOLOGY.md" target="_blank" style={{
+               padding: '0.75rem 1.5rem',
+               background: 'rgba(16, 185, 129, 0.1)',
+               border: '1px solid rgba(16, 185, 129, 0.3)',
+               borderRadius: '8px',
+               color: '#10b981',
+               textDecoration: 'none',
+               fontSize: '0.95rem',
+               fontWeight: '500',
+               transition: 'all 0.3s ease'
+             }}>🔬 Methodology</a>
+             <a href="https://github.com/gaip/petai/blob/main/backend/QUICKSTART.md" target="_blank" style={{
+               padding: '0.75rem 1.5rem',
+               background: 'rgba(139, 92, 246, 0.1)',
+               border: '1px solid rgba(139, 92, 246, 0.3)',
+               borderRadius: '8px',
+               color: '#8b5cf6',
+               textDecoration: 'none',
+               fontSize: '0.95rem',
+               fontWeight: '500',
+               transition: 'all 0.3s ease'
+             }}>🚀 Quick Start Guide</a>
            </div>
         </div>
       </section>
