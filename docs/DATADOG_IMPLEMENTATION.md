@@ -33,3 +33,18 @@ PetTwin Care uses Datadog for end-to-end observability of our AI-powered pet hea
 3. Engineer investigates dashboard
 4. Incident created if needed
 5. Resolution tracked through Datadog Events
+
+## Advanced Code Integration (APM)
+
+We have enabled **Datadog Source Code Integration** to link runtime telemetry directly to GitHub source code.
+
+- **Mechanism**: Dynamic injection of `DD_GIT_COMMIT_SHA` and `DD_GIT_REPOSITORY_URL` during Cloud Run deployment.
+- **Benefit**: Debugging stack traces in Datadog instantly links to the exact line of code in this repository.
+- **Implementation**: See `deploy_to_cloud_run.sh`
+
+## Infrastructure as Code
+
+The entire monitoring dashboard is defined in JSON for reproducibility:
+
+- **File**: `docs/datadog_dashboard_config.json`
+- **Usage**: Can be imported directly into Datadog to recreate the "PetTwin Production" view.
