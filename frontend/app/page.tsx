@@ -147,6 +147,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Footer */}
+      <footer style={{
+        borderTop: '1px solid rgba(255,255,255,0.1)',
+        padding: '2rem 0',
+        textAlign: 'center',
+        marginTop: '4rem'
+      }}>
+        <div className="container">
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+            © 2025 PetTwin Care | <a href="https://github.com/gaip/petai" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)' }}>GitHub</a> | <a href="https://github.com/gaip/petai/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)' }}>MIT License</a>
+          </p>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+            Built with ❤️ for pets, vets, and the humans who love them.
+          </p>
+        </div>
+      </footer>
+
       <style jsx global>{`
         /* Utilities */
         .grid {
