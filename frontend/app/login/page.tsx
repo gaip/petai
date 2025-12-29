@@ -6,8 +6,8 @@ import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
     const router = useRouter();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("judge@confluent.io");
+    const [password, setPassword] = useState("hackathon2025");
     const [loading, setLoading] = useState(false);
 
     const handleLogin = async (e: React.FormEvent) => {

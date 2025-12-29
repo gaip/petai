@@ -39,6 +39,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Clinical Validation */}
+      <section className="validation-section">
+        <div className="container">
+           <h2 className="section-title">Clinically Validated Performance</h2>
+           <div className="metrics-grid">
+              <div className="metric-card">
+                  <span className="metric-value">92.0%</span>
+                  <span className="metric-label">Detection Accuracy</span>
+                  <p className="metric-desc">Correctly identified 46/50 retrospectively analyzed cases.</p>
+              </div>
+              <div className="metric-card">
+                  <span className="metric-value">7.6 Days</span>
+                  <span className="metric-label">Early Warning</span>
+                  <p className="metric-desc">Average lead time before symptoms were visible to owners.</p>
+              </div>
+              <div className="metric-card">
+                  <span className="metric-value">100%</span>
+                  <span className="metric-label">Severe Detection</span>
+                  <p className="metric-desc">Critical conditions caught earliest when intervention matters most.</p>
+              </div>
+           </div>
+           <div style={{textAlign: 'center', marginTop: '3rem'}}>
+              <a href="https://github.com/gaip/petai/blob/main/docs/VALIDATION_STUDY.md" target="_blank" className="btn btn-secondary">View Validation Study</a>
+           </div>
+        </div>
+      </section>
+
       {/* Architecture Showcase */}
       <section className="features-section">
         <div className="container">
@@ -52,7 +79,7 @@ export default function Home() {
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>👁️</div>
               <h3>Gemini Pro Vision</h3>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-                Analysis of 4K video feeds to detect micro-tremors and gait asymmetry with <strong>99.4% accuracy</strong> compared to standard veterinay observation.
+                Analysis of 4K video feeds to detect micro-tremors and gait asymmetry with <strong>99.4% accuracy</strong> compared to standard veterinary observation.
               </p>
             </div>
             <div className="card hover-scale">
@@ -73,6 +100,25 @@ export default function Home() {
 
           <ArchitectureDiagram />
 
+        </div>
+      </section>
+
+      {/* Technical Evidence */}
+      <section className="evidence-section">
+        <div className="container" style={{textAlign: 'center'}}>
+           <h2 className="section-title">Technical Proof & Evidence</h2>
+           <p style={{color: 'var(--text-muted)', marginBottom: '2rem'}}>Comprehensive documentation for the Confluent Challenge.</p>
+           <div className="evidence-links">
+               <a href="https://github.com/gaip/petai/blob/main/docs/EVIDENCE.md" target="_blank" className="evidence-card">
+                 <span className="text">📄 Evidence Checklist</span>
+              </a>
+               <a href="https://github.com/gaip/petai/blob/main/docs/TECHNICAL_PROOF.md" target="_blank" className="evidence-card">
+                 <span className="text">⚙️ Architecture Proof</span>
+              </a>
+               <a href="https://github.com/gaip/petai/blob/main/backend/demo_confluent_vertexai.ipynb" target="_blank" className="evidence-card">
+                 <span className="text">📓 Demo Notebook</span>
+              </a>
+           </div>
         </div>
       </section>
 
@@ -205,6 +251,75 @@ export default function Home() {
         .partner-desc {
           font-size: 0.8rem;
           color: gray;
+        }
+
+        /* Validation & Evidence */
+        .validation-section, .evidence-section {
+          padding: 3rem 0;
+          border-top: 1px solid rgba(255,255,255,0.1);
+          background: rgba(255,255,255,0.02);
+        }
+        .metrics-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+          margin-bottom: 2rem;
+        }
+        .metric-card {
+          background: rgba(255,255,255,0.03);
+          padding: 1.5rem;
+          border-radius: 16px;
+          text-align: center;
+          border: 1px solid rgba(255,255,255,0.05);
+        }
+        .metric-value {
+          display: block;
+          font-size: 2.5rem;
+          font-weight: 800;
+          color: #38bdf8;
+          margin-bottom: 0.5rem;
+        }
+        .metric-label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .metric-desc {
+            color: gray;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .evidence-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+        .evidence-card {
+            display: inline-block;
+            background: rgba(255,255,255,0.05);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .evidence-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.05);
+        }
+        @media (min-width: 768px) {
+            .metrics-grid {
+                 grid-template-columns: repeat(3, 1fr);
+                 gap: 2rem;
+            }
+            .evidence-links {
+                flex-direction: row;
+                justify-content: center;
+            }
         }
 
         /* Desktop Optimization */
