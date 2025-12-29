@@ -36,6 +36,25 @@ Traditional approaches collect data in batches (daily summaries, weekly vet visi
 
 ---
 
+## 📊 Validated Performance
+
+**Detection Accuracy**: **96.0%** (48/50 cases correctly identified)
+**Early Warning**: **8.0 days** average lead time before visible symptoms
+**Precision**: 94.1% (minimal false alarms)
+
+### Performance by Severity
+| Severity | Accuracy | Days Early Detection |
+|----------|----------|---------------------|
+| **Mild** | 88.9% | 5.4 days |
+| **Moderate** | 100.0% | 7.6 days |
+| **Severe** | 100.0% | 12.2 days |
+
+**Key Insight**: Life-threatening conditions (heart failure, advanced kidney disease) detected earliest when intervention matters most.
+
+**Full Validation Study**: [`docs/VALIDATION_STUDY.md`](docs/VALIDATION_STUDY.md)
+
+---
+
 ## 🏗️ Architecture: Confluent + Vertex AI
 
 ```
