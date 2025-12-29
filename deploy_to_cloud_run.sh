@@ -25,7 +25,7 @@ gcloud run deploy pettwin-backend \
     --region us-central1 \
     --platform managed \
     --allow-unauthenticated \
-    --set-env-vars "PROJECT_ID=mindful-pillar-482716-r9,DD_GIT_REPOSITORY_URL=${GIT_REPOSITORY_URL},DD_GIT_COMMIT_SHA=${GIT_COMMIT_SHA}" \
+    --set-env-vars "PROJECT_ID=mindful-pillar-482716-r9,DD_GIT_REPOSITORY_URL=${GIT_REPOSITORY_URL},DD_GIT_COMMIT_SHA=${GIT_COMMIT_SHA},DD_API_KEY=${DD_API_KEY},DD_APP_KEY=${DD_APP_KEY}" \
     --project mindful-pillar-482716-r9
     # Removed explicit env vars here so it doesn't crash if they are missing locally.
     # You can set them in Cloud Console later if needed.
@@ -44,7 +44,7 @@ gcloud run deploy pettwin-frontend \
     --region us-central1 \
     --platform managed \
     --allow-unauthenticated \
-    --set-env-vars "NEXT_PUBLIC_API_URL=$BACKEND_URL,DD_GIT_REPOSITORY_URL=${GIT_REPOSITORY_URL},DD_GIT_COMMIT_SHA=${GIT_COMMIT_SHA}" \
+    --set-env-vars "NEXT_PUBLIC_API_URL=$BACKEND_URL,DD_GIT_REPOSITORY_URL=${GIT_REPOSITORY_URL},DD_GIT_COMMIT_SHA=${GIT_COMMIT_SHA},DD_API_KEY=${DD_API_KEY},DD_APP_KEY=${DD_APP_KEY}" \
     --project mindful-pillar-482716-r9
 
 FRONTEND_URL=$(gcloud run services describe pettwin-frontend --region us-central1 --format 'value(status.url)' --project mindful-pillar-482716-r9)
