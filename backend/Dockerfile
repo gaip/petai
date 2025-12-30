@@ -19,5 +19,11 @@ COPY . .
 # Environment variables (overwritten by Cloud Run env vars)
 ENV PYTHONUNBUFFERED=1
 
-# Run the consumer logic
-CMD ["python", "confluent_consumer_ai.py"]
+# Copy Datadog Serverless Init (The Agent)
+COPY --from=gcr.io/datadoghq/serverless-init:1 /datadog-init /app/datadog-init
+
+# Use the Datadog entrypoint
+ENTRYPOINT ["/app/datadog-init"]
+
+# Run the consumer logic (passed to the entrypoint)
+CMD ["ddtrace-run", "python", "confluent_consumer_ai.py"]

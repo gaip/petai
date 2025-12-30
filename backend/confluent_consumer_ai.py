@@ -18,6 +18,15 @@ from confluent_kafka import Consumer, KafkaError
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
+# Datadog APM Integration
+try:
+    from datadog_apm_config import configure_datadog, trace_vertex_ai_call
+except ImportError:
+    # Fallback if config is missing (local dev without ddtrace)
+    def configure_datadog(): pass
+    def trace_vertex_ai_call(func): return func
+
+
 # Configure professional logging
 logging.basicConfig(
     level=logging.INFO,
@@ -164,6 +173,7 @@ class AnomalyDetector:
             
         return None
 
+    @trace_vertex_ai_call
     def _enrich_with_ai(self, analysis_result: Dict[str, Any]) -> Dict[str, Any]:
         """Send anomaly data to Vertex AI Gemini for interpretation"""
         if not GEMINI_ENABLED:
@@ -265,6 +275,9 @@ health_thread.start()
 # ==========================================
 
 def main():
+    # Initialize Datadog Tracing
+    configure_datadog()
+    
     logger.info("🚀 Starting PetTwin AI Processor (Agentic Mode)...")
     
     conf = get_confluent_config()
