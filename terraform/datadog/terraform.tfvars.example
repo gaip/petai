@@ -1,0 +1,45 @@
+# ==========================================
+# PetTwin Care - Terraform Configuration Example
+# Copy this file to terraform.tfvars and fill in your values
+# ==========================================
+
+# REQUIRED: Datadog API Credentials
+# Get from: https://app.datadoghq.com/organization-settings/api-keys
+datadog_api_key = "YOUR_DATADOG_API_KEY_HERE"
+datadog_app_key = "YOUR_DATADOG_APP_KEY_HERE"
+
+# REQUIRED: Datadog API URL (choose based on your region)
+# US: https://api.datadoghq.com/api/v1
+# EU: https://api.datadoghq.eu/api/v1
+datadog_api_url = "https://api.datadoghq.eu/api/v1"
+
+# Environment Configuration
+environment  = "production"  # Options: production, staging, development
+project_name = "pettwin-care"
+
+# Alert Configuration
+alert_email              = "your-email@example.com"
+alert_renotify_interval  = 60  # Minutes between re-notifications
+monitor_evaluation_delay = 60  # Seconds to delay monitor evaluation
+
+# Kafka Configuration
+kafka_topic = "pet-health-stream"
+
+# Vertex AI Configuration
+vertex_ai_model = "gemini-pro"
+
+# Threshold Configuration
+accuracy_critical_threshold = 85.0   # Critical if accuracy < 85%
+accuracy_warning_threshold  = 90.0   # Warning if accuracy < 90%
+
+consumer_lag_critical_ms = 5000  # Critical if lag > 5000ms
+consumer_lag_warning_ms  = 1000  # Warning if lag > 1000ms
+
+error_rate_critical_percent = 10.0  # Critical if error rate > 10%
+error_rate_warning_percent  = 5.0   # Warning if error rate > 5%
+
+# Feature Flags
+enable_anomaly_detection = true  # Enable ML-based anomaly detection
+
+# Dashboard URL (will be populated after first deployment)
+dashboard_url = "https://app.datadoghq.eu/dashboard/list"

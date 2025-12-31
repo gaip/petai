@@ -1,0 +1,171 @@
+# ==========================================
+# PetTwin Care - Datadog Agent Configuration
+# Comprehensive observability for AI-powered pet health monitoring
+# ==========================================
+
+# API Configuration
+api_key: ${DD_API_KEY}
+site: ${DD_SITE:datadoghq.eu}
+
+# Logging Configuration
+log_level: info
+logs_enabled: true
+
+# Tags applied to all metrics, traces, and logs
+tags:
+  - env:${DD_ENV:production}
+  - service:${DD_SERVICE:pettwin-care}
+  - version:${DD_VERSION:1.0.0}
+  - project:pettwin-care
+  - hackathon:google-cloud-ai
+  - stack:kafka-vertexai-nextjs
+
+# ==========================================
+# APM (Application Performance Monitoring)
+# ==========================================
+apm_config:
+  enabled: true
+  env: ${DD_ENV:production}
+  # Receiver configuration for traces
+  receiver_port: 8126
+  # Sample 100% of traces for demo/hackathon
+  analyzed_spans:
+    pettwin-care|flask.request: 1.0
+    pettwin-care|kafka.consume: 1.0
+
+# ==========================================
+# DogStatsD Configuration
+# Custom metrics from Python backend
+# ==========================================
+dogstatsd_config:
+  enabled: true
+  port: 8125
+  non_local_traffic: true
+  # Accept metrics from Docker containers
+  bind_host: 0.0.0.0
+  # Namespace for all custom metrics
+  namespace: pettwin
+  # Tag incoming metrics
+  dogstatsd_tags:
+    - source:statsd
+    - deployment:docker
+
+# ==========================================
+# Log Collection
+# ==========================================
+logs_config:
+  # Enable container log collection
+  container_collect_all: true
+  # Process logs from Docker containers
+  docker_labels_as_tags:
+    com.docker.compose.service: service_name
+  # Log processing rules
+  processing_rules:
+    - type: exclude_at_match
+      name: exclude_healthchecks
+      pattern: /health
+    - type: mask_sequences
+      name: mask_api_keys
+      pattern: 'api_key=\w+'
+      replace_placeholder: "api_key=[REDACTED]"
+
+# ==========================================
+# Process Monitoring
+# ==========================================
+process_config:
+  enabled: true
+  # Scrape full process command line
+  scrub_args: false
+  # Custom process names for PetTwin services
+  custom_sensitive_words:
+    - DD_API_KEY
+    - DD_APP_KEY
+    - GOOGLE_APPLICATION_CREDENTIALS
+
+# ==========================================
+# Container Monitoring (Docker)
+# ==========================================
+container_collect_all: true
+docker_labels_as_tags:
+  com.docker.compose.service: service
+  com.docker.compose.project: project
+
+# ==========================================
+# System Metrics
+# ==========================================
+# Collect comprehensive system-level metrics
+system_probe_config:
+  enabled: false  # Disable network monitoring for now
+
+# ==========================================
+# Kafka Integration
+# Monitor Kafka consumer/producer performance
+# ==========================================
+confd_path: /etc/datadog-agent/conf.d
+
+# ==========================================
+# Health & Readiness
+# ==========================================
+health_port: 5555
+
+# ==========================================
+# Performance Tuning
+# ==========================================
+# Forwarder timeout for sending data to Datadog
+forwarder_timeout: 20
+
+# How often to collect metrics (seconds)
+check_runners: 4
+
+# ==========================================
+# Security & Compliance
+# ==========================================
+# Scrub sensitive information from logs
+log_processing_rules:
+  - type: mask_sequences
+    name: redact_tokens
+    pattern: "token=\\w+"
+    replace_placeholder: "token=[REDACTED]"
+  - type: mask_sequences
+    name: redact_passwords
+    pattern: "password=\\S+"
+    replace_placeholder: "password=[REDACTED]"
+
+# ==========================================
+# Integration-Specific Configuration
+# Additional integrations can be configured in conf.d/
+# ==========================================
+
+# Python Check Configuration
+# The agent will automatically discover Python processes
+python_version: 3
+
+# ==========================================
+# Feature Flags
+# ==========================================
+# Enable/disable specific features
+compliance_config:
+  enabled: false
+
+network_config:
+  enabled: false
+
+# ==========================================
+# Recommended for Hackathon Demo
+# ==========================================
+# These settings optimize for visibility during demo/judging:
+# - Full trace sampling (100%)
+# - Comprehensive container log collection
+# - All system metrics enabled
+# - Detailed tagging for easy filtering
+
+# ==========================================
+# Production Considerations (Post-Hackathon)
+# ==========================================
+# For production deployment, consider:
+# 1. Reduce trace sampling rate (e.g., 0.1 for 10%)
+# 2. Add more specific log filtering
+# 3. Enable network monitoring for deep insights
+# 4. Set up log archives for compliance
+# 5. Configure sensitive data scrubbing rules
+# 6. Use Datadog Agent secrets management

@@ -1,0 +1,8 @@
+.git
+.gitignore
+venv/
+__pycache__/
+node_modules/
+.next/
+devpost_screenshots/
+*.log

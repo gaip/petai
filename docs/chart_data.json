@@ -1,0 +1,94 @@
+{
+  "early_detection_histogram": {
+    "bins": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "values": [
+      8,
+      4,
+      7,
+      7,
+      9,
+      3,
+      7,
+      8,
+      3,
+      10,
+      7,
+      4,
+      9,
+      8,
+      7,
+      9,
+      7,
+      9,
+      8,
+      7,
+      7,
+      11,
+      10,
+      6,
+      8,
+      10,
+      4,
+      9,
+      12,
+      10,
+      8,
+      8,
+      7,
+      6,
+      8,
+      5,
+      10,
+      7,
+      9,
+      8,
+      6,
+      3,
+      12,
+      10,
+      5,
+      10
+    ],
+    "xlabel": "Days Before Visible Symptoms",
+    "ylabel": "Number of Cases",
+    "title": "Early Detection Distribution (Mean: 11.2 days)"
+  },
+  "severity_performance": {
+    "labels": [
+      "Mild",
+      "Moderate",
+      "Severe"
+    ],
+    "accuracy": [
+      92.85714285714286,
+      88.88888888888889,
+      100.0
+    ],
+    "days_early": [
+      5.230769230769231,
+      7.875,
+      10.333333333333334
+    ]
+  },
+  "confusion_matrix_data": {
+    "true_positives": 46,
+    "false_positives": 2,
+    "true_negatives": 0,
+    "false_negatives": 4
+  }
+}

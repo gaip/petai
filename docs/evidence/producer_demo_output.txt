@@ -1,0 +1,21 @@
+⚠️  No Confluent Cloud credentials found. Defaulting to LOCAL KAFKA (Docker)...
+🚀 Starting pet health stream to Confluent Cloud
+📡 Topic: pet-health-stream
+🐕 Pet ID: MAX_001
+⏱️  Duration: 10 seconds
+📊 Interval: 2.0s per data point
+--------------------------------------------------------------------------------
+📨 Message #1 | HR: 97 bpm | Activity: 84/100 | Gait: 1.00
+%3|1767017589.871|FAIL|rdkafka#producer-1| [thrd:localhost:9092/bootstrap]: localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 1ms in state CONNECT)
+%3|1767017590.869|FAIL|rdkafka#producer-1| [thrd:localhost:9092/bootstrap]: localhost:9092/bootstrap: Connect to ipv4#127.0.0.1:9092 failed: Connection refused (after 0ms in state CONNECT, 1 identical error(s) suppressed)
+⚠️  Injecting anomaly #1
+📨 Message #2 | HR: 113 bpm | Activity: 69/100 | Gait: 0.77
+📨 Message #3 | HR: 96 bpm | Activity: 91/100 | Gait: 0.95
+📨 Message #4 | HR: 81 bpm | Activity: 93/100 | Gait: 0.99
+⚠️  Injecting anomaly #2
+📨 Message #5 | HR: 105 bpm | Activity: 60/100 | Gait: 0.72
+
+📊 Flushing 5 messages...
+✅ Successfully streamed 5 health data points!
+⚠️  Anomalies injected: 2 (40.0%)
+%4|1767017609.874|TERMINATE|rdkafka#producer-1| [thrd:app]: Producer terminating with 5 messages (1421 bytes) still in queue or transit: use flush() to wait for outstanding message delivery

@@ -1,0 +1,88 @@
+{
+  "confusion_matrix": {
+    "true_positives": 46,
+    "false_positives": 2,
+    "true_negatives": 0,
+    "false_negatives": 4
+  },
+  "detection_accuracy": 0.92,
+  "precision": 0.9583333333333334,
+  "recall": 0.92,
+  "f1_score": 0.92,
+  "early_warning": {
+    "mean_days": 7.608695652173913,
+    "std_days": 2.240712822039152,
+    "min_days": 3,
+    "max_days": 12,
+    "distribution": [
+      8,
+      4,
+      7,
+      7,
+      9,
+      3,
+      7,
+      8,
+      3,
+      10,
+      7,
+      4,
+      9,
+      8,
+      7,
+      9,
+      7,
+      9,
+      8,
+      7,
+      7,
+      11,
+      10,
+      6,
+      8,
+      10,
+      4,
+      9,
+      12,
+      10,
+      8,
+      8,
+      7,
+      6,
+      8,
+      5,
+      10,
+      7,
+      9,
+      8,
+      6,
+      3,
+      12,
+      10,
+      5,
+      10
+    ]
+  },
+  "severity_breakdown": {
+    "mild": {
+      "total": 14,
+      "detected": 13,
+      "accuracy": 0.9285714285714286,
+      "avg_days_early": 5.230769230769231
+    },
+    "moderate": {
+      "total": 27,
+      "detected": 24,
+      "accuracy": 0.8888888888888888,
+      "avg_days_early": 7.875
+    },
+    "severe": {
+      "total": 9,
+      "detected": 9,
+      "accuracy": 1.0,
+      "avg_days_early": 10.333333333333334
+    }
+  },
+  "total_cases": 50,
+  "study_date": "2025-12-29T14:39:24.963872"
+}
